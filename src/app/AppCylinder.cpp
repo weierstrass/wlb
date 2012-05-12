@@ -16,7 +16,6 @@ int main(){
 	int nx = 500, ny = 50, tMax = 1000;
 	double uMaxInlet = 0.12;
 	cout<<"Cylinder flow..."<<endl;
-
 	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
 
 	/* Set inlet conditions */
