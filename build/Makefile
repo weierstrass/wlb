@@ -12,10 +12,14 @@ TOPDIR = ..
 #Objects
 OBJS := LBM_D2Q9.o \
 		Aux.o \
-		BoundaryNode.o \
 		HalfWayBBNodes.o \
+		BoundaryNodes.o \
+		ConstantPressureBoundaryNodes.o\
+		ConstantVelocityBoundaryNodes.o\
 		AppCylinder.o  \
+		ValueNode.o \
 		#AppPoiseuille.o \
+		
 #C++-compiler
 CXX = g++
 
@@ -45,11 +49,20 @@ AppCylinder.o:
 Aux.o:
 	g++ -c $(SRCDIR)/Aux.cpp
 	
-BoundaryNode.o:
-	g++ -c $(SRCDIR)/BoundaryNode.cpp
-	
 HalfWayBBNodes.o:
 	g++ -c $(SRCDIR)/HalfWayBBNodes.cpp
+	
+BoundaryNodes.o:
+	g++ -c $(SRCDIR)/BoundaryNodes.cpp
+
+ConstantPressureBoundaryNodes.o:
+	g++ -c $(SRCDIR)/ConstantPressureBoundaryNodes.cpp
+
+ConstantVelocityBoundaryNodes.o:
+	g++ -c $(SRCDIR)/ConstantVelocityBoundaryNodes.cpp	
+	
+ValueNode.o:
+	g++ -c $(SRCDIR)/ValueNode.cpp	
 	
 clean:
 	rm -f a.out *.o
