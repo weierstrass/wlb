@@ -13,7 +13,7 @@ using namespace std;
 double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 
 int main(){
-	int nx = 500, ny = 50, tMax = 10000;
+	int nx = 500, ny = 50, tMax = 1000;
 	double uMaxInlet = 0.12;
 	cout<<"Cylinder flow..."<<endl;
 

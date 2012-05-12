@@ -201,7 +201,7 @@ void LBM_D2Q9::stream(){
  * Update f according to the hard boundaries.
  */
 void LBM_D2Q9::handleHardBoundaries(){
-	/* Half way boundaries*/
+	/* Half way bounce back boundaries*/
 	if( hwbbNodes != NULL ){
 		hwbbNodes->updateF(f);
 	}
@@ -223,66 +223,22 @@ void LBM_D2Q9::handleWetBoundaries(){
 }
 
 /*
- * HARD CODED FOR NOW! - TODO
-
-void LBM_D2Q9::handleBoundaries(){
-	for(int j = 1; j < ny-1; j++){
-
-		/* Inlet
-		rho[0][j] = 1.5;
-		ux[0][j] = 1 - (f[0][0][j] + f[2][0][j] + f[4][0][j] +
-						2*( f[3][0][j] + f[6][0][j] + f[7][0][j])) / rho[0][j];
-
-
-		uy[0][j] = 0;
-		f[1][0][j] = f[3][0][j] + 2.0/3.0*rho[0][j]*ux[0][j];
-		f[5][0][j] = f[7][0][j] + 0.5*(f[4][0][j] - f[2][0][j]) + 1.0/6.0*rho[0][j]*ux[0][j];
-		f[8][0][j] = f[6][0][j] - 0.5*(f[4][0][j] - f[2][0][j]) + 1.0/6.0*rho[0][j]*ux[0][j];
-
-		/* Outlet
-		rho[nx-1][j] = 1.0;
-		ux[nx-1][j] = (f[0][nx-1][j] + f[2][nx-1][j] + f[4][nx-1][j] +
-						2*( f[1][nx-1][j] + f[5][nx-1][j] + f[8][nx-1][j])) / rho[nx-1][j] - 1;
-		uy[nx-1][j] = 0;
-
-		f[3][nx-1][j] = f[1][nx-1][j] - 2.0/3.0*rho[nx-1][j]*ux[nx-1][j];
-		f[7][nx-1][j] = f[5][nx-1][j] - 0.5*(f[4][nx-1][j] - f[2][nx-1][j]) - 1.0/6.0*rho[nx-1][j]*ux[nx-1][j];
-		f[6][nx-1][j] = f[8][nx-1][j] + 0.5*(f[4][nx-1][j] - f[2][nx-1][j]) - 1.0/6.0*rho[nx-1][j]*ux[nx-1][j];
-
-	}
-}*/
-
-/*
  * Write macroscopic variables to file.
  */
 void LBM_D2Q9::dataToFile(){
-	cout<<"Writing data to file...";
-	ofstream uxFile, uyFile, rhoFile;
-	uxFile.open ("/Users/andreasbulling/Desktop/ux.csv");
-	uyFile.open ("/Users/andreasbulling/Desktop/uy.csv");
-	rhoFile.open ("/Users/andreasbulling/Desktop/rho.csv");
-	for(int i = 0; i < ny; i++){
-		for(int j = 0; j < nx; j++){
-			uxFile << ux[j][i] << ",";
-			uyFile << uy[j][i] << ",";
-			rhoFile << rho[j][i] << ",";
-		}
-		uxFile << "\n";
-		uyFile << "\n";
-		rhoFile << "\n";
-	}
-	uxFile.close();
-	uyFile.close();
-	rhoFile.close();
-	cout<<" done."<<endl;
+	write2DArray(ux, "vis_scripts/ux.csv", nx, ny);
+	write2DArray(uy, "vis_scripts/uy.csv", nx, ny);
+	write2DArray(rho, "vis_scripts/rho.csv", nx, ny);
 }
 
+/*
+ * Print u components to stdout
+ */
 void LBM_D2Q9::printu(){
 	cout<<"ux:"<<endl;
 	print2DArray(ux, nx, ny);
 	cout<<"uy:"<<endl;
 	print2DArray(uy, nx, ny);
-	cout<<"done print u"<<endl;
 }
 
 void LBM_D2Q9::printfi(int n){
@@ -303,25 +259,3 @@ void LBM_D2Q9::addConstantVelocityBoundaryNodes(
 				ConstantVelocityBoundaryNodes *cv){
 	cvNodes = cv;
 }
-
-
-/*
- * HARD CODED FOR NOW! - TODO
-
-void LBM_D2Q9::handleBounceBack(){
-	for(int i = 0; i < nx; i++){
-		f[4][i][0] = f[2][i][0];
-		f[8][i][0] = f[6][i][0];
-		f[7][i][0] = f[5][i][0];
-
-		f[1][i][0] = f[3][i][0];
-		f[3][i][0] = f[1][i][0];
-
-		f[2][i][ny-1] = f[4][i][ny-1];
-		f[6][i][ny-1] = f[8][i][ny-1];
-		f[5][i][ny-1] = f[7][i][ny-1];
-
-		f[1][i][ny-1] = f[3][i][ny-1];
-		f[3][i][ny-1] = f[1][i][ny-1];
-	}
-}*/
