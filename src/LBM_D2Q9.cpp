@@ -4,11 +4,6 @@
  * Core file in 2D LBM solver.
  */
 
-#define DIRS 9
-#define W0 0.44444444444444444
-#define W1 0.11111111111111111
-#define W2 0.02777777777777778
-
 #include "LBM_D2Q9.h"
 
 LBM_D2Q9::LBM_D2Q9(int nx, int ny){
@@ -36,6 +31,9 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 	}
 
 	hwbbNodes = NULL;
+	cpNodes = NULL;
+	cvNodes = NULL;
+
 	/*init f*/
 //	for(int i = 0; i < DIRS; i++){
 //		for(int j = 0; j < nx; j++){
@@ -53,7 +51,7 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 //	}
 
 	/* Set constants */
-	w = 1.0/1.05;
+	w = 1.67;
 	c = 1.0;
 
 	cout<<"nx:"<<nx<<", ny:"<<ny<<", w:"<<w<<", c:"<<c<<endl;
@@ -107,7 +105,6 @@ void LBM_D2Q9::BGKCollision(){
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
 
-			//precalculation of various quantities
 			u2 = ux[i][j]*ux[i][j] + uy[i][j]*uy[i][j];
 			ux2 = ux[i][j]*ux[i][j];
 			uy2 = uy[i][j]*uy[i][j];
@@ -180,7 +177,6 @@ void LBM_D2Q9::stream(){
 
 	//print2DArray(f[2], nx, ny);
 
-
 	//printfi(3);
 /*
 	cout<<"post1:"<<endl;
@@ -206,28 +202,44 @@ void LBM_D2Q9::stream(){
  */
 void LBM_D2Q9::handleHardBoundaries(){
 	/* Half way boundaries*/
-	if( hwbbNodes != NULL){
+	if( hwbbNodes != NULL ){
 		hwbbNodes->updateF(f);
 	}
 }
 
 /*
- * HARD CODED FOR NOW! - TODO
+ * Apply chosen boundary conditions for
+ * inlet and outlet
  */
+void LBM_D2Q9::handleWetBoundaries(){
+	/* Constant pressure boundaries */
+	if( cpNodes != NULL ){
+		cpNodes->updateF(f, ux, uy, rho);
+	}
+	/* Constant velocity boundaries */
+	if( cvNodes != NULL ){
+		cvNodes->updateF(f, ux, uy, rho);
+	}
+}
+
+/*
+ * HARD CODED FOR NOW! - TODO
+
 void LBM_D2Q9::handleBoundaries(){
 	for(int j = 1; j < ny-1; j++){
 
-		/* Inlet */
-		//rho[0][j] = 1.5;
-		//ux[0][j] = 1 - (f[0][0][j] + f[2][0][j] + f[4][0][j] +
-		//				2*( f[3][0][j] + f[6][0][j] + f[7][0][j])) / rho[0][j];
+		/* Inlet
+		rho[0][j] = 1.5;
+		ux[0][j] = 1 - (f[0][0][j] + f[2][0][j] + f[4][0][j] +
+						2*( f[3][0][j] + f[6][0][j] + f[7][0][j])) / rho[0][j];
+
 
 		uy[0][j] = 0;
 		f[1][0][j] = f[3][0][j] + 2.0/3.0*rho[0][j]*ux[0][j];
 		f[5][0][j] = f[7][0][j] + 0.5*(f[4][0][j] - f[2][0][j]) + 1.0/6.0*rho[0][j]*ux[0][j];
 		f[8][0][j] = f[6][0][j] - 0.5*(f[4][0][j] - f[2][0][j]) + 1.0/6.0*rho[0][j]*ux[0][j];
 
-		/* Outlet */
+		/* Outlet
 		rho[nx-1][j] = 1.0;
 		ux[nx-1][j] = (f[0][nx-1][j] + f[2][nx-1][j] + f[4][nx-1][j] +
 						2*( f[1][nx-1][j] + f[5][nx-1][j] + f[8][nx-1][j])) / rho[nx-1][j] - 1;
@@ -238,7 +250,7 @@ void LBM_D2Q9::handleBoundaries(){
 		f[6][nx-1][j] = f[8][nx-1][j] + 0.5*(f[4][nx-1][j] - f[2][nx-1][j]) - 1.0/6.0*rho[nx-1][j]*ux[nx-1][j];
 
 	}
-}
+}*/
 
 /*
  * Write macroscopic variables to file.
@@ -280,6 +292,16 @@ void LBM_D2Q9::printfi(int n){
 
 void LBM_D2Q9::addHalfWayBBNodes(HalfWayBBNodes *bbn){
 	hwbbNodes = bbn;
+}
+
+void LBM_D2Q9::addConstantPressureBoundaryNodes(
+				ConstantPressureBoundaryNodes *cp){
+	cpNodes = cp;
+}
+
+void LBM_D2Q9::addConstantVelocityBoundaryNodes(
+				ConstantVelocityBoundaryNodes *cv){
+	cvNodes = cv;
 }
 
 

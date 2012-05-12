@@ -4,21 +4,19 @@
  * DESCRIPTION - TODO
  */
 
-#ifndef HALFWAYBBNODE_H_
-#define HALFWAYBBNODE_H_
+#ifndef HALFWAYBBNODES_H_
+#define HALFWAYBBNODES_H_
 
 #include <iostream>
-#include "BoundaryNode.h"
+#include "BoundaryNodes.h"
 
-class HalfWayBBNodes{
+class HalfWayBBNodes: public BoundaryNodes{
 public:
 	HalfWayBBNodes(int nx, int ny);
 	virtual ~HalfWayBBNodes();
 	void updateF(double ***f);
-	void addNode(int i, int j);
 private:
-	bool **boundries;
-	int nx, ny;
+
 };
 
-#endif /* HALFWAYBBNODE_H_ */
+#endif /* HALFWAYBBNODES_H_ */

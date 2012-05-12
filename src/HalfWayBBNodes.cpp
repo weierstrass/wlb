@@ -6,19 +6,8 @@
 
 #include "HalfWayBBNodes.h"
 
-HalfWayBBNodes::HalfWayBBNodes(int nx, int ny){
-	HalfWayBBNodes::nx = nx;
-	HalfWayBBNodes::ny = ny;
-
-	boundries = new bool*[nx];
-	for(int i = 0; i < nx; i++){
-		boundries[i] = new bool[ny];
-	}
-	for(int i = 0; i < nx; i++){
-		for(int j = 0; j < ny; j++){
-			boundries[i][j] = false;
-		}
-	}
+HalfWayBBNodes::HalfWayBBNodes(int nx, int ny) : BoundaryNodes(nx, ny){
+	// empty
 }
 
 void HalfWayBBNodes::updateF(double ***f){
@@ -75,16 +64,12 @@ void HalfWayBBNodes::updateF(double ***f){
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
 			if(boundries[i][j]){
-				for(int k = 0; k < 9; k++){//TODO - DIRS constant
+				for(int k = 0; k < DIRS; k++){
 					f[k][i][j] = 0;
 				}
 			}
 		}
 	}
-}
-
-void HalfWayBBNodes::addNode(int i, int j){
-	boundries[i][j] = true;
 }
 
 HalfWayBBNodes::~HalfWayBBNodes() {

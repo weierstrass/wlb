@@ -1,5 +1,6 @@
 /*
  * LBM-D2Q9.h
+ * Andreas BŸlling, 2012
  *
  */
 
@@ -11,9 +12,12 @@
 #include <fstream>
 #include <list>
 #include <string.h>
+#include "Constants.h"
 #include "Aux.h"
-//#include "BoundaryNode.h"
+#include "BoundaryNodes.h"
 #include "HalfWayBBNodes.h"
+#include "ConstantPressureBoundaryNodes.h"
+#include "ConstantVelocityBoundaryNodes.h"
 
 
 using namespace std;
@@ -30,19 +34,24 @@ private:
 	double **ux;
 	double **uy;
 	HalfWayBBNodes *hwbbNodes;
+	ConstantPressureBoundaryNodes *cpNodes;
+	ConstantVelocityBoundaryNodes *cvNodes;
 public:
 	LBM_D2Q9(int nx, int ny);
 	void init();
 	void BGKCollision();
 	void calcMacroscopicVars();
-	void handleBoundaries();
-	void handleBounceBack();
+	//void handleBoundaries();
+	void handleWetBoundaries();
+	//void handleBounceBack();
 	void handleHardBoundaries();
 	void stream();
 	void printfi(int n);
 	void printu();
 	void dataToFile();
 	void addHalfWayBBNodes(HalfWayBBNodes *bbn);
+	void addConstantPressureBoundaryNodes(ConstantPressureBoundaryNodes *cpn);
+	void addConstantVelocityBoundaryNodes(ConstantVelocityBoundaryNodes *cpn);
 };
 
 #endif /* LBM_D2Q9_H_ */
