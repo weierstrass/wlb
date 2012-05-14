@@ -10,14 +10,7 @@ ConstantVelocityBoundaryNodes::ConstantVelocityBoundaryNodes(int nx, int ny) :
 								BoundaryNodes(nx, ny){
 	// TODO Auto-generated constructor stub
 }
-/* u(inlet) = u0;
- u(inlet + nx*ny) = 0;
- rho(inlet) = 1./(1 - u(inlet)) .* (fi(inlet) + fi(inlet + 2*nx*ny) + fi(inlet + 4*nx*ny)...
-        + 2*(fi(inlet + 3*nx*ny) + fi(inlet + 6*nx*ny) + fi(inlet + 7*nx*ny)));
- fi(inlet + nx*ny) = fi(inlet + 3*nx*ny) + 2/3*rho(inlet).*u(inlet);%f1
- fi(inlet + 5*nx*ny) = fi(inlet + nx*ny*7) + 0.5*(fi(inlet + nx*ny*4) - fi(inlet + 2*nx*ny)) + 1/6*rho(inlet).*u(inlet);%f_5 , uy = 0
- fi(inlet + 8*nx*ny) = fi(inlet + nx*ny*6) - 0.5*(fi(inlet + nx*ny*4) - fi(inlet + 2*nx*ny)) + 1/6*rho(inlet).*u(inlet);%f8 , uy = 0
- */
+
 void ConstantVelocityBoundaryNodes::updateF(double ***f, double **ux,
 											double **uy, double **rho){
 	int i,j;

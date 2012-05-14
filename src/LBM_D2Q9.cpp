@@ -34,11 +34,15 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 	cpNodes = NULL;
 	cvNodes = NULL;
 
-	/*init f*/
+	/* Set default stream model */
+	//streamModel = new StreamModel(nx, ny);
+	streamModel = new DefaultStreamModel(nx, ny);
+
+//	/*init f*/
 //	for(int i = 0; i < DIRS; i++){
 //		for(int j = 0; j < nx; j++){
 //			for(int k = 0; k < ny; k++){
-//				//f[i][j][k] = k*j; // COLS ARE ADJACENT IN MEMORY d d d d p d d d d p d d d
+//				//f[i][j][k] = k*j + j; // COLS ARE ADJACENT IN MEMORY d d d d p d d d d p d d d
 //			}
 //		}
 //	}
@@ -50,9 +54,9 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 //		}
 //	}
 
-	/* Set constants */
-	w = 1.67;
-	c = 1.0;
+	/* Set default constants */
+	this->w = 1.0;
+	this->c = 1.0;
 
 	cout<<"nx:"<<nx<<", ny:"<<ny<<", w:"<<w<<", c:"<<c<<endl;
 }
@@ -68,6 +72,14 @@ void LBM_D2Q9::init(){
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
 			rho[i][j] = 1.0;
+		}
+	}
+
+	//TEMP - TODO
+	double poi = 0;
+	for(int j = 0; j < ny; j++){
+		for(int i = 0; i < nx; i++){
+			//ux[i][j] = a_poiseuilleVelocity(j, 0, ny-1, 0.12);
 		}
 	}
 
@@ -151,50 +163,7 @@ void LBM_D2Q9::calcMacroscopicVars(){
  * note: memmove(dest, source, length)
  */
 void LBM_D2Q9::stream(){
-	//cout<<"pre:"<<endl;
-	//print2DArray(f[1], nx, ny);
-	for(int i = 0; i < nx; i++){
-		memmove(&f[2][i][0],&f[2][i][1],(ny-1)*sizeof(double));
-		memmove(&f[4][i][1],&f[4][i][0],(ny-1)*sizeof(double));
-		memmove(&f[5][i][0],&f[5][i][1],(ny-1)*sizeof(double));
-		memmove(&f[6][i][0],&f[6][i][1],(ny-1)*sizeof(double));
-		memmove(&f[7][i][1],&f[7][i][0],(ny-1)*sizeof(double));
-		memmove(&f[8][i][1],&f[8][i][0],(ny-1)*sizeof(double));
-	}
-
-	for(int j = 0; j < ny; j++){
-		for(int i = 0; i < nx-1; i++){
-			f[3][i][j] = f[3][i+1][j];
-			f[6][i][j] = f[6][i+1][j];
-			f[7][i][j] = f[7][i+1][j];
-		}
-		for(int i = nx-1; i > 0; i--){
-			f[1][i][j] = f[1][i-1][j];
-			f[5][i][j] = f[5][i-1][j];
-			f[8][i][j] = f[8][i-1][j];
-		}
-	}
-
-	//print2DArray(f[2], nx, ny);
-
-	//printfi(3);
-/*
-	cout<<"post1:"<<endl;
-	print2DArray(f[1], nx, ny);
-	cout<<"post2:"<<endl;
-	print2DArray(f[2], nx, ny);
-	cout<<"post3:"<<endl;
-	print2DArray(f[3], nx, ny);
-	cout<<"post4:"<<endl;
-	print2DArray(f[4], nx, ny);
-	cout<<"post5:"<<endl;
-	print2DArray(f[5], nx, ny);
-	cout<<"post6:"<<endl;
-	print2DArray(f[6], nx, ny);
-	cout<<"post7:"<<endl;
-	print2DArray(f[7], nx, ny);
-	cout<<"post8:"<<endl;
-	print2DArray(f[8], nx, ny);*/
+	streamModel->updateF(f);
 }
 
 /*
@@ -226,9 +195,30 @@ void LBM_D2Q9::handleWetBoundaries(){
  * Write macroscopic variables to file.
  */
 void LBM_D2Q9::dataToFile(){
-	write2DArray(ux, "vis_scripts/ux.csv", nx, ny);
-	write2DArray(uy, "vis_scripts/uy.csv", nx, ny);
-	write2DArray(rho, "vis_scripts/rho.csv", nx, ny);
+	stringstream ss, ssTemp;
+	struct stat sb;
+	for(int i = 0; ; i++){
+		ss.str("");
+		ss<<"vis_scripts/data";
+		ss<<""<<i<<"/";
+		if (!stat(ss.str().c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){
+			cout<<"creating directory: "<<ss.str()<<endl;
+			mkdir(ss.str().c_str(), 0775);
+			break;
+		}
+	}
+	ssTemp.str("");
+	ssTemp << ss.str();
+	ssTemp << "ux.csv";
+	write2DArray(ux, ssTemp.str(), nx, ny);
+	ssTemp.str("");
+	ssTemp << ss.str();
+	ssTemp << "uy.csv";
+	write2DArray(uy, ssTemp.str(), nx, ny);
+	ssTemp.str("");
+	ssTemp << ss.str();
+	ssTemp << "rho.csv";
+	write2DArray(rho, ssTemp.str(), nx, ny);
 }
 
 /*
@@ -258,4 +248,16 @@ void LBM_D2Q9::addConstantPressureBoundaryNodes(
 void LBM_D2Q9::addConstantVelocityBoundaryNodes(
 				ConstantVelocityBoundaryNodes *cv){
 	cvNodes = cv;
+}
+
+void LBM_D2Q9::setStreamModel(StreamModel *s){
+	streamModel = s;
+}
+
+void LBM_D2Q9::setW(double w){
+	this->w = w;
+}
+
+void LBM_D2Q9::setC(double c){
+	this->c = c;
 }

@@ -11,9 +11,16 @@
 #include <iostream>
 #include <list>
 #include <string.h>
+#include <sstream>
+#include <cstdio>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "Constants.h"
 #include "Aux.h"
 #include "BoundaryNodes.h"
+#include "StreamModel.h"
+#include "PeriodicStreamModel.h"
+#include "DefaultStreamModel.h"
 #include "HalfWayBBNodes.h"
 #include "ConstantPressureBoundaryNodes.h"
 #include "ConstantVelocityBoundaryNodes.h"
@@ -35,6 +42,7 @@ private:
 	HalfWayBBNodes *hwbbNodes;
 	ConstantPressureBoundaryNodes *cpNodes;
 	ConstantVelocityBoundaryNodes *cvNodes;
+	StreamModel *streamModel;
 public:
 	LBM_D2Q9(int nx, int ny);
 	void init();
@@ -51,6 +59,9 @@ public:
 	void addHalfWayBBNodes(HalfWayBBNodes *bbn);
 	void addConstantPressureBoundaryNodes(ConstantPressureBoundaryNodes *cpn);
 	void addConstantVelocityBoundaryNodes(ConstantVelocityBoundaryNodes *cpn);
+	void setStreamModel(StreamModel *s);
+	void setW(double w);
+	void setC(double c);
 };
 
 #endif /* LBM_D2Q9_H_ */

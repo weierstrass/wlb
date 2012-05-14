@@ -21,6 +21,9 @@ OBJS := LBM_D2Q9.o \
 		ConstantVelocityBoundaryNodes.o\
 		AppCylinder.o  \
 		ValueNode.o \
+		StreamModel.o \
+		PeriodicStreamModel.o \
+		DefaultStreamModel.o \
 		#AppPoiseuille.o \
 		
 #C++-compiler
