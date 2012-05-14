@@ -14,5 +14,6 @@ using namespace std;
 
 void print2DArray(double **f, int ni, int nj);
 void write2DArray(double **a, string file, int nx, int ny);
+double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 
 #endif /* AUX_H_ */

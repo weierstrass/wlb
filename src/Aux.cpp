@@ -38,3 +38,10 @@ void write2DArray(double **a, string file, int nx, int ny){
 		cout<<" done."<<endl;
 }
 
+/*
+ * Poiseuille velocity profile
+ */
+double poiseuilleVelocity(int x, int n1, int n2, double uMax){
+	return -uMax * (x - n1) * (x - n2) / ( n2*n2/4 - n1*n2/2 - 3*n1*n1/4);
+}
+
