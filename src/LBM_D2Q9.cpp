@@ -24,15 +24,20 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 	rho = new double*[nx];
 	ux = new double*[nx];
 	uy = new double*[nx];
+	fx = new double*[nx];
+	fy = new double*[nx];
 	for(int i = 0; i < nx; i++){
 		rho[i] = new double[ny];
 		ux[i] = new double[ny];
 		uy[i] = new double[ny];
+		fx[i] = new double[ny];
+		fy[i] = new double[nx];
 	}
 
 	hwbbNodes = NULL;
 	cpNodes = NULL;
 	cvNodes = NULL;
+	bflNodes = NULL;
 
 	/* Set default stream model */
 	//streamModel = new StreamModel(nx, ny);
@@ -170,9 +175,13 @@ void LBM_D2Q9::stream(){
  * Update f according to the hard boundaries.
  */
 void LBM_D2Q9::handleHardBoundaries(){
-	/* Half way bounce back boundaries*/
+	/* Half way bounce back boundaries */
 	if( hwbbNodes != NULL ){
 		hwbbNodes->updateF(f);
+	}
+	/* Hard boundary nodes with BFL */
+	if(bflNodes != NULL){
+		bflNodes->updateF(f);
 	}
 }
 
@@ -260,4 +269,8 @@ void LBM_D2Q9::setW(double w){
 
 void LBM_D2Q9::setC(double c){
 	this->c = c;
+}
+
+void LBM_D2Q9::addBFLNodes(BFLBoundaryNodes *bfl){
+	bflNodes = bfl;
 }

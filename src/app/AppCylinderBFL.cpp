@@ -7,14 +7,15 @@
 #include <iostream>
 #include "../LBM_D2Q9.h"
 #include <math.h>
+#define RR(A, B) sqrt((double)((i + A - xc)*(i + A - xc) + (j + B - yc)*(j + B - yc)))
 
 using namespace std;
 
 int main(){
-	int nx = 400, ny = 51, tMax = 5000, writeMod = 50;
+	int nx = 400, ny = 51, tMax = 10000, writeMod = 50;
 	double uMaxInlet = 0.1;
 
-	cout<<"Cylinder flow..."<<endl;
+	cout<<"BFL Cylinder flow..."<<endl;
 	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
 
 	/* Set inlet conditions */
@@ -38,12 +39,42 @@ int main(){
 		hwbb->addNode(i, 0);
 		hwbb->addNode(i, ny-1);
 	}
+
+	BFLBoundaryNodes *bfl = new BFLBoundaryNodes(nx, ny);
+	lbm->addBFLNodes(bfl);
 	int xc = nx/4, yc = ny/2;
-	double r = 5.0;
+	double r = 5.0, rTemp1, rTemp2, q;
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
-			if(sqrt((double)((i - xc)*(i - xc) + (j - yc)*(j - yc))) < r){
-				hwbb->addNode(i, j);
+			rTemp1 = RR(0, 0);
+			q = rTemp1 - r;
+		//	cout<<"i: "<<i<<", j: "<<j<<", q: "<<q<<endl;
+			if(rTemp1 >= r){
+				q = rTemp1 - r;
+				if(RR(1, 0) < r){
+					bfl->addNode(i, j, 1, q);
+				}
+				if(RR(0, -1) < r){
+					bfl->addNode(i ,j , 2, q);
+				}
+				if(RR(-1, 0) < r){
+					bfl->addNode(i ,j , 3, q);
+				}
+				if(RR(0, 1) < r){
+					bfl->addNode(i ,j , 4, q);
+				}
+				if(RR(1, -1) < r){//cheat
+					bfl->addNode(i ,j , 5, q / sqrt(2));
+				}
+				if(RR(-1, -1) < r){//cheat
+					bfl->addNode(i ,j , 6, q / sqrt(2));
+				}
+				if(RR(-1, 1) < r){//cheat
+					bfl->addNode(i ,j , 7, q / sqrt(2));
+				}
+				if(RR(1, 1) < r){//cheat
+					bfl->addNode(i ,j , 8, q / sqrt(2));
+				}
 			}
 		}
 	}

@@ -19,11 +19,13 @@ OBJS := LBM_D2Q9.o \
 		BoundaryNodes.o \
 		ConstantPressureBoundaryNodes.o\
 		ConstantVelocityBoundaryNodes.o\
-		AppCylinder.o  \
+		BFLBoundaryNodes.o \
 		ValueNode.o \
 		StreamModel.o \
 		PeriodicStreamModel.o \
 		DefaultStreamModel.o \
+		AppCylinderBFL.o  \
+		#AppCylinder.o  \
 		#AppPoiseuille.o \
 		
 #C++-compiler

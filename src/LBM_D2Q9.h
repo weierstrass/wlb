@@ -22,6 +22,7 @@
 #include "PeriodicStreamModel.h"
 #include "DefaultStreamModel.h"
 #include "HalfWayBBNodes.h"
+#include "BFLBoundaryNodes.h"
 #include "ConstantPressureBoundaryNodes.h"
 #include "ConstantVelocityBoundaryNodes.h"
 
@@ -39,7 +40,10 @@ private:
 	double **rho;
 	double **ux;
 	double **uy;
+	double **fx;
+	double **fy;
 	HalfWayBBNodes *hwbbNodes;
+	BFLBoundaryNodes *bflNodes;
 	ConstantPressureBoundaryNodes *cpNodes;
 	ConstantVelocityBoundaryNodes *cvNodes;
 	StreamModel *streamModel;
@@ -57,6 +61,7 @@ public:
 	void printu();
 	void dataToFile();
 	void addHalfWayBBNodes(HalfWayBBNodes *bbn);
+	void addBFLNodes(BFLBoundaryNodes *bfl);
 	void addConstantPressureBoundaryNodes(ConstantPressureBoundaryNodes *cpn);
 	void addConstantVelocityBoundaryNodes(ConstantVelocityBoundaryNodes *cpn);
 	void setStreamModel(StreamModel *s);
