@@ -53,9 +53,7 @@ public:
 	void init();
 	void BGKCollision();
 	void calcMacroscopicVars();
-	//void handleBoundaries();
 	void handleWetBoundaries();
-	//void handleBounceBack();
 	void handleHardBoundaries();
 	void stream();
 	void printfi(int n);
@@ -69,6 +67,8 @@ public:
 	void setStreamModel(StreamModel *s);
 	void setW(double w);
 	void setC(double c);
+	void setF(double fxi, double fyi, int x, int y);
+	double Si(int d, int i, int j);
 };
 
 #endif /* LBM_D2Q9_H_ */

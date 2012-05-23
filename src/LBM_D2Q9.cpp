@@ -132,20 +132,33 @@ void LBM_D2Q9::BGKCollision(){
 
 			//update f
 			f[0][i][j] += w*( W0*rho[i][j]*( 1 - u2*c23i_5 ) - f[0][i][j] );
-			f[1][i][j] += w*( W1*rho[i][j]*( 1 + ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[1][i][j] )  + Si(1);
-			f[2][i][j] += w*( W1*rho[i][j]*( 1 + uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[2][i][j] );
-			f[3][i][j] += w*( W1*rho[i][j]*( 1 - ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[3][i][j] );
-			f[4][i][j] += w*( W1*rho[i][j]*( 1 - uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[4][i][j] );
+			f[1][i][j] += w*( W1*rho[i][j]*( 1 + ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[1][i][j] ) + Si(1, i, j);
+			f[2][i][j] += w*( W1*rho[i][j]*( 1 + uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[2][i][j] ) + Si(2, i, j);
+			f[3][i][j] += w*( W1*rho[i][j]*( 1 - ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[3][i][j] ) + Si(3, i, j);
+			f[4][i][j] += w*( W1*rho[i][j]*( 1 - uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[4][i][j] ) + Si(4, i, j);
 			f[5][i][j] += w*( W2*rho[i][j]*( 1 + ( ux[i][j] + uy[i][j] )*c23i + (ux2 + uxy + uy2)*c23i2_5 -
-											u2*c23i_5 ) - f[5][i][j] );
+											u2*c23i_5 ) - f[5][i][j] ) + Si(5, i, j);
 			f[6][i][j] += w*( W2*rho[i][j]*( 1 + ( -ux[i][j] + uy[i][j] )*c23i + (ux2 - uxy + uy2)*c23i2_5 -
-											u2*c23i_5 ) - f[6][i][j] );
+											u2*c23i_5 ) - f[6][i][j] ) + Si(6, i, j);
 			f[7][i][j] += w*( W2*rho[i][j]*( 1 - ( ux[i][j] + uy[i][j] )*c23i + (ux2 + uxy + uy2)*c23i2_5 -
-											u2*c23i_5 ) - f[7][i][j] );
+											u2*c23i_5 ) - f[7][i][j] ) + Si(7, i, j);
 			f[8][i][j] += w*( W2*rho[i][j]*( 1 + ( ux[i][j] - uy[i][j] )*c23i + (ux2 - uxy + uy2)*c23i2_5 -
-											u2*c23i_5 ) - f[8][i][j] );
+											u2*c23i_5 ) - f[8][i][j] ) + Si(8, i, j);
 		}
 	}
+}
+
+double LBM_D2Q9::Si(int d, int i, int j){
+	int xt[9] = {0, 1, 0, -1, 0, 1, -1, -1, 1};
+	int yt[9] = {0, 0, -1, 0, 1, -1, -1, 1, 1};
+	double W[9] = {W0, W1, W1, W1, W1, W2, W2, W2, W2};
+	double si = 0.0;
+	si = -3*W[d]*((xt[d] - ux[i][j])*fx[i][j] + (yt[d] - uy[i][j])*fy[i][j])/(c*c);
+	//cout<<"si_mid. "<<si<<", xt: "<<xt[d]<<endl;
+	si += -9*W[d]*( (ux[i][j]*xt[d] + yt[d]*uy[i][j]) * xt[d]*fx[i][j] +
+					(ux[i][j]*xt[d] + yt[d]*uy[i][j]) * yt[d]*fy[i][j] )/(c*c*c*c);
+	//cout<<"dir: "<<d<<", fx: "<<fx[i][j]<<", si: "<<si<<", ux: "<<ux[i][j]<<endl;
+	return si;
 }
 
 /*
@@ -162,6 +175,7 @@ void LBM_D2Q9::calcMacroscopicVars(){
 			uy[i][j] /= rho[i][j];
 		}
 	}
+	//cout<<"Uy[19][1] = "<<ux[19][19]<<endl;
 }
 
 /*
@@ -231,6 +245,11 @@ void LBM_D2Q9::dataToFile(){
 	ssTemp << ss.str();
 	ssTemp << "rho.csv";
 	write2DArray(rho, deadNodes, ssTemp.str(), nx, ny);
+}
+
+void LBM_D2Q9::setF(double fxi, double fyi, int x, int y){
+	fx[x][y] = fxi;
+	fy[x][y] = fyi;
 }
 
 /*
