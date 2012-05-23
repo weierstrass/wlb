@@ -26,12 +26,14 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 	uy = new double*[nx];
 	fx = new double*[nx];
 	fy = new double*[nx];
+	deadNodes = new bool*[nx];
 	for(int i = 0; i < nx; i++){
 		rho[i] = new double[ny];
 		ux[i] = new double[ny];
 		uy[i] = new double[ny];
 		fx[i] = new double[ny];
-		fy[i] = new double[nx];
+		fy[i] = new double[ny];
+		deadNodes[i] = new bool[ny];
 	}
 
 	hwbbNodes = NULL;
@@ -51,13 +53,14 @@ LBM_D2Q9::LBM_D2Q9(int nx, int ny){
 //			}
 //		}
 //	}
-//	for(int j = 0; j < nx; j++){
-//		for(int k = 0; k < ny; k++){
-//			rho[j][k] = 0;
-//			ux[j][k] = 0;
-//			uy[j][k] = 0;
-//		}
-//	}
+	for(int j = 0; j < nx; j++){
+		for(int k = 0; k < ny; k++){
+			rho[j][k] = 0;
+			ux[j][k] = 0;
+			uy[j][k] = 0;
+			deadNodes[j][k] = false;
+		}
+	}
 
 	/* Set default constants */
 	this->w = 1.0;
@@ -129,7 +132,7 @@ void LBM_D2Q9::BGKCollision(){
 
 			//update f
 			f[0][i][j] += w*( W0*rho[i][j]*( 1 - u2*c23i_5 ) - f[0][i][j] );
-			f[1][i][j] += w*( W1*rho[i][j]*( 1 + ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[1][i][j] );
+			f[1][i][j] += w*( W1*rho[i][j]*( 1 + ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[1][i][j] )  + Si(1);
 			f[2][i][j] += w*( W1*rho[i][j]*( 1 + uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[2][i][j] );
 			f[3][i][j] += w*( W1*rho[i][j]*( 1 - ux[i][j]*c23i + ux2*c23i2_5 - u2*c23i_5 ) - f[3][i][j] );
 			f[4][i][j] += w*( W1*rho[i][j]*( 1 - uy[i][j]*c23i + uy2*c23i2_5 - u2*c23i_5 ) - f[4][i][j] );
@@ -181,7 +184,7 @@ void LBM_D2Q9::handleHardBoundaries(){
 	}
 	/* Hard boundary nodes with BFL */
 	if(bflNodes != NULL){
-		bflNodes->updateF(f);
+		bflNodes->updateF(f, ux, uy);
 	}
 }
 
@@ -219,15 +222,15 @@ void LBM_D2Q9::dataToFile(){
 	ssTemp.str("");
 	ssTemp << ss.str();
 	ssTemp << "ux.csv";
-	write2DArray(ux, ssTemp.str(), nx, ny);
+	write2DArray(ux, deadNodes, ssTemp.str(), nx, ny);
 	ssTemp.str("");
 	ssTemp << ss.str();
 	ssTemp << "uy.csv";
-	write2DArray(uy, ssTemp.str(), nx, ny);
+	write2DArray(uy, deadNodes, ssTemp.str(), nx, ny);
 	ssTemp.str("");
 	ssTemp << ss.str();
 	ssTemp << "rho.csv";
-	write2DArray(rho, ssTemp.str(), nx, ny);
+	write2DArray(rho, deadNodes, ssTemp.str(), nx, ny);
 }
 
 /*
@@ -273,4 +276,8 @@ void LBM_D2Q9::setC(double c){
 
 void LBM_D2Q9::addBFLNodes(BFLBoundaryNodes *bfl){
 	bflNodes = bfl;
+}
+
+void LBM_D2Q9::addDeadNode(int x, int y){
+	deadNodes[x][y] = true;
 }

@@ -11,7 +11,7 @@
 using namespace std;
 
 int main(){
-	int nx = 400, ny = 51, tMax = 5000, writeMod = 50;
+	int nx = 400, ny = 101, tMax = 15000, writeMod = 50;
 	double uMaxInlet = 0.1;
 
 	cout<<"Cylinder flow..."<<endl;
@@ -19,14 +19,14 @@ int main(){
 
 	/* Set inlet conditions */
 	ConstantVelocityBoundaryNodes *cvInlet = new ConstantVelocityBoundaryNodes(nx, ny);
-	for(int j = 0; j < ny; j++){
+	for(int j = 1; j < ny-1; j++){
 		cvInlet->addNode(0, j, poiseuilleVelocity(j, 0, ny-1, uMaxInlet));
 	}
 	lbm->addConstantVelocityBoundaryNodes(cvInlet);
 
 	/* Set outlet conditions*/
 	ConstantPressureBoundaryNodes *cpOutlet = new ConstantPressureBoundaryNodes(nx, ny);
-	for(int j = 0; j < ny; j++){
+	for(int j = 1; j < ny-1; j++){
 		cpOutlet->addNode(nx-1, j, 1.0);
 	}
 	lbm->addConstantPressureBoundaryNodes(cpOutlet);
@@ -39,7 +39,7 @@ int main(){
 		hwbb->addNode(i, ny-1);
 	}
 	int xc = nx/4, yc = ny/2;
-	double r = 5.0;
+	double r = 20.0;
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
 			if(sqrt((double)((i - xc)*(i - xc) + (j - yc)*(j - yc))) < r){

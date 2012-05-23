@@ -21,7 +21,7 @@ void ConstantVelocityBoundaryNodes::updateF(double ***f, double **ux,
 			ux[0][j] = bNodes[k].value;
 			rho[0][j] = 1/(1 - ux[0][j])*(f[0][0][j] + f[2][0][j] + f[4][0][j] +
 							2*( f[3][0][j] + f[6][0][j] + f[7][0][j]));
-
+			//cout<<"rho: "<<rho[0][j]<<endl;
 			uy[0][j] = 0; // -TODO
 			f[1][0][j] = f[3][0][j] + 2.0/3.0*rho[0][j]*ux[0][j];
 			f[5][0][j] = f[7][0][j] + 0.5*(f[4][0][j] - f[2][0][j]) + 1.0/6.0*rho[0][j]*ux[0][j];

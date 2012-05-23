@@ -15,8 +15,9 @@ class BFLBoundaryNodes : public BoundaryNodes {
 public:
 	BFLBoundaryNodes(int nx, int ny);
 	virtual ~BFLBoundaryNodes();
-	void updateF(double ***f);
+	void updateF(double ***f, double **ux, double **uy);
 	void addNode(int x, int y, int dir, double q);
+	bool isNode(int x, int y);
 private:
 	vector<vector<ValueNode> > bNodes;
 };

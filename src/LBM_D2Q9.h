@@ -42,6 +42,7 @@ private:
 	double **uy;
 	double **fx;
 	double **fy;
+	bool **deadNodes;
 	HalfWayBBNodes *hwbbNodes;
 	BFLBoundaryNodes *bflNodes;
 	ConstantPressureBoundaryNodes *cpNodes;
@@ -64,6 +65,7 @@ public:
 	void addBFLNodes(BFLBoundaryNodes *bfl);
 	void addConstantPressureBoundaryNodes(ConstantPressureBoundaryNodes *cpn);
 	void addConstantVelocityBoundaryNodes(ConstantVelocityBoundaryNodes *cpn);
+	void addDeadNode(int x, int y);
 	void setStreamModel(StreamModel *s);
 	void setW(double w);
 	void setC(double c);

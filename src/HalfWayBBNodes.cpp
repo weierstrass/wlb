@@ -65,7 +65,7 @@ void HalfWayBBNodes::updateF(double ***f){
 		for(int j = 0; j < ny; j++){
 			if(boundries[i][j]){
 				for(int k = 0; k < DIRS; k++){
-					//f[k][i][j] = 0;
+					f[k][i][j] = 0;
 				}
 			}
 		}

@@ -12,22 +12,25 @@
 using namespace std;
 
 int main(){
-	int nx = 400, ny = 51, tMax = 10000, writeMod = 50;
+	int nx = 400, ny = 100, tMax = 50000, writeMod = 100;
 	double uMaxInlet = 0.1;
+	double w = 1.7668;
+	int xc = nx/5+1, yc = ny/2+2;
+	double r = ny/10+1;
 
 	cout<<"BFL Cylinder flow..."<<endl;
 	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
 
 	/* Set inlet conditions */
 	ConstantVelocityBoundaryNodes *cvInlet = new ConstantVelocityBoundaryNodes(nx, ny);
-	for(int j = 0; j < ny; j++){
+	for(int j = 1; j < ny-1; j++){
 		cvInlet->addNode(0, j, poiseuilleVelocity(j, 0, ny-1, uMaxInlet));
 	}
 	lbm->addConstantVelocityBoundaryNodes(cvInlet);
 
 	/* Set outlet conditions*/
 	ConstantPressureBoundaryNodes *cpOutlet = new ConstantPressureBoundaryNodes(nx, ny);
-	for(int j = 0; j < ny; j++){
+	for(int j = 1; j < ny-1; j++){
 		cpOutlet->addNode(nx-1, j, 1.0);
 	}
 	lbm->addConstantPressureBoundaryNodes(cpOutlet);
@@ -42,13 +45,12 @@ int main(){
 
 	BFLBoundaryNodes *bfl = new BFLBoundaryNodes(nx, ny);
 	lbm->addBFLNodes(bfl);
-	int xc = nx/4, yc = ny/2;
-	double r = 5.0, rTemp1, rTemp2, q;
+	double rTemp1, rTemp2, q;
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
 			rTemp1 = RR(0, 0);
 			q = rTemp1 - r;
-		//	cout<<"i: "<<i<<", j: "<<j<<", q: "<<q<<endl;
+			//cout<<"i: "<<i<<", j: "<<j<<", q: "<<q<<endl;
 			if(rTemp1 >= r){
 				q = rTemp1 - r;
 				if(RR(1, 0) < r){
@@ -78,12 +80,20 @@ int main(){
 			}
 		}
 	}
+	/* Add dead nodes */
+	for(int i = 0; i < nx; i++){
+		for(int j = 0; j < ny; j++){
+			if(sqrt((double)((i - xc)*(i - xc) + (j - yc)*(j - yc))) < r){
+				lbm->addDeadNode(i, j);
+			}
+		}
+	}
 
 	/* Initialize solver */
 	lbm->init();
 	StreamModel *ps = new PeriodicStreamModel(nx, ny);
 	lbm->setStreamModel(ps);
-	lbm->setW(0.9);
+	lbm->setW(w);
 	lbm->setC(1.0);
 
 	/* Main loop */

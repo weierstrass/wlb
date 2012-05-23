@@ -23,8 +23,8 @@ OBJS := LBM_D2Q9.o \
 		ValueNode.o \
 		StreamModel.o \
 		PeriodicStreamModel.o \
-		DefaultStreamModel.o \
 		AppCylinderBFL.o  \
+		DefaultStreamModel.o \
 		#AppCylinder.o  \
 		#AppPoiseuille.o \
 		
