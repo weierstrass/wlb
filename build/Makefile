@@ -24,8 +24,10 @@ OBJS := LBM_D2Q9.o \
 		StreamModel.o \
 		PeriodicStreamModel.o \
 		DefaultStreamModel.o \
-		AppPoiseuilleForce.o \
+		AppTaylorVortex.o \
 		#AppCylinderBFL.o  \
+		#AppPoiseuilleForce.o \
+		AppForceCylinderBFL.o \
 		#AppCylinder.o  \
 		#AppPoiseuille.o \
 		

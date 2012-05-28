@@ -16,4 +16,12 @@ public:
 private:
 };
 
+class ValueNode2D : public ValueNode{
+public:
+	ValueNode2D(int x, int y, double v1, double v2);
+	virtual ~ValueNode2D();
+	double valueX, valueY;
+private:
+};
+
 #endif /* VALUENODE_H_ */

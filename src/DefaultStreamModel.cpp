@@ -14,6 +14,7 @@ void DefaultStreamModel::updateF(double ***f){
 	StreamModel::updateF(f);
 }
 
+
 DefaultStreamModel::~DefaultStreamModel() {
 	// TODO Auto-generated destructor stub
 }
