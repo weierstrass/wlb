@@ -38,8 +38,8 @@ OBJS := LBM.o \
 		StreamD2Q9.o \
 		StreamD2Q9Periodic.o \
 		Node.o \
-		AppLPMChaiTest.o \
-		#AppLPMTest.o \
+		AppLPMTest.o \
+		#AppLPMChaiTest.o \
 		
 		#AppTaylorVortex.o \
 		#AppCylinderBFL.o  \

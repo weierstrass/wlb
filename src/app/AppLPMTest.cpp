@@ -10,7 +10,7 @@
 using namespace std;
 
 int main(){
-	int nx = 8, ny = 256, tMax = 1000;
+	int nx = 32, ny = 256, tMax = 5000;
 	cout<<"LPM test.."<<endl;
 
 	//CollisionD2Q9LPMChai *cm = new CollisionD2Q9LPMChai();
@@ -31,13 +31,13 @@ int main(){
 	}
 	lbm->addBoundaryNodes(bds);
 
-	//NeumannLPMNodes *iobds = new NeumannLPMNodes();
-	//iobds->setCollisionModel(cm);
+	NeumannLPMNodes *iobds = new NeumannLPMNodes();
+	iobds->setCollisionModel(cm);
 	for(int j = 0; j < ny; j++){
-		//iobds->addNode(0, j, 0.0);
-		//iobds->addNode(nx-1, j, 0.0);
+		iobds->addNode(0, j, 0.0);
+		iobds->addNode(nx-1, j, 0.0);
 	}
-	//lbm->addBoundaryNodes(iobds);
+	lbm->addBoundaryNodes(iobds);
 
 	/* Initialize solver */
 	lbm->init();

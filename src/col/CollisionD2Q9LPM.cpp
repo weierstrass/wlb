@@ -44,7 +44,7 @@ void CollisionD2Q9LPM::init(){
 	double T = 273;
 	double k = sqrt(2*ninf*z*z*PHYS_E_CHARGE*PHYS_E_CHARGE/(eps*PHYS_KB*T));
 
-	double l2 = 0.8e-5/n.x; l2 *=l2;
+	double l2 = 1e-4/n.y; l2 *=l2;
 	double V0 = -10e-3;
 
 	prefactor = l2/V0*2*z*PHYS_E_CHARGE*ninf/eps;

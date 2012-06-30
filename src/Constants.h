@@ -21,5 +21,6 @@
 #define PHYS_EPS0 8.8541878e-12
 #define PHYS_N_A 6.0221415e23
 
+#define FRAC_1OVER7 0.142857142857143
 
 #endif /* CONSTANTS_H_ */
