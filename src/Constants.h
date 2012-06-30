@@ -12,4 +12,14 @@
 #define W1 0.11111111111111111
 #define W2 0.02777777777777778
 
+#define X 0
+#define Y 1
+#define Z 2
+
+#define PHYS_KB 1.3806503e-23
+#define PHYS_E_CHARGE 1.60217646e-19
+#define PHYS_EPS0 8.8541878e-12
+#define PHYS_N_A 6.0221415e23
+
+
 #endif /* CONSTANTS_H_ */
