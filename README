@@ -1,1 +1,21 @@
-2D LBM
+Lattice Boltzmann solver 
+
+This code is part of my master thesis project...
+
+CURRENT SUPPORT
+ -2D
+  ...
+ -3D
+  ...
+  
+COMPILING AND INSTALLING
+ $make
+	
+HOW TO USE 
+ some notes here...
+ 
+  
+
+
+ 
+ 
