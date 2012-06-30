@@ -8,34 +8,54 @@ APPDIR = $(SRCDIR)/app
 TESTDIR = $(SRCDIR)/tests
 TOPDIR = ..
 
-vpath %.cpp $(SRCDIR) $(APPDIR)
+vpath %.cpp $(SRCDIR) $(APPDIR) $(SRCDIR)/col \
+			$(SRCDIR)/lat $(SRCDIR)/str \
+			$(SRCDIR)/bdr
 
 #Settings
 
 #Objects
-OBJS := LBM_D2Q9.o \
+OBJS := LBM.o \
 		Aux.o \
 		HalfWayBBNodes.o \
 		BoundaryNodes.o \
-		ConstantPressureBoundaryNodes.o\
-		ConstantVelocityBoundaryNodes.o\
-		BFLBoundaryNodes.o \
 		ValueNode.o \
+		NodeNeighbors.o \
+		BounceBackNodes.o \
+		HeZouPressureNodes.o \
+		DirichletLPMNodes.o \
+		NeumannLPMNodes.o \
 		StreamModel.o \
 		PeriodicStreamModel.o \
 		DefaultStreamModel.o \
-		AppTaylorVortex.o \
+		CollisionD2Q9.o \
+		CollisionD2Q9BGK.o \
+		CollisionD2Q9LPM.o \
+		CollisionD2Q9LPMChai.o \
+		CollisionModel.o \
+		LatticeModel.o \
+		Lattice2D.o \
+		StreamD2Q9.o \
+		StreamD2Q9Periodic.o \
+		Node.o \
+		AppLPMChaiTest.o \
+		#AppLPMTest.o \
+		
+		#AppTaylorVortex.o \
 		#AppCylinderBFL.o  \
 		#AppPoiseuilleForce.o \
 		AppForceCylinderBFL.o \
 		#AppCylinder.o  \
-		#AppPoiseuille.o \
+		ConstantPressureBoundaryNodes.o\
+		ConstantVelocityBoundaryNodes.o\
+		BFLBoundaryNodes.o \
+	
 		
 #C++-compiler
 CXX = g++
 
 #Compiler options
-CPPFLAGS = -O2
+CPPFLAGS =-O2 -pg
 
 #Libraries
 LIBS = -lm
