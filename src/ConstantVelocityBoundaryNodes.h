@@ -15,11 +15,11 @@ class ConstantVelocityBoundaryNodes : public BoundaryNodes  {
 public:
 	ConstantVelocityBoundaryNodes(int nx, int ny);
 	virtual ~ConstantVelocityBoundaryNodes();
-	void updateF(double ***f, double **ux,
-					double **uy, double **rho);
-	void addNode(int x, int y, double rho);
+	void updateF(double ***f, double ***u, double **rho);
+	void addNode(int x, int y, double vx, double vy);
+	void clearNodes();
 private:
-	vector<ValueNode> bNodes;
+	vector<ValueNode2D> bNodes;
 };
 
 #endif /* CONSTANTVELOCITYBOUNDARYNODES_H_ */
