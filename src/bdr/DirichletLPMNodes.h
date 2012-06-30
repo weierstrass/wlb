@@ -19,6 +19,9 @@ public:
 	CollisionD2Q9LPM *cm;
 	void setCollisionModel(CollisionD2Q9LPM *cm){this->cm = cm;};
 	void addNode(int x, int y, double val);
+private:
+	void updateCornerNode(const bool unknowns[9], int x, int y, double val);
+	void updateBorderNode(const bool unknowns[9], int x, int y, double val);
 };
 
 #endif /* DIRICHLETLPMNODES_H_ */
