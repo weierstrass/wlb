@@ -12,35 +12,30 @@
 using namespace std;
 
 int main(){
-	int nx = 400, ny = 100, tMax = 50000, writeMod = 100;
-	double uMaxInlet = 0.1;
-	double w = 1.7668;
+	int nx = 200, ny = 50, tMax = 10000, writeMod = 100;
+	//double uMaxInlet = 0.1;
+	double w = 1.1;
 	int xc = nx/5+1, yc = ny/2+2;
 	double r = ny/10+1;
+	double f0 = -0.00005;
 
 	cout<<"BFL Cylinder flow..."<<endl;
 	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
 
-	/* Set inlet conditions */
-	ConstantVelocityBoundaryNodes *cvInlet = new ConstantVelocityBoundaryNodes(nx, ny);
-	for(int j = 1; j < ny-1; j++){
-		cvInlet->addNode(0, j, poiseuilleVelocity(j, 0, ny-1, uMaxInlet), 0);
-	}
-	lbm->addConstantVelocityBoundaryNodes(cvInlet);
+//
+//	/* Add boundary nodes */
+//	HalfWayBBNodes *hwbb = new HalfWayBBNodes(nx, ny);
+//	lbm->addHalfWayBBNodes(hwbb);
+//	for(int i = 0; i < nx; i++){
+//		hwbb->addNode(i, 0);
+//		hwbb->addNode(i, ny-1);
+//	}
 
-	/* Set outlet conditions*/
-	ConstantPressureBoundaryNodes *cpOutlet = new ConstantPressureBoundaryNodes(nx, ny);
-	for(int j = 1; j < ny-1; j++){
-		cpOutlet->addNode(nx-1, j, 1.0);
-	}
-	lbm->addConstantPressureBoundaryNodes(cpOutlet);
-
-	/* Add boundary nodes */
-	HalfWayBBNodes *hwbb = new HalfWayBBNodes(nx, ny);
-	lbm->addHalfWayBBNodes(hwbb);
+	/* Set force */
 	for(int i = 0; i < nx; i++){
-		hwbb->addNode(i, 0);
-		hwbb->addNode(i, ny-1);
+		for(int j = 0; j < ny; j++){
+			lbm->setF(f0, 0, i, j);
+		}
 	}
 
 	BFLBoundaryNodes *bfl = new BFLBoundaryNodes(nx, ny);

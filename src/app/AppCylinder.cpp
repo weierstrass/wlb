@@ -20,7 +20,7 @@ int main(){
 	/* Set inlet conditions */
 	ConstantVelocityBoundaryNodes *cvInlet = new ConstantVelocityBoundaryNodes(nx, ny);
 	for(int j = 1; j < ny-1; j++){
-		cvInlet->addNode(0, j, poiseuilleVelocity(j, 0, ny-1, uMaxInlet));
+		cvInlet->addNode(0, j, poiseuilleVelocity(j, 0, ny-1, uMaxInlet), 0);
 	}
 	lbm->addConstantVelocityBoundaryNodes(cvInlet);
 
