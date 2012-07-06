@@ -11,13 +11,14 @@
 #include "../col/CollisionD2Q9LPM.h"
 #include "ValueNode.h"
 
+template <class T>
 class DirichletLPMNodes: public BoundaryNodes {
 public:
 	DirichletLPMNodes();
 	virtual ~DirichletLPMNodes();
 	void updateF();
-	CollisionD2Q9LPM *cm;
-	void setCollisionModel(CollisionD2Q9LPM *cm){this->cm = cm;};
+	T *cm;
+	void setCollisionModel(T *cm){this->cm = cm;};
 	void addNode(int x, int y, double val);
 private:
 	void updateCornerNode(const bool unknowns[9], int x, int y, double val);

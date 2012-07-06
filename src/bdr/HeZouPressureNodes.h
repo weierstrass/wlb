@@ -17,10 +17,10 @@ public:
 	HeZouPressureNodes();
 	virtual ~HeZouPressureNodes();
 	void updateF();
-	//void HeZouPressureNodes::updateF(double ***f, double ***u, double **rho);
 	void addNode(int x, int y, int z, double rho);
 private:
 	vector<ValueNode*> nodes;
+	void updateCornerNode(const bool knowns[], int i, int j, double val);
 };
 
 #endif /* CONSTANTPRESSUREBOUNDARYNODES_H_ */

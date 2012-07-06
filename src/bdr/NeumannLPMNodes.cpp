@@ -6,16 +6,19 @@
 
 #include "NeumannLPMNodes.h"
 
-NeumannLPMNodes::NeumannLPMNodes() {
+template <class T>
+NeumannLPMNodes<T>::NeumannLPMNodes() {
 	// TODO Auto-generated constructor stub
 
 }
 
-NeumannLPMNodes::~NeumannLPMNodes() {
+template <class T>
+NeumannLPMNodes<T>::~NeumannLPMNodes() {
 	// TODO Auto-generated destructor stub
 }
 
-void NeumannLPMNodes::updateF(){
+template <class T>
+void NeumannLPMNodes<T>::updateF(){
 	cout<<"Neumann LPM"<<endl;
 	ValueNode *node;
 	int x, y;
@@ -46,6 +49,7 @@ void NeumannLPMNodes::updateF(){
 	}
 }
 
-void NeumannLPMNodes::addNode(int x, int y, double val){
+template <class T>
+void NeumannLPMNodes<T>::addNode(int x, int y, double val){
 	BoundaryNodes::addNode(new ValueNode(x, y, 0, val));
 }
