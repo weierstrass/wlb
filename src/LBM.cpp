@@ -1,6 +1,6 @@
 /*
  * LBM-D2Q9.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * Core file in 2D LBM solver.
  */
 
