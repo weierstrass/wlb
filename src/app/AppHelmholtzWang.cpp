@@ -1,6 +1,6 @@
 /*
  * AppHelmholtzWang.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -15,10 +15,9 @@ using namespace std;
 
 int main(){
 	cout<<"LPM Wang Helmholtz..."<<endl;
-
 	int nx = 101;
 	int ny = 101;
-	int tMax = 5000;
+	int tMax = 20000;
 	double l0 = 1;
 	double V0 = 1;
 	double lambda = 2.0;
