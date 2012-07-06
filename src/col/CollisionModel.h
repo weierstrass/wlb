@@ -9,6 +9,7 @@
 
 #include "../Constants.h"
 #include "../lat/LatticeModel.h"
+#include "../unit/UnitHandler.h"
 
 class CollisionModel {
 public:
@@ -26,14 +27,13 @@ public:
 	virtual void init() = 0;
 	virtual double getRho(double *f) = 0;
 	virtual double *getRhoU(double *f) = 0;
-	//int UDIRS;
 	void setC(double c);
+	void setUnitHandler(UnitHandler *u){unitHandler = u;};
 protected:
 	LatticeModel *lm;
+	UnitHandler *unitHandler;
 	struct LatticeModel::dimension n;
 	double ****f;
-	//double ***u;
-	//double **rho;
 	double c;
 	//ForceModel *f;
 };

@@ -7,8 +7,8 @@
 #include "CollisionModel.h"
 
 CollisionModel::CollisionModel() {
-	// TODO Auto-generated constructor stub
-
+	unitHandler = NULL;
+	lm = NULL;
 }
 
 CollisionModel::~CollisionModel() {

@@ -7,6 +7,7 @@
 #ifndef COLLISIOND2Q9LPMCHAI_H_
 #define COLLISIOND2Q9LPMCHAI_H_
 
+#include <math.h>
 #include "CollisionD2Q9LPM.h"
 #include "../Constants.h"
 
@@ -16,9 +17,9 @@ public:
 	virtual ~CollisionD2Q9LPMChai();
 	void collide();
 	double fEq(int d, double psi);
-	double g_rhs(int i, int j);
-protected:
+	void init();
 	double getPsi(double *f, int i, int j);
+protected:
 };
 
 #endif /* COLLISIOND2Q9LPMCHAI_H_ */
