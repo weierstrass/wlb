@@ -44,7 +44,7 @@ OBJS := LBM.o \
 		Node.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
-		AppHelmholtzChai.o \
+		AppHelmholtzWang.o \
 		#AppLPMChaiTest.o \
 		
 		#AppLPMTest.o \

@@ -27,15 +27,13 @@ void CollisionD2Q9LPMWang::collide(){
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
 			//cout<<"pre:"<<i<<","<<j<<endl;
+			psi[j][i] = getPsi(f[0][j][i], i, j);
 			for(int d = 0; d < 9; d++){
 				//cout<<"pre:"<<i<<","<<j<<", f: "<<f[0][j][i][d]<<endl;
 				f[0][j][i][d] += w*( fEq(d, psi[j][i]) - f[0][j][i][d] ) + (1 - 0.5*w)*W[d]*g_rhs(i, j);//todo
 				//cout<<"post"<<i<<","<<j<<", f: "<<f[0][j][i][d]<<endl;
 				//cout<<"aaa: "<<(1 - 0.5*w)*W[d]*g_rhs(i, j)<<endl;
 				//cout<<"W: "<<W[d]<<endl;
-				if(f[0][j][i][d] > 1 || -f[0][j][i][d] > 1){
-					cout<<"f_"<<d<<": "<<f[0][j][i][d]<<endl;
-				}
 			}
 			//cout<<"w:"<<w<<endl;
 			//cout<<"g: "<<g_rhs(i, j)<<endl;

@@ -16,17 +16,18 @@ using namespace std;
 int main(){
 	cout<<"LPM Wang Helmholtz..."<<endl;
 
-	int nx = 33;
-	int ny = 33;
-	int tMax = 200;
+	int nx = 101;
+	int ny = 101;
+	int tMax = 5000;
 	double l0 = 1;
 	double V0 = 1;
 	double lambda = 2.0;
-	double dt = 1.0;//1.0/(nx-1)/(nx-1);
-	double dx = 1.0;//1.0/(nx-1);
+	double dt = 1.0/(nx-1)/(nx-1);
+	double dx = 1.0/(nx-1);
 	double c = dx/dt;
-	cout<<"dx: "<<dx<<", dt: "<<dt<<endl;
 	double omega = 1.0/(1.5*dt/dx/dx + 0.5);
+
+	cout<<"dx: "<<dx<<", dt: "<<dt<<endl;
 	cout<<"OMEGA: "<<omega<<endl;
 
 	CollisionD2Q9WangHelmholtz *cm = new CollisionD2Q9WangHelmholtz();
@@ -71,7 +72,6 @@ int main(){
 		lbm->handleBoundaries();
 	}
 
-	//lbm->calcMacroscopicVars();
 	cm->dataToFile();
 	cout<<"done LPM."<<endl;
 
