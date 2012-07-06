@@ -88,7 +88,7 @@ void DirichletLPMNodes<T>::updateCornerNode(const bool unknowns[9], int x, int y
 	for(int i = 0; i < 9; i++) grhs += cm->W[i];
 	grhs *= cm->g_rhs(x, y);
 	psi0 = (12*val - 6*grhs - 12*sp)/7.0;
-	cout<<"psi0: "<<psi0<<endl;
+
 	for(int i = 0; i < 9; i++){
 		if(unknowns[i]) f[0][y][x][i] = cm->fEq(i, psi0);
 	}

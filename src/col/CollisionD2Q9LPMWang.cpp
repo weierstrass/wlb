@@ -14,31 +14,19 @@ CollisionD2Q9LPMWang::CollisionD2Q9LPMWang() {
 CollisionD2Q9LPMWang::~CollisionD2Q9LPMWang() {
 	// TODO Auto-generated destructor stub
 }
-//
-//double CollisionD2Q9LPMWang::g_rhs(int i, int j){
-//	//cout<<"WANG"<<endl;
-//	return -prefactor*sinh(psi[j][i]*inSinh);
-//}
 
 void CollisionD2Q9LPMWang::collide(){
 	cout<<"WANG"<<endl;
-	//double W[9] = {W0, W1, W1, W1, W1, W2, W2, W2, W2};
-	//double *rhoU = new double[3];
+	double dQ;
+
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
-			//cout<<"pre:"<<i<<","<<j<<endl;
 			psi[j][i] = getPsi(f[0][j][i], i, j);
+			dQ = (1 - 0.5*w)*g_rhs(i, j);
 			for(int d = 0; d < 9; d++){
-				//cout<<"pre:"<<i<<","<<j<<", f: "<<f[0][j][i][d]<<endl;
-				f[0][j][i][d] += w*( fEq(d, psi[j][i]) - f[0][j][i][d] ) + (1 - 0.5*w)*W[d]*g_rhs(i, j);//todo
-				//cout<<"post"<<i<<","<<j<<", f: "<<f[0][j][i][d]<<endl;
-				//cout<<"aaa: "<<(1 - 0.5*w)*W[d]*g_rhs(i, j)<<endl;
-				//cout<<"W: "<<W[d]<<endl;
+				f[0][j][i][d] += w*( fEq(d, psi[j][i]) - f[0][j][i][d] ) + W[d]*dQ;
 			}
-			//cout<<"w:"<<w<<endl;
-			//cout<<"g: "<<g_rhs(i, j)<<endl;
 			psi[j][i] = getPsi(f[0][j][i], i, j);
-			//cout<<"psi: "<<psi[j][i]<<endl;
 		}
 	}
 }
@@ -74,12 +62,9 @@ void CollisionD2Q9LPMWang::init(){
 }
 
 double CollisionD2Q9LPMWang::getPsi(double *fIn, int i, int j){
-	//cout<<"WANG"<<endl;
 	double ret = 0;
-	//cout<<"ffi"<<fIn[1]<<endl;
 	for(int d = 0; d < 9; d++){
 		ret += fIn[d] + 0.5*g_rhs(i, j)*W[d];
-	//	cout<<fIn[d]<<endl;
 	}
 	return ret;
 }
