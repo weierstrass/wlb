@@ -10,14 +10,24 @@
 using namespace std;
 
 int main(){
-	int nx = 256, ny = 8, tMax = 2000;
-	cout<<"LPM test.."<<endl;
+	cout<<"LPM Chai test.."<<endl;
+
+	int nx = 32;
+	int ny = 8;
+	int tMax = 25000;
+	double l0 = 0.8e-6/nx;
+	double V0 = -10e-3;
 
 	CollisionD2Q9LPMChai *cm = new CollisionD2Q9LPMChai();
+	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
+	LatticeModel *lm = new Lattice2D(nx, ny);
+	UnitHandlerLPM *uh = new UnitHandlerLPM();
+
+	uh->setCharLength(l0);
+	uh->setCharVoltage(V0);
+	cm->setUnitHandler(uh);
 	cm->setW(0.5);
 	cm->setC(1.0);
-	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();//todo
-	LatticeModel *lm = new Lattice2D(nx, ny);
 
 	LBM *lbm = new LBM(lm, cm, sm);
 
