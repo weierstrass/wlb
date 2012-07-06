@@ -23,10 +23,10 @@ public:
 	} n;
 	int UDIRS;
 	int DIM;
-	int *oppDirs;
-	int *ex;
-	int *ey;
-	int *ez;
+	static const int oppDirs[];
+	static const int ex[];
+	static const int ey[];
+	static const int ez[];
 private:
 };
 
