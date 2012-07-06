@@ -139,7 +139,6 @@ void LBM::handleBoundaries(){
 	for(int i = 0; i < boundaryNodes.size(); i++){
 			boundaryNodes[i]->updateF();
 	}
-	cout<<"post bdries"<<endl;
 	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
 	//cout<<"post:"<<endl;
 	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 8);
@@ -344,28 +343,28 @@ void LBM::initRho(double** rhoInit){
  * Apply chosen boundary conditions for
  * inlet and outlet
  */
-void LBM::handleWetBoundaries(){
-	/* Constant pressure boundaries */
-//	if( cpNodes != NULL ){
-		//cpNodes->updateF(f, u, rho);
-	//}
-	/* Constant velocity boundaries */
-	//if( cvNodes != NULL ){
-		//cvNodes->updateF(f, u, rho);
-	//}
-}
-
-/*
- * Update f according to the hard boundaries.
- */
-void LBM::handleHardBoundaries(){
-	/* Half way bounce back boundaries */
-	if( hwbbNodes != NULL ){
-		//hwbbNodes->updateF();
-	}
-	/* Hard boundary nodes with BFL */
-	//if(bflNodes != NULL){
-		//bflNodes->updateF(f[0], ux, uy);
-	//}
-
-}
+//void LBM::handleWetBoundaries(){
+//	/* Constant pressure boundaries */
+////	if( cpNodes != NULL ){
+//		//cpNodes->updateF(f, u, rho);
+//	//}
+//	/* Constant velocity boundaries */
+//	//if( cvNodes != NULL ){
+//		//cvNodes->updateF(f, u, rho);
+//	//}
+//}
+//
+///*
+// * Update f according to the hard boundaries.
+// */
+//void LBM::handleHardBoundaries(){
+//	/* Half way bounce back boundaries */
+//	if( hwbbNodes != NULL ){
+//		//hwbbNodes->updateF();
+//	}
+//	/* Hard boundary nodes with BFL */
+//	//if(bflNodes != NULL){
+//		//bflNodes->updateF(f[0], ux, uy);
+//	//}
+//
+//}
