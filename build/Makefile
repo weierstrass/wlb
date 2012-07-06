@@ -10,7 +10,7 @@ TOPDIR = ..
 
 vpath %.cpp $(SRCDIR) $(APPDIR) $(SRCDIR)/col \
 			$(SRCDIR)/lat $(SRCDIR)/str \
-			$(SRCDIR)/bdr
+			$(SRCDIR)/bdr $(SRCDIR)/unit
 
 #Settings
 
@@ -23,6 +23,7 @@ OBJS := LBM.o \
 		NodeNeighbors.o \
 		BounceBackNodes.o \
 		HeZouPressureNodes.o \
+		HeZouLPMChaiNodes.o \
 		DirichletLPMNodes.o \
 		NeumannLPMNodes.o \
 		StreamModel.o \
@@ -32,15 +33,21 @@ OBJS := LBM.o \
 		CollisionD2Q9BGK.o \
 		CollisionD2Q9LPM.o \
 		CollisionD2Q9LPMChai.o \
+		CollisionD2Q9LPMChaiHelmholtz.o \
+		CollisionD2Q9LPMWang.o \
+		CollisionD2Q9WangHelmholtz.o \
 		CollisionModel.o \
 		LatticeModel.o \
 		Lattice2D.o \
 		StreamD2Q9.o \
 		StreamD2Q9Periodic.o \
 		Node.o \
-		AppLPMTest.o \
+		UnitHandler.o \
+		UnitHandlerLPM.o \
+		AppHelmholtzChai.o \
 		#AppLPMChaiTest.o \
 		
+		#AppLPMTest.o \
 		#AppTaylorVortex.o \
 		#AppCylinderBFL.o  \
 		#AppPoiseuilleForce.o \

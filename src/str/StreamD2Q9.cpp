@@ -17,6 +17,8 @@ StreamD2Q9::~StreamD2Q9() {
 
 void StreamD2Q9::stream(){
 	cout<<"stream D2Q9"<<endl;
+	//cout<<"BEFORE :---------"<<endl;
+	//print2DArray(f[0], n.x, n.y, 1);
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x-1; i++){
 			//horizontal streaming neg
@@ -45,6 +47,6 @@ void StreamD2Q9::stream(){
 			f[0][j][i][6] = f[0][j-1][i][6];
 		}
 	}
-
-	//print2DArray(f[0], n.x, n.y, 8);
+	//cout<<"AFTER:----- "<<endl;
+	//print2DArray(f[0], n.x, n.y, 1);
 }

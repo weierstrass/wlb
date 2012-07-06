@@ -100,10 +100,14 @@ void LBM::init(){
 }
 
 void LBM::collideAndStream(){
-	cout<<"colliding..."<<endl;
+	//cout<<"colliding..."<<endl;
+	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
 	collisionModel->collide();
-	cout<<"streaming..."<<endl;
+	//cout<<"streaming..."<<endl;
+	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
 	streamModel->stream();
+	//cout<<"post streaming"<<endl;
+	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
 }
 
 void LBM::addBoundaryNodes(BoundaryNodes *bn){
@@ -135,7 +139,9 @@ void LBM::handleBoundaries(){
 	for(int i = 0; i < boundaryNodes.size(); i++){
 			boundaryNodes[i]->updateF();
 	}
-	cout<<"post:"<<endl;
+	cout<<"post bdries"<<endl;
+	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
+	//cout<<"post:"<<endl;
 	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 8);
 }
 

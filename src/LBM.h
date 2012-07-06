@@ -28,6 +28,7 @@
 #include "bdr/HeZouPressureNodes.h"
 #include "bdr/DirichletLPMNodes.h"
 #include "bdr/NeumannLPMNodes.h"
+#include "bdr/HeZouLPMChaiNodes.h"
 //#include "BFLBoundaryNodes.h"
 //#include "ConstantPressureBoundaryNodes.h"
 //#include "ConstantVelocityBoundaryNodes.h"
@@ -43,9 +44,14 @@
 #include "col/CollisionD2Q9BGK.h"
 #include "col/CollisionD2Q9LPM.h"
 #include "col/CollisionD2Q9LPMChai.h"
+#include "col/CollisionD2Q9WangHelmholtz.h"
+#include "col/CollisionD2Q9LPMChaiHelmholtz.h"
 
 #include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"
+
+#include "unit/UnitHandler.h"
+#include "unit/UnitHandlerLPM.h"
 
 using namespace std;
 
