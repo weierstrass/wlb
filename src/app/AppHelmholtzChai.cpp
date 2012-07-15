@@ -1,6 +1,6 @@
 /*
  * AppHelmholtzChai.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -15,11 +15,11 @@ using namespace std;
 
 int main(){
 	cout<<"LPM Chai Helmholtz..."<<endl;
-	int nx = 33;
-	int ny = 33;
+	int nx = 101;
+	int ny = 101;
 	int tMax = 20000;
 	double lambda = 2.0;
-	double dt = 1/(nx-1);
+	double dt = 1.0/(nx-1);
 
 	CollisionD2Q9LPMChaiHelmholtz *cm = new CollisionD2Q9LPMChaiHelmholtz();
 	UnitHandlerLPM *uh = new UnitHandlerLPM();

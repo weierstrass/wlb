@@ -1,15 +1,18 @@
 /*
  * DirichletLPMNodes.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
 #include "DirichletLPMNodes.h"
 #include "../col/CollisionD2Q9WangHelmholtz.h"
+#include "../col/CollisionD2Q9LPMWang1to1.h"
 
 template void DirichletLPMNodes<CollisionD2Q9WangHelmholtz>::addNode(int, int, double);
 template DirichletLPMNodes<CollisionD2Q9WangHelmholtz>::DirichletLPMNodes();
 
+template void DirichletLPMNodes<CollisionD2Q9LPMWang1to1>::addNode(int, int, double);
+template DirichletLPMNodes<CollisionD2Q9LPMWang1to1>::DirichletLPMNodes();
 
 template <class T>
 DirichletLPMNodes<T>::DirichletLPMNodes() {

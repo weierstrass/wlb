@@ -1,6 +1,7 @@
 /*
  * LBM-D2Q9.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
+ * andreas@bulling.se
  *
  */
 
@@ -46,6 +47,8 @@
 #include "col/CollisionD2Q9LPMChai.h"
 #include "col/CollisionD2Q9WangHelmholtz.h"
 #include "col/CollisionD2Q9LPMChaiHelmholtz.h"
+#include "col/CollisionD2Q9LPMWang1to1.h"
+#include "col/CollisionD2Q9LPMChai1to1.h"
 
 #include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"
@@ -61,12 +64,12 @@ private:
 	int nx;
 	int ny;
 	double ****f;
-	double ***rho;
-	double ***ux;
-	double ***uy;
-	double ***uz;
-	bool **deadNodes;
-	HalfWayBBNodes *hwbbNodes;
+	//double ***rho;
+	//double ***ux;
+	//double ***uy;
+	//double ***uz;
+	//bool **deadNodes;
+	//HalfWayBBNodes *hwbbNodes;
 	vector<BoundaryNodes*> boundaryNodes;
 	//BFLBoundaryNodes *bflNodes;
 	//ConstantPressureBoundaryNodes *cpNodes;
@@ -77,19 +80,19 @@ private:
 public:
 	LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
 	void init();
-	void initVelocity(double **uxInit, double **uyInit);
-	void initRho(double **rhoInit);
+	//void initVelocity(double **uxInit, double **uyInit);
+	//void initRho(double **rhoInit);
 
-	void calcMacroscopicVars();
-	void handleWetBoundaries();
-	void handleHardBoundaries();
+	//void calcMacroscopicVars();
+	//void handleWetBoundaries();
+	//void handleHardBoundaries();
 	void handleBoundaries();
 
-	void printfi(int n);
-	void printu();
-	void dataToFile();
+	//void printfi(int n);
+	//void printu();
+	//void dataToFile();
 
-	void addHalfWayBBNodes(HalfWayBBNodes *bbn);
+	//void addHalfWayBBNodes(HalfWayBBNodes *bbn);
 	void addBoundaryNodes(BoundaryNodes *bn);
 
 	void setStreamModel(StreamModel *s);

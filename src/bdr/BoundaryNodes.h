@@ -25,6 +25,7 @@ public:
 	void registerN(struct LatticeModel::dimension &n){this->n = n;};
 	void registerQ(int Q){this->Q = Q;};
 	void registerLatticeModel(LatticeModel *lm){this->lm = lm;};
+	char PRESTREAM;
 protected:
 	void addNode(Node *n);
 	LatticeModel *lm;

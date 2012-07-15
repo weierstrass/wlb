@@ -1,6 +1,6 @@
 /*
  * DirichletLPMNodes.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 

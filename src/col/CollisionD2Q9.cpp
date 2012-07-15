@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -17,15 +17,12 @@ CollisionD2Q9::~CollisionD2Q9() {
 }
 
 double CollisionD2Q9::fEq(int d, double rho, double ux, double uy){
-	int ex[9] = {0, 1, 0, -1, 0, 1, -1, -1, 1};
-	int ey[9] = {0, 0, 1, 0, -1, 1, 1, -1, -1};
-	//double W[9] = {W0, W1, W1, W1, W1, W2, W2, W2, W2};
-	double cu = ex[d]*ux + ey[d]*uy;
+	double cu = lm->ex[d]*ux + lm->ey[d]*uy;
 	double c2 = c*c;
 	double u2 = ux*ux + uy*uy;
-	return W[d]*rho*(1 + 3/c2*(cu) \
-						     + 4.5/(c2*c2)*(cu*cu) \
-							 - 1.5/c2*u2);
+	return W[d]*rho*(1 + 3.0/c2*(cu) \
+					   + 4.5/(c2*c2)*(cu*cu) \
+				       - 1.5/c2*u2);
 }
 
 double CollisionD2Q9::getRho(double *f){

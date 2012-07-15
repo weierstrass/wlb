@@ -1,6 +1,6 @@
 /*
  * Constants.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -15,6 +15,8 @@
 #define X 0
 #define Y 1
 #define Z 2
+
+#define BDRY_BOUNCE_BACK 1
 
 #define PHYS_KB 1.3806503e-23
 #define PHYS_E_CHARGE 1.60217646e-19

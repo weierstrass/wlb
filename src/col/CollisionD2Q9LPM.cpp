@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9LPM.cpp
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -17,5 +17,5 @@ CollisionD2Q9LPM::~CollisionD2Q9LPM() {
 }
 
 void CollisionD2Q9LPM::dataToFile(){
-	write2DArray(psi, NULL, "vis_scripts/data0/rho.csv", n.x, n.y);
+	write2DArray(psi, NULL, "vis_scripts/data1/rho.csv", n.x, n.y);
 }

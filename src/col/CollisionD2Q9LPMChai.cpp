@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9LPMChai.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -30,7 +30,7 @@ void CollisionD2Q9LPMChai::collide(){
 	}
 }
 
-/* allocate mem for psi todo not needed... */
+/* allocate mem for psi  */
 void CollisionD2Q9LPMChai::init(){
 	psi = allocate2DArray(n.y, n.x);
 	for(int j = 0; j < n.y; j++){

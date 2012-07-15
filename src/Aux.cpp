@@ -1,11 +1,12 @@
 /*
  * aux.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * Auxiliary routines
  */
 
 #include "Aux.h"
 
+template bool** allocate2DArrayT<bool>(int nx, int ny);
 /*
  * Array print routine for debugging.
  */
@@ -89,3 +90,12 @@ double **allocate2DArray(int nx, int ny){
 	return ret;
 }
 
+template <typename T>
+T **allocate2DArrayT(int nx, int ny){
+    T **ret = new T*[nx];
+    for(int i = 0; i < nx; i++){
+        ret[i] = new T[ny];
+    }
+
+    return ret;
+}

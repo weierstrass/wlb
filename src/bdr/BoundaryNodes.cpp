@@ -8,6 +8,7 @@
 #include "BoundaryNodes.h"
 
 BoundaryNodes::BoundaryNodes() {
+    PRESTREAM = 0;
 }
 
 void BoundaryNodes::addNode(Node *n){

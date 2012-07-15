@@ -1,6 +1,6 @@
 /*
  * StreamD2Q9.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -15,6 +15,7 @@ public:
 	StreamD2Q9();
 	virtual ~StreamD2Q9();
 	void stream();
+	void init() {cout<<"init";};
 };
 
 #endif /* STREAMD2Q9_H_ */

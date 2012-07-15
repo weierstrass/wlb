@@ -1,6 +1,6 @@
 /*
  * HeZouPressureNodes.cpp
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -19,15 +19,12 @@ void HeZouPressureNodes::updateF(){
 		for(int k = 0; k < nodes.size(); k++){
 			i = nodes[k]->x;
 			j = nodes[k]->y;
-			temp = f[0][j][i][0];
-			f[0][j][i][0] = 0;
 			rho = nodes[k]->v1;
 			//cout<<i<<", "<<j<<endl;
 			if(i == 0 && j == 0){
 				bool knowns[]  = {1, 0, 0, 1, 1, 0, 0, 1, 0};
 				updateCornerNode(knowns, i, j, rho);
 			}else if(i == 0 && j == (lm->n.y-1)){
-				cout<<"BOT LEFT"<<endl;
 				bool knowns[]  = {1, 0, 1, 1, 0, 0, 1, 0, 0};
 				updateCornerNode(knowns, i, j, rho);
 			}else if(i == (lm->n.x-1) && j == 0){
@@ -45,7 +42,6 @@ void HeZouPressureNodes::updateF(){
 				f[0][j][i][5] = f[0][j][i][7] + 0.5*(f[0][j][i][4] - f[0][j][i][2]) + 1.0/6.0*rhoux;
 				f[0][j][i][8] = f[0][j][i][6] - 0.5*(f[0][j][i][4] - f[0][j][i][2]) + 1.0/6.0*rhoux;
 			}else if( i == (lm->n.x-1) ){//RIGHT
-				rho = nodes[k]->v1;
 				rhoux = (f[0][j][i][0] + f[0][j][i][2] + f[0][j][i][4] +
 						2*( f[0][j][i][1] + f[0][j][i][5] + f[0][j][i][8])) - rho;
 				rhouy = 0; // -TODO
@@ -74,7 +70,6 @@ void HeZouPressureNodes::updateF(){
 			}else{
 				cerr<<"No implementation found for requested constant pressure boundary node ("<<i<<", "<<j<<")"<<endl;
 			}
-			f[0][j][i][0] = temp;
 		}
 	}
 }
@@ -120,7 +115,7 @@ HeZouPressureNodes::~HeZouPressureNodes() {
 }
 
 void HeZouPressureNodes::updateCornerNode(const bool knowns[], int i, int j, double val){
-	cout<<"handeling corner "<<endl;
+	//cout<<"handeling corner "<<endl;
 	for(int d = 0; d < lm->UDIRS; d++){
 		if(knowns[d]){
 			f[0][j][i][lm->oppDirs[d]] = f[0][j][i][d];

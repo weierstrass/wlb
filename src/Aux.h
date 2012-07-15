@@ -1,6 +1,6 @@
 /*
  * aux.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  */
 
 #ifndef AUX_H_
@@ -19,4 +19,7 @@ double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 double**** allocate4DArray(int dirs, int nx, int ny, int nz);
 double*** allocate3DArray(int nx, int ny, int nz);
 double** allocate2DArray(int nx, int ny);
+
+template <typename T>
+T** allocate2DArrayT(int nx, int ny);
 #endif /* AUX_H_ */

@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9LPM.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -21,7 +21,6 @@ public:
 	virtual double g_rhs(int i, int j) = 0;
 protected:
 	double w;
-	double prefactor, inSinh;
 	double **psi;
 	static const double Wa[];
 };

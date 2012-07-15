@@ -1,6 +1,6 @@
 /*
  * HeZouLPMChaiNodes.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -8,7 +8,6 @@
 
 #define DIR1(i) 1 + (bdr + (i-1))%4
 #define DIR5(i) 5 + (bdr + (i-1))%4
-
 
 HeZouLPMChaiNodes::HeZouLPMChaiNodes() {
 	// TODO Auto-generated constructor stub
@@ -20,6 +19,7 @@ HeZouLPMChaiNodes::~HeZouLPMChaiNodes() {
 }
 
 void HeZouLPMChaiNodes::updateF(){
+    cout<<"Chai bdry"<<endl;
 	int i, j;
 	double temp, rho, psi;
 	for(int k = 0; k < nodes.size(); k++){
