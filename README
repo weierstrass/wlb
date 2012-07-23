@@ -10,6 +10,8 @@ CURRENT SUPPORT
    - LPM Wang
   Boundary conditions:
    - Bounce back (Full way implementation)
+   - Periodic
+   - BFL (Bouzidi's rule) [NYFI]
    - He/Zou Constant density
    - He/Zou Constant velocity [NYFI]
    - LPM Dirichlet (From Wang paper)
@@ -20,6 +22,19 @@ CURRENT SUPPORT
    - BGK
   Boundary conditions:
    - Bounce back
+
+EXAMPLES
+ D2Q9
+  - Poiseuille flow
+   + Driven by pressure grad.
+   + Constant velocity driven
+   + Force driven
+  - Taylor-Green Vortex
+  - Cylindrical obstacle
+   + Bounce back
+   + BFL 
+  - 1D Poison-Boltzmann (Wang+Chai)
+  - 2D Helmholtz equation (Wang+Chai)
 
 COMPILING AND INSTALLING
  $ make
