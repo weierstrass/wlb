@@ -49,16 +49,11 @@ int main(){
 	for(int t = 0; t < tMax; t++){
 		cout<<t<<endl;
 		lbm->collideAndStream();
-		//lbm->handleBoundaries();
-		//lbm->printu();
-		//lbm->handleWetBoundaries();//wet
-		//lbm->printu();
-		//lbm->printfi(5);
 	}
 
 	//lbm->calcMacroscopicVars();
 	cm->dataToFile("bench_poi/");
-	cout<<"done poi."<<endl;
+	cout<<"DONE!"<<endl;
 
 	return 0;
 }

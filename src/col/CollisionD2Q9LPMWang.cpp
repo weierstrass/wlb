@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9LPMWang.cpp
- * Andreas B�lling, 2012
+ * Andreas Bülling, 2012
  * DESCRIPTION - TODO
  */
 

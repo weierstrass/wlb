@@ -21,6 +21,7 @@ HalfWayBBNodes::HalfWayBBNodes() : BoundaryNodes(){
 
 void HalfWayBBNodes::updateF(){
 	cout<<"Performing HWBB"<<endl;
+	cerr<<"Currently not implented use full way BB instead!"<<endl;
 	NodeNeighbors *bbn;
 	cout<<"sixe: "<<nodes.size()<<endl;
 	for(int n = 0; n < nodes.size(); n++){

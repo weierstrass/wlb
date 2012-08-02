@@ -48,18 +48,17 @@ double CollisionD2Q9BGK::fEq(int d, double rho, double ux, double uy){
 void CollisionD2Q9BGK::init(){
 	cout<<"init f: f=f_eq"<<endl;
 	double rho;
-	double *rhoU;
+	//double *rhoU;
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
-			rho = 1.0;//getRho(f[0][j][i]);
-			//rhoU = 0;//getRhoU(f[0][j][i]);
+			rho = 1.0;
 			for(int d = 0; d < 9; d++){
 				f[0][j][i][d] = fEq(d, rho, 0, 0);
-				//f[0][j][i][d] = i*j;
 			}
 		}
 	}
-	//print2DArray(f[0], n.x, n.y, 4);
+
+   //print2DArray(f[0], lm->n.x, lm->n.y, 0);
 }
 
 void CollisionD2Q9BGK::dataToFile(string path){
@@ -110,7 +109,6 @@ void CollisionD2Q9BGK::dataToFile(string path){
     ssTemp << ss.str();
     ssTemp << "rho.csv";
     write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
-
 }
 
 void CollisionD2Q9BGK::addNodeToSkip(int i, int j){

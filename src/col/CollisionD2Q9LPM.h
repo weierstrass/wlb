@@ -19,6 +19,7 @@ public:
 	void setW(double w){this->w = w;};
 	void dataToFile();
 	virtual double g_rhs(int i, int j) = 0;
+	double** getPotential(){return psi;};
 protected:
 	double w;
 	double **psi;

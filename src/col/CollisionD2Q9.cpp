@@ -17,6 +17,7 @@ CollisionD2Q9::~CollisionD2Q9() {
 }
 
 double CollisionD2Q9::fEq(int d, double rho, double ux, double uy){
+    //cout<<"orig"<<endl;
 	double cu = lm->ex[d]*ux + lm->ey[d]*uy;
 	double c2 = c*c;
 	double u2 = ux*ux + uy*uy;

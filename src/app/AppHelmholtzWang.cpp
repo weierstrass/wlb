@@ -50,7 +50,7 @@ int main(){
 				new DirichletLPMNodes<CollisionD2Q9WangHelmholtz>();
 	bds->setCollisionModel(cm);
 	for(int i = 0; i < nx; i++){
-		bds->addNode(i, 0, cos(M_PI/(nx-1)*i)/SCALE_BDRY);
+		bds->addNode(i, 0, cos(M_PI/(nx-1)*i));
 		cout<<cos(M_PI/(nx-1)*i)<<endl;
 		bds->addNode(i, ny-1, 0.0);
 	}

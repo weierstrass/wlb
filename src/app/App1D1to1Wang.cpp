@@ -12,11 +12,11 @@ using namespace std;
 int main(){
 	cout<<"LPM test..."<<endl;
 
-	int nx = 8;
-	int ny = 65;
-	int tMax = 10000;
+	int nx = 3;
+	int ny = 512;
+	int tMax = 5000;
 	double l0 = 1e-5/(ny-1);
-	double V0 = -150e-3;
+	double V0 = -200e-3;
 
 	CollisionD2Q9LPMWang1to1 *cm = new CollisionD2Q9LPMWang1to1();
 	UnitHandlerLPM *uh = new UnitHandlerLPM();
@@ -48,7 +48,7 @@ int main(){
 	for(int t = 0; t < tMax; t++){
 		cout<<t<<endl;
 		lbm->collideAndStream();
-		lbm->handleBoundaries();
+		//lbm->handleBoundaries();
 	}
 
 	//lbm->calcMacroscopicVars();

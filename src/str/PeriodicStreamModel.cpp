@@ -1,19 +1,19 @@
 /*
  * PeriodicStreamModel.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
 #include "PeriodicStreamModel.h"
 
 PeriodicStreamModel::PeriodicStreamModel(int nx, int ny) : StreamModel(){
-	cout<<"intin per"<<endl;
-fv = new double*[6];
-fh = new double*[6];
-for(int i = 0; i < 6; i++){
-	fv[i] = new double[nx];
-	fh[i] = new double[ny];
-}
+    cout<<"init per"<<endl;
+    fv = new double*[6];
+    fh = new double*[6];
+    for(int i = 0; i < 6; i++){
+        fv[i] = new double[nx];
+        fh[i] = new double[ny];
+    }
 }
 
 void PeriodicStreamModel::init(){

@@ -22,23 +22,23 @@ double CollisionD2Q9LPMChai1to1::g_rhs(int i, int j){
     return prefactor*sinh(inSinh*psi[j][i]);
 }
 
+double CollisionD2Q9LPMChai1to1::getSIChargeDensity(double psi){
+    return prefactorChargeSI*sinh(inSinh*psi);
+}
+
 void CollisionD2Q9LPMChai1to1::init(){
     UnitHandlerLPM *uh = dynamic_cast<UnitHandlerLPM*>(unitHandler);
 
-    double ninf = 1e-4*PHYS_N_A;
-    double z = 1.0;
-    double eps = 6.95*1e-10;
-    double T = 273;
+    double z = 1.0; // 1:1 solution
+
+    double ninf = cinf*PHYS_N_A;
     double k = sqrt(2*ninf*z*z*PHYS_E_CHARGE*PHYS_E_CHARGE/(eps*PHYS_KB*T));
 
-    cout<<"kkkdk: "<<PHYS_KB*T/(z*PHYS_E_CHARGE)<<endl;
-
-    double l2 = uh->getCharLength();
-    cout<<"l2: "<<l2<<endl;
-    l2 *=l2;
+    double l2 = uh->getCharLength() * uh->getCharLength();
     double V0 = uh->getCharVoltage();
 
     prefactor = l2/V0*2*z*PHYS_E_CHARGE*ninf/eps;
+    prefactorChargeSI = prefactor*V0/l2*eps;
     inSinh = z*PHYS_E_CHARGE*V0/PHYS_KB/T;
 
     cout<<"k: "<<k<<", k^-1: "<<1/k<<endl;

@@ -43,6 +43,7 @@
 #include "col/CollisionModel.h"
 #include "col/CollisionD2Q9.h"
 #include "col/CollisionD2Q9BGK.h"
+#include "col/CollisionD2Q9BGKShanChenForce.h"
 #include "col/CollisionD2Q9LPM.h"
 #include "col/CollisionD2Q9LPMChai.h"
 #include "col/CollisionD2Q9WangHelmholtz.h"
@@ -55,6 +56,7 @@
 
 #include "unit/UnitHandler.h"
 #include "unit/UnitHandlerLPM.h"
+#include "unit/UnitHandlerNS.h"
 
 using namespace std;
 

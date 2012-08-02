@@ -1,7 +1,8 @@
 /*
  * DirichletLPMNodes.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ * Dirichlet boundary implementation from the
+ * recipe in Wangs paper.
  */
 
 #include "DirichletLPMNodes.h"
@@ -36,7 +37,7 @@ void DirichletLPMNodes<T>::updateF(){
 		node = dynamic_cast<ValueNode*>(nodes[n]);
 		x = node->x;
 		y = node->y;
-
+		//cout<<"x: "<<x<<", y: "<<y<<endl;
 		if(x == lm->n.x-1 && y == lm->n.y-1){//bot right
 			bool unkowns[]  = {0, 0, 0, 1, 1, 0, 1, 1, 1};
 			updateCornerNode(unkowns, x, y, node->v1);
@@ -52,7 +53,7 @@ void DirichletLPMNodes<T>::updateF(){
 		}else if(y == lm->n.y-1){//lower
 			bool unkowns[]  = {0, 0, 0, 0, 1, 0, 0, 1, 1};
 			updateBorderNode(unkowns, x, y, node->v1);
-		}else if(y == 0){//upper
+		}else if(y == 0){
 			bool unkowns[]  = {0, 0, 1, 0, 0, 1, 1, 0, 0};
 			updateBorderNode(unkowns, x, y, node->v1);
 		}else if(x == 0){

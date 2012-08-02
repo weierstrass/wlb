@@ -19,7 +19,7 @@
 using namespace std;
 
 class CollisionD2Q9BGK : public CollisionD2Q9 {
-private:
+protected:
 	double w;
 	bool **skip;
     double **rho;

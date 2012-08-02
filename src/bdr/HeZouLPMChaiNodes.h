@@ -1,6 +1,6 @@
 /*
  * HeZouLPMChaiNodes.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -9,7 +9,7 @@
 
 #include "BoundaryNodes.h"
 #include "../col/CollisionD2Q9LPMChai.h"
-#include "ValueNode.h"
+#include "TypeValueNode.h"
 
 class HeZouLPMChaiNodes: public BoundaryNodes {
 public:
@@ -18,8 +18,11 @@ public:
 	void updateF();
 	void addNode(int x, int y, int z, double rho);
 	void setCollisionModel(CollisionD2Q9LPMChai *cm){this->cm = cm;};
+	void init();
+	void addDeadNode(int x, int y);
 private:
-	vector<ValueNode*> nodes;
+	bool **deadNodes;
+	vector<TypeValueNode*> nodes;
 	void updateNode(int i, int j, double rho, double psi, int bdr);
 	void updateCornerNode(int i, int j, double rho, double psi, int bdr);
 	CollisionD2Q9LPMChai *cm;

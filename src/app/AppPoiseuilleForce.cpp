@@ -1,53 +1,63 @@
 /*
  * AppPoiseuilleForce.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
 #include <iostream>
-#include "../LBM_D2Q9.h"
+#include "../LBM.h"
 #include <math.h>
 
 using namespace std;
 
 int main(){
-	int nx = 20, ny = 20, tMax = 50000, writeMod = 1000;
-	double w = 1.1, c = 1.0;
-	double f0 = 0.0010641;
+	int nx = 3, ny = 33, tMax = 20000;
+	double w = 1.0;
+	double c = 1.0;
+
+	double **fx = allocate2DArray(ny, nx);
+    double **fy = allocate2DArray(ny, nx);
+
 	cout<<"Forced poiseuille flow..."<<endl;
-	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
+	LatticeModel *lm = new Lattice2D(nx, ny);
+	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
+	CollisionD2Q9BGKShanChenForce *cm = new CollisionD2Q9BGKShanChenForce();
+
+    cm->setW(w);
+    cm->setC(c);
+
+	LBM *lbm = new LBM(lm, cm, sm);
+
+	/* Set boundary conditions*/
+	BounceBackNodes<CollisionD2Q9BGKShanChenForce> *bbns =
+	        new BounceBackNodes<CollisionD2Q9BGKShanChenForce>();
+	bbns->setCollisionModel(cm);
+	for(int i = 0; i < nx; i++){
+        bbns->addNode(i, 0, 0);
+        bbns->addNode(i, ny-1, 0);
+	}
+	lbm->addBoundaryNodes(bbns);
 
 	/* Set force */
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
-			if(j < ny/2){
-				lbm->setF(f0, 0, i, j);
-			}else{
-				lbm->setF(-f0, 0, i, j);
-			}
+		    fx[j][i] = 0.001;
+		    fy[j][i] = 0.0;
 		}
 	}
 
 	/* Initialize solver */
 	lbm->init();
-	StreamModel *ps = new PeriodicStreamModel(nx, ny);
-	lbm->setStreamModel(ps);
-	lbm->setW(w);
-	lbm->setC(c);
+
+	cm->setForce(fx, fy);
 
 	/* Main loop */
 	for(int t = 0; t < tMax; t++){
 		cout<<t<<endl;
-		lbm->calcMacroscopicVars();
-		lbm->handleWetBoundaries();//wet
-		lbm->BGKCollision();
-		lbm->stream();
-		lbm->handleHardBoundaries();
-		if(t % writeMod == 0){
-			lbm->dataToFile();
-		}
+		lbm->collideAndStream();
 	}
 
+	cm->dataToFile("bench_force_poi/");
 	cout<<"done cyl."<<endl;
 
 	return 0;

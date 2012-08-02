@@ -12,12 +12,12 @@ using namespace std;
 int main(){
 	cout<<"LPM Chai test.."<<endl;
 
-	int nx = 8;
-	int ny = 65;
-	int tMax = 10000;
+	int nx = 3;
+	int ny = 128;
+	int tMax = 5000;
 	double l0 = 1e-5/(ny-1);
-	double V0 = -15e-3;
-	double dt = 1.0/(ny-1);
+	double V0 = -100e-3;
+	double dt = 1.0;
 
 	CollisionD2Q9LPMChai1to1 *cm = new CollisionD2Q9LPMChai1to1();
 	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
@@ -44,6 +44,7 @@ int main(){
 
 	/* Initialize solver */
 	lbm->init();
+	bds->init();
 
 	/* Main loop */
 	for(int t = 0; t < tMax; t++){

@@ -6,20 +6,89 @@
 
 #include "HeZouLPMChaiNodes.h"
 
+#define TYPE_LINE_NODE 1
+#define TYPE_CORNER_NODE 2
+#define TYPE_TIP_NODE 3
+
 #define DIR1(i) 1 + (bdr + (i-1))%4
 #define DIR5(i) 5 + (bdr + (i-1))%4
 
 HeZouLPMChaiNodes::HeZouLPMChaiNodes() {
-	// TODO Auto-generated constructor stub
-
 }
 
 HeZouLPMChaiNodes::~HeZouLPMChaiNodes() {
-	// TODO Auto-generated destructor stub
+    //deallocate deadNodes - TODO
+}
+
+void HeZouLPMChaiNodes::init(){
+    //allocate memory for deadnode matrix.
+    deadNodes = allocate2DArrayT<bool>(lm->n.y, lm->n.x);
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            deadNodes[j][i] = false;
+        }
+    }
+
+    cout<<"Preprocessing Chai nodes..."<<endl;
+    int i, j;
+    TypeValueNode *n;
+    for(int k = 0; k < nodes.size(); k++){
+        n = nodes[k];
+        i = n->x;
+        j = n->y;
+
+        //corner nodes...
+        if(i == 0 && j == 0){
+            n->type = TYPE_CORNER_NODE;
+            n->param = 0;
+            continue;
+        }else if(i == lm->n.x-1 && j == 0){
+            n->type = TYPE_CORNER_NODE;
+            n->param = 1;
+            continue;
+        }else if(i == lm->n.x-1 && j == lm->n.y-1){
+            n->type = TYPE_CORNER_NODE;
+            n->param = 2;
+            continue;
+        }else if(i == 0 && j == lm->n.y-1){
+            n->type = TYPE_CORNER_NODE;
+            n->param = 3;
+            continue;
+        }
+
+        //border nodes
+        if(i == 0){
+            if(!deadNodes[j-1][i] && !deadNodes[j+1][i]){
+                n->type = TYPE_LINE_NODE;
+                n->param = 0;
+            }
+        }else if(i == lm->n.x-1){
+            if(!deadNodes[j-1][i] && !deadNodes[j+1][i]){
+                n->type = TYPE_LINE_NODE;
+                n->param = 2;
+            }
+        }else if(j == 0){
+            //cout<<"found line node at ("<<i<<", "<<j<<")"<<endl;
+            if(!deadNodes[j][i-1] && !deadNodes[j][i+1]){
+                n->type = TYPE_LINE_NODE;
+                n->param = 1;
+            }
+        }else if(j == lm->n.y-1){
+            if(!deadNodes[j][i-1] && !deadNodes[j][i+1]){
+                n->type = TYPE_LINE_NODE;
+                n->param = 3;
+            }
+        }
+
+        //inner nodes
+        for(int bdr = 0; bdr < 4; bdr++){ //four eq. cases
+
+        }
+    }
 }
 
 void HeZouLPMChaiNodes::updateF(){
-    cout<<"Chai bdry"<<endl;
+    cout<<"Updating Chai boundary nodes..."<<endl;
 	int i, j;
 	double temp, rho, psi;
 	for(int k = 0; k < nodes.size(); k++){
@@ -27,26 +96,17 @@ void HeZouLPMChaiNodes::updateF(){
 		j = nodes[k]->y;
 		rho = nodes[k]->v1;
 		psi = cm->getPsi(f[0][j][i], i, j);
-		if(i == 0 && j == 0){
-			updateCornerNode(i, j, rho, psi, 0);
-		}else if(i == lm->n.x-1 && j == 0){
-			updateCornerNode(i, j, rho, psi, 1);
-		} else if(i == lm->n.x-1 && j == lm->n.y-1){
-			updateCornerNode(i, j, rho, psi, 2);
-		}else if(i == 0 && j == lm->n.y-1){
-			updateCornerNode(i, j, rho, psi, 3);
-		}else if(i == 0){
-			//cout<<"i == 0"<<endl;
-			updateNode(i, j, rho, psi, 0);
-		}else if(j == 0){
-			//cout<<"j == 0"<<endl;
-			updateNode(i, j, rho, psi, 1);
-		}else if(i == lm->n.x-1){
-			//cout<<"i == n.x-1"<<endl;
-			updateNode(i, j, rho, psi, 2);
-		}else if(j == lm->n.y-1){
-			//cout<<"j == n.y-1"<<endl;
-			updateNode(i, j, rho, psi, 3);
+		switch(nodes[k]->type){
+		case TYPE_LINE_NODE:
+		    updateNode(i, j, rho, psi, nodes[k]->param);
+		    break;
+		case TYPE_CORNER_NODE:
+		    updateCornerNode(i, j, rho, psi, nodes[k]->param);
+		    break;
+		case TYPE_TIP_NODE:
+		    //updateCornerNode(i, j, rho, psi, nodes[k]->param);
+		    cerr<<"NO IMPLEMENTATION FOR TIP NODES!"<<endl;
+		    break;
 		}
 	}
 }
@@ -83,7 +143,12 @@ void HeZouLPMChaiNodes::updateCornerNode(int i, int j, double rho, double psi, i
 						  - 0.5*feqDiff2_4 + 0.5*rho;
 
 }
+
 void HeZouLPMChaiNodes::addNode(int x, int y, int z, double val){
-	ValueNode *v = new ValueNode(x, y, z, val);
+	TypeValueNode *v = new TypeValueNode(x, y, z, val, -1, 0);
 	nodes.push_back(v);
+}
+
+void HeZouLPMChaiNodes::addDeadNode(int x, int y){
+    deadNodes[y][x] = true;
 }

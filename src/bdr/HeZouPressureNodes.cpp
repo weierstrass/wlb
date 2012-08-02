@@ -1,6 +1,6 @@
 /*
  * HeZouPressureNodes.cpp
- * Andreas B�lling, 2012
+ * Andreas Bülling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -119,9 +119,9 @@ void HeZouPressureNodes::updateCornerNode(const bool knowns[], int i, int j, dou
 	for(int d = 0; d < lm->UDIRS; d++){
 		if(knowns[d]){
 			f[0][j][i][lm->oppDirs[d]] = f[0][j][i][d];
-			//cout<<"knowns d: "<<d<<endl;
 		}
 	}
+
 	double temp = 0;
 	for(int d = 0; d < lm->UDIRS; d++){
 		if(knowns[d] || knowns[lm->oppDirs[d]]){

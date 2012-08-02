@@ -17,8 +17,21 @@ public:
     virtual ~CollisionD2Q9LPMChai1to1();
     void init();
     double g_rhs(int i, int j);
+    double getSIChargeDensity(double psi);
     double prefactor;
     double inSinh;
+    double prefactorChargeSI;
+    void setPermittivity(double e){this->eps = e;};
+    void setInfConcentration(double c){this->cinf = c;};
+    void setTemperature(double T){this->T = T;};
+    double getPermittivity(){return eps;};
+    double getTemperature(){return T;};
+    double getInfConcentration(){return cinf;};
+protected:
+    double eps;
+    double cinf;
+    double T;
+
 };
 
 #endif /* COLLISIOND2Q9LPMCHAI1TO1_H_ */

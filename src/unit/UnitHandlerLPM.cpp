@@ -1,6 +1,6 @@
 /*
  * UnitHandlerLPM.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -8,7 +8,9 @@
 
 UnitHandlerLPM::UnitHandlerLPM() {
 	// TODO Auto-generated constructor stub
-
+    dt = 1.0;
+    charLength = 1.0;
+    charVoltage = 1.0;
 }
 
 UnitHandlerLPM::~UnitHandlerLPM() {
