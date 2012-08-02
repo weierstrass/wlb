@@ -1,5 +1,5 @@
-# Makefile for Simple 2D LBM code
-# Andreas BŸlling, 2012
+# Makefile for Lattice Boltzmann code
+# Andreas BÃ¼lling, 2012
 # andreas@bulling.se
 
 #Paths
@@ -20,6 +20,7 @@ OBJS := LBM.o \
 		HalfWayBBNodes.o \
 		BoundaryNodes.o \
 		ValueNode.o \
+		TypeValueNode.o \
 		NodeNeighbors.o \
 		BounceBackNodes.o \
 		HeZouPressureNodes.o \
@@ -31,11 +32,14 @@ OBJS := LBM.o \
 		DefaultStreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
+		CollisionD2Q9BGKShanChenForce.o \
 		CollisionD2Q9LPM.o \
 		CollisionD2Q9LPMChai.o \
 		CollisionD2Q9LPMChaiHelmholtz.o \
+		CollisionD2Q9LPMChai1to1.o \
 		CollisionD2Q9LPMWang.o \
 		CollisionD2Q9WangHelmholtz.o \
+		CollisionD2Q9LPMWang1to1.o \
 		CollisionModel.o \
 		LatticeModel.o \
 		Lattice2D.o \
@@ -44,9 +48,13 @@ OBJS := LBM.o \
 		Node.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
-		AppHelmholtzWang.o \
+		UnitHandlerNS.o \
+		App2DElectroOsmoticChannel.o \
+		#AppPoiseuilleForce.o \
+		#App1D1to1Chai.o \
+		#App1D1to1Wang.o \		
+		#AppPoiseuille.o \
 		#AppLPMChaiTest.o \
-		
 		#AppLPMTest.o \
 		#AppTaylorVortex.o \
 		#AppCylinderBFL.o  \
