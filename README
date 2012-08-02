@@ -6,6 +6,7 @@ CURRENT SUPPORT
  D2Q9
   Collision operators:
    - BGK
+    + BGK with Shan-Chen force
    - LPM Chai
    - LPM Wang
   Boundary conditions:
