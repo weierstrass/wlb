@@ -21,7 +21,7 @@ axis tight
 
 figure(6); clf;
 surf(abs(u-z));shading interp;
-title('|u_{wang} - u_{ana}|')
+title('|u_{chai} - u_{ana}|')
 view([0 ,0, 1]);
 axis tight
 colorbar;
