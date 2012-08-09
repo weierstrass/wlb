@@ -36,6 +36,15 @@ void print2DArray(double ***f, int ni, int nj, int d){
 	cout<<endl;
 }
 
+void createDirectory(string path){
+    struct stat sb;
+    if (!stat(path.c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){
+        cout<<"creating directory: "<<path<<endl;
+        mkdir(path.c_str(), 0775);
+    }
+
+}
+
 /*
  *  Write 2D Array csv to file
  */

@@ -50,6 +50,7 @@
 #include "col/CollisionD2Q9LPMChaiHelmholtz.h"
 #include "col/CollisionD2Q9LPMWang1to1.h"
 #include "col/CollisionD2Q9LPMChai1to1.h"
+#include "col/CollisionD2Q9LNP.h"
 
 #include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"

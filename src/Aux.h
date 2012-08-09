@@ -7,6 +7,8 @@
 #define AUX_H_
 
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <string>
 #include <fstream>
 
@@ -15,6 +17,7 @@ using namespace std;
 void print2DArray(double **f, int ni, int nj);
 void print2DArray(double ***f, int ni, int nj, int d);
 void write2DArray(double **a, bool **deadNodes, string file, int nx, int ny);
+void createDirectory(string path);
 double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 double**** allocate4DArray(int dirs, int nx, int ny, int nz);
 double*** allocate3DArray(int nx, int ny, int nz);
