@@ -40,6 +40,7 @@ OBJS := LBM.o \
 		CollisionD2Q9LPMWang.o \
 		CollisionD2Q9WangHelmholtz.o \
 		CollisionD2Q9LPMWang1to1.o \
+		CollisionD2Q9LNP.o \
 		CollisionModel.o \
 		LatticeModel.o \
 		Lattice2D.o \
@@ -49,7 +50,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		App2DElectroOsmoticChannel.o \
+		AppADTest.o \
+		#App2DElectroOsmoticChannel.o \
 		#AppPoiseuilleForce.o \
 		#App1D1to1Chai.o \
 		#App1D1to1Wang.o \		
