@@ -10,7 +10,6 @@ CollisionD2Q9BGK::CollisionD2Q9BGK() : CollisionD2Q9(){
     rho = NULL;
     ux = NULL;
     uy = NULL;
-    skip = NULL;
 }
 
 CollisionD2Q9BGK::~CollisionD2Q9BGK() {
@@ -111,9 +110,3 @@ void CollisionD2Q9BGK::dataToFile(string path){
     write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
 }
 
-void CollisionD2Q9BGK::addNodeToSkip(int i, int j){
-    if(skip == NULL){
-        skip = allocate2DArrayT<bool>(lm->n.y, lm->n.x);
-    }
-    skip[j][i] = true;
-}

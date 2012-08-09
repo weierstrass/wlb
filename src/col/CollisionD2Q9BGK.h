@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9BGK.h
- * Andreas B�lling, 2012
+ * Andreas Bülling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -21,7 +21,6 @@ using namespace std;
 class CollisionD2Q9BGK : public CollisionD2Q9 {
 protected:
 	double w;
-	bool **skip;
     double **rho;
     double **ux;
     double **uy;
@@ -35,7 +34,6 @@ public:
 	double *getRhoU(double *f){return CollisionD2Q9::getRhoU(f);};
 	void setW(double w);
 	void dataToFile(string path);
-	void addNodeToSkip(int i, int j);
 };
 
 #endif /* COLLISIOND2Q9BGK_H_ */

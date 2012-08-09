@@ -10,6 +10,7 @@
 const double CollisionD2Q9::W[9] = {W0, W1, W1, W1, W1, W2, W2, W2, W2};
 
 CollisionD2Q9::CollisionD2Q9() :CollisionModel() {
+    skip = NULL;
 }
 
 CollisionD2Q9::~CollisionD2Q9() {
@@ -38,4 +39,13 @@ double *CollisionD2Q9::getRhoU(double *f){
 	u[Y] = f[2] + f[5] + f[6] - (f[7] + f[4] + f[8]);
 	u[Z] = -1;
 	return u;
+}
+
+void CollisionD2Q9::addNodeToSkip(int i, int j){
+    cout<<"aaa"<<endl;
+    if(skip == NULL){
+        cout<<"bb"<<endl;
+        skip = allocate2DArrayT<bool>(lm->n.y, lm->n.x);
+    }
+    skip[j][i] = true;
 }

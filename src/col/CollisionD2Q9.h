@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include "CollisionModel.h"
+#include "../Aux.h"
 
 using namespace std;
 
@@ -19,9 +20,10 @@ public:
 	double fEq(int d, double rho, double ux, double uy);
 	double *getRhoU(double *f);
 	double getRho(double *f);
-	//double W[9];
+	void addNodeToSkip(int i, int j);
 	static const double W[9];
 protected:
+    bool **skip;
 	int ex[9];
 	int ey[9];
 };
