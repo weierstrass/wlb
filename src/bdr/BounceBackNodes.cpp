@@ -18,6 +18,9 @@ template BounceBackNodes<CollisionD2Q9BGK>::BounceBackNodes();
 template void BounceBackNodes<CollisionD2Q9BGKShanChenForce>::addNode(int x, int y, int z);
 template BounceBackNodes<CollisionD2Q9BGKShanChenForce>::BounceBackNodes();
 
+template void BounceBackNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z);
+template BounceBackNodes<CollisionD2Q9LNP>::BounceBackNodes();
+
 template <class T>
 BounceBackNodes<T>::BounceBackNodes() {
     PRESTREAM = 1;
@@ -58,5 +61,7 @@ void BounceBackNodes<T>::updateF(){
 template <class T>
 void BounceBackNodes<T>::addNode(int x, int y, int z){
 	BoundaryNodes::addNode(new Node(x, y, z));
+	cout<<"omd"<<endl;
 	cm->addNodeToSkip(x, y);
+	cout<<"asodks"<<endl;
 }
