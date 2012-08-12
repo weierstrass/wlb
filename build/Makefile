@@ -28,8 +28,6 @@ OBJS := LBM.o \
 		DirichletLPMNodes.o \
 		NeumannLPMNodes.o \
 		StreamModel.o \
-		PeriodicStreamModel.o \
-		DefaultStreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
 		CollisionD2Q9BGKShanChenForce.o \
@@ -66,6 +64,8 @@ OBJS := LBM.o \
 		ConstantPressureBoundaryNodes.o\
 		ConstantVelocityBoundaryNodes.o\
 		BFLBoundaryNodes.o \
+		PeriodicStreamModel.o \
+		DefaultStreamModel.o \
 	
 		
 #C++-compiler
