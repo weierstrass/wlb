@@ -1,7 +1,8 @@
 /*
  * StreamD2Q9Periodic.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ *
+ * Peridoic 2D streaming.
  */
 
 #include "StreamD2Q9Periodic.h"
@@ -27,6 +28,7 @@ StreamD2Q9Periodic::~StreamD2Q9Periodic() {
 void StreamD2Q9Periodic::stream(){
 	//cout<<"pre:"<<endl;
 	//print2DArray(f[0], nx, ny);
+
 	//save boundaries...
 	for(int i = 0; i < n.x; i++){
 		fv[0][i] = f[0][0][i][7];

@@ -1,7 +1,9 @@
 /*
  * StreamD2Q9.cpp
- * Andreas BŸlling, 2012
- * DESCRIPTION - TODO
+ * Andreas BÃ¼lling, 2012
+ * andreas@bulling.se
+ *
+ * 2D streaming implementation.
  */
 
 #include "StreamD2Q9.h"
