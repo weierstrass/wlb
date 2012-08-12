@@ -83,19 +83,8 @@ private:
 public:
 	LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
 	void init();
-	//void initVelocity(double **uxInit, double **uyInit);
-	//void initRho(double **rhoInit);
 
-	//void calcMacroscopicVars();
-	//void handleWetBoundaries();
-	//void handleHardBoundaries();
 	void handleBoundaries();
-
-	//void printfi(int n);
-	//void printu();
-	//void dataToFile();
-
-	//void addHalfWayBBNodes(HalfWayBBNodes *bbn);
 	void addBoundaryNodes(BoundaryNodes *bn);
 
 	void setStreamModel(StreamModel *s);
@@ -103,19 +92,6 @@ public:
 	void setLatticeModel(LatticeModel *lm);
 
 	void collideAndStream();
-	//void setW(double w);
-	//void setC(double c);
-	//void setF(double fxi, double fyi, int x, int y);
-	//double Si(int d, int i, int j);
-	//double Si2(int d, int i, int j);
-	//double ***getRho();
-	//int getNx();
-	//int getNy();
-	//void addBFLNodes(BFLBoundaryNodes *bfl);
-	//void addConstantPressureBoundaryNodes(ConstantPressureBoundaryNodes *cpn);
-	//void addConstantVelocityBoundaryNodes(ConstantVelocityBoundaryNodes *cpn);
-	//void clearConstantVelocityBoundaryNodes();
-	//void addDeadNode(int x, int y);
 };
 
 #endif /* LBM_H_ */

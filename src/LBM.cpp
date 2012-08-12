@@ -1,7 +1,10 @@
 /*
  * LBM-D2Q9.cpp
  * Andreas Bülling, 2012
- * Core file in 2D LBM solver.
+ * andreas@bulling.se
+ *
+ * Core class in lattice boltzmann solver.
+ *
  */
 
 #include "LBM.h"
@@ -60,24 +63,6 @@ void LBM::handleBoundaries(){
     cout<<"NOTHING DONE HERE"<<endl;
 }
 
-
-///*
-// * Print u components to stdout
-// */
-//void LBM::printu(){
-//	cout<<"ux:"<<endl;
-//	print2DArray(ux[0], nx, ny);
-//	cout<<"uy:"<<endl;
-//	print2DArray(uy[0], nx, ny);
-//}
-//
-//void LBM::addHalfWayBBNodes(HalfWayBBNodes *bbn){
-//	hwbbNodes = bbn;
-//	bbn->registerF(f);
-//	bbn->registerN(latticeModel->n);
-//	bbn->registerQ(latticeModel->UDIRS);
-//}
-
 void LBM::setStreamModel(StreamModel *s){
 	streamModel = s;
 	streamModel->registerF(f);
@@ -94,20 +79,4 @@ void LBM::setCollisionModel(CollisionModel *cm){
 void LBM::setLatticeModel(LatticeModel *lm){
 	latticeModel = lm;
 }
-//
-//void LBM::initVelocity(double** uxInit, double** uyInit){
-//	for(int i = 0; i < nx; i++){
-//		for(int j = 0; j < ny; j++){
-//			//ux[i][j] = uxInit[i][j];
-//			//uy[i][j] = uyInit[i][j];
-//		}
-//	}
-//}
-//
-//void LBM::initRho(double** rhoInit){
-//	for(int i = 0; i < nx; i++){
-//		for(int j = 0; j < ny; j++){
-//			//rho[i][j] = rhoInit[i][j];
-//		}
-//	}
-//}
+
