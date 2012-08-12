@@ -1,7 +1,11 @@
 /*
  * HeZouPressureNodes.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ *
+ * He/Zou implentation of a constant density node.
+ *
+ * TODO fix to neater implementation with rotations
+ * instead of hard coded cases.
  */
 
 #include "HeZouPressureNodes.h"

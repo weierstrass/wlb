@@ -1,8 +1,11 @@
 /*
  * BoundaryNode.cpp
+ * Andreas Bülling, 2012
+ * andreas@bulling.se
  *
- *  Created on: 8 maj 2012
- *      Author: andreasbulling
+ * Abstract mother class of boundary nodes implementations.
+ * The idea is to collect all boundary nodes of the same
+ * type in an encapsulation class derived from this class.
  */
 
 #include "BoundaryNodes.h"

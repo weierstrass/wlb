@@ -1,13 +1,12 @@
 /*
  * NodeNeighbors.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
 #include "NodeNeighbors.h"
 
 NodeNeighbors::NodeNeighbors(int x, int y, int z, int dim) : Node(x, y, z){
-	cout<<"aa"<<endl;
 	cout<<dim<<endl;
 	nbs = new bool[dim];
 }
