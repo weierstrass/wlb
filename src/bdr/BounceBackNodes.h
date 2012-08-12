@@ -1,6 +1,6 @@
 /*
  * BounceBackNodes.h
- * Andreas B�lling, 2012
+ * Andreas Bülling, 2012
  * DESCRIPTION - TODO
  */
 

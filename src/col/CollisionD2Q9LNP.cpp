@@ -3,7 +3,7 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * DESCRIPTION - TODO
+ * Nernst-Planck collsion operator
  */
 
 #include "CollisionD2Q9LNP.h"
@@ -36,14 +36,13 @@ void CollisionD2Q9LNP::init(){
     double colPrefactor = ( 1 - 0.5 * w ) * PHYS_E_CHARGE * z / \
             (PHYS_KB * T * Pe);
 
+    updateDivTerm();
     updateNi();
 }
 
 void CollisionD2Q9LNP::collide(){
     cout<<"D2Q9 LNP collision"<<endl;
     cout<<"pe:"<<Pe<<endl;
-    updateDivTerm();
-    updateNi();
     for(int j = 0; j < n.y; j++){
         for(int i = 0; i < n.x; i++){
             for(int d = 0; d < 9; d++){

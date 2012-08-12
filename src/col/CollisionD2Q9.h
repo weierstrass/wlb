@@ -17,9 +17,6 @@ class CollisionD2Q9 : public CollisionModel{
 public:
 	CollisionD2Q9();
 	virtual ~CollisionD2Q9();
-	double fEq(int d, double rho, double ux, double uy);
-	double *getRhoU(double *f);
-	double getRho(double *f);
 	void addNodeToSkip(int i, int j);
 	static const double W[9];
 protected:

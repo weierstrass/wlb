@@ -1,7 +1,9 @@
 /*
  * CollisionModel.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ * andreas@bulling.se
+ *
+ * Abstract mother class for collision operators.
  */
 
 #include "CollisionModel.h"
@@ -26,21 +28,3 @@ void CollisionModel::registerN(struct LatticeModel::dimension &n){
 void CollisionModel::setC(double c){
 	this->c = c;
 }
-//
-//void CollisionModel::registerParams(double c, double w){
-//	this->c = c;
-//	this->w = w;
-//}
-//
-//void CollisionModel::registerRho(double **rho){
-//	//this->rho = rho;
-//}
-//
-//void CollisionModel::registerU(double ***u){
-//	//this->u = u;
-//}
-//
-//void CollisionModel::registerUDIRS(int UDIRS){
-//	this->UDIRS = UDIRS;
-//}
-

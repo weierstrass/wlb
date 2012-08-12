@@ -30,8 +30,8 @@ public:
 	void collide();
 	void init();
 	double fEq(int d, double rho, double ux, double uy);
-	double getRho(double *f){ return CollisionD2Q9::getRho(f);};
-	double *getRhoU(double *f){return CollisionD2Q9::getRhoU(f);};
+	double getRho(double *f);
+	double *getRhoU(double *f);
 	void setW(double w);
 	void dataToFile(string path);
 };
