@@ -59,20 +59,15 @@ int main(){
     cm->setPe(Pe);
 
     LBM *lbm = new LBM(lm, cm, sm);
-    cout<<"lol"<<endl;
 
     /* Boundaries */
     BounceBackNodes<CollisionD2Q9LNP> *bbn =
             new BounceBackNodes<CollisionD2Q9LNP>();
-    cout<<"lol1"<<endl;
     bbn->setCollisionModel(cm);
-    cout<<"kol"<<endl;
     for(int i = 0; i < nx; i++){
         bbn->addNode(i, 0, 0);
-        cout<<"nej"<<endl;
         bbn->addNode(i, ny-1, 0);
     }
-    cout<<"ennend"<<endl;
     lbm->addBoundaryNodes(bbn);
 
     /* Initialize solver */
