@@ -1,7 +1,9 @@
 /*
  * LatticeModel.cpp
- * Andreas BŸlling, 2012
- * DESCRIPTION - TODO
+ * Andreas BÃ¼lling, 2012
+ * andreas@bulling.se
+ *
+ * Abstract mother class for the lattice models.
  */
 
 #include "LatticeModel.h"

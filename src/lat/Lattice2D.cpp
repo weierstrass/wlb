@@ -1,7 +1,9 @@
 /*
  * Lattice2D.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ * andreas@bulling.se
+ *
+ * Lattice class for 2D lattices. (D2Q9)
  */
 
 #include "Lattice2D.h"
