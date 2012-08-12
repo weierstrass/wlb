@@ -2,15 +2,17 @@ Lattice Boltzmann solver
 
 This code is part of my master thesis project...
 
-CURRENT SUPPORT
+OVERVIEW OF CURRENT SUPPORT
  D2Q9
   Collision operators:
-   - BGK
-    + BGK with Shan-Chen force
-   - LPM Chai
-   - LPM Wang
+   - N-S (BGK) 
+    + with Shan-Chen force
+   - LPM Chai (BGK)
+   - LPM Wang (BGK)
+   - N-P (BGK)
   Boundary conditions:
    - Bounce back (Full way implementation)
+   - Slip (Mirror reflection)
    - Periodic
    - BFL (Bouzidi's rule) [NYFI]
    - He/Zou Constant density
@@ -36,9 +38,11 @@ EXAMPLES
    + BFL 
   - 1D Poison-Boltzmann (Wang+Chai)
   - 2D Helmholtz equation (Wang+Chai)
+  - 1D Advection-diffusion
 
-COMPILING AND INSTALLING
+COMPILE AND RUN
  $ make
+ $ ./a.out
 	
 HOW TO USE 
  some notes here...
