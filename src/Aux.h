@@ -22,7 +22,9 @@ double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 double**** allocate4DArray(int dirs, int nx, int ny, int nz);
 double*** allocate3DArray(int nx, int ny, int nz);
 double** allocate2DArray(int nx, int ny);
+void rescale2DArray(double **arr, double sc, int ny, int nx);
 
 template <typename T>
 T** allocate2DArrayT(int nx, int ny);
+
 #endif /* AUX_H_ */

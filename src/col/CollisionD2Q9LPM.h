@@ -8,6 +8,7 @@
 #define COLLISIOND2Q9LPM_H_
 
 #include <math.h>
+#include <string.h>
 #include "CollisionD2Q9.h"
 #include "../Aux.h"
 #include "../unit/UnitHandlerLPM.h"
@@ -18,6 +19,7 @@ public:
 	virtual ~CollisionD2Q9LPM();
 	void setW(double w){this->w = w;};
 	void dataToFile();
+	void dataToFile(string str);
 	virtual double g_rhs(int i, int j) = 0;
 	double** getPotential(){return psi;};
 protected:

@@ -29,12 +29,17 @@ public:
     void setZ(double z){this->z = z;};
     void setT(double T){this->T =T;};
     void setW(double w){this->w = w;};
+    void setInitC(double C){this->initC = C;};
+    void setRHS(double **rhs){this->rhs = rhs;};
     void dataToFile(string path);
+    double **getNi(){return ni;};
+    double getZ(){return z;};
+    void reset();
 protected:
-    double **ux, **uy, **dPsix, **dPsiy, **ni, **divTerm;
-    double Pe, z, T, w;
+    double **ux, **uy, **dPsix, **dPsiy, **ni, **rhs;
+    double Pe, z, T, w, initC;
     double colPrefactor;
-    void updateDivTerm();
+  // void updateDivTerm();
     void updateNi();
 };
 

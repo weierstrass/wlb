@@ -19,3 +19,8 @@ CollisionD2Q9LPM::~CollisionD2Q9LPM() {
 void CollisionD2Q9LPM::dataToFile(){
 	write2DArray(psi, NULL, "vis_scripts/data1/rho.csv", n.x, n.y);
 }
+
+
+void CollisionD2Q9LPM::dataToFile(string path){
+    write2DArray(psi, NULL, path, n.x, n.y);
+}

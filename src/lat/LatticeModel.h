@@ -1,6 +1,6 @@
 /*
  * LatticeModel.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -24,6 +24,8 @@ public:
 	int UDIRS;
 	int DIM;
 	static const int oppDirs[];
+    static const int slipDirsH[];
+    static const int slipDirsV[];
 	static const int ex[];
 	static const int ey[];
 	static const int ez[];

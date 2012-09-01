@@ -88,7 +88,7 @@ void HeZouLPMChaiNodes::init(){
 }
 
 void HeZouLPMChaiNodes::updateF(){
-    cout<<"Updating Chai boundary nodes..."<<endl;
+   // cout<<"Updating Chai boundary nodes..."<<endl;
 	int i, j;
 	double temp, rho, psi;
 	for(int k = 0; k < nodes.size(); k++){

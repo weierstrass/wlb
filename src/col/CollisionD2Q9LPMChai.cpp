@@ -17,7 +17,7 @@ CollisionD2Q9LPMChai::~CollisionD2Q9LPMChai() {
 
 void CollisionD2Q9LPMChai::collide(){
 	UnitHandlerLPM *uh = dynamic_cast<UnitHandlerLPM*>(unitHandler);
-	cout<<"Chai collision"<<endl;
+	//cout<<"Chai collision"<<endl;
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
 			psi[j][i] = getPsi(f[0][j][i], i, j);
@@ -33,12 +33,18 @@ void CollisionD2Q9LPMChai::collide(){
 /* allocate mem for psi  */
 void CollisionD2Q9LPMChai::init(){
 	psi = allocate2DArray(n.y, n.x);
-	for(int j = 0; j < n.y; j++){
-		for(int i = 0; i < n.x; i++){
-			psi[j][i] = 0.0;
-			for(int d = 0; d < 9; d++) f[0][j][i][d] = fEq(d, psi[j][i]);
-		}
-	}
+	reset();
+}
+
+void CollisionD2Q9LPMChai::reset(){
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            psi[j][i] = 0.0;
+            for(int d = 0; d < lm->UDIRS; d++){
+                f[0][j][i][d] = fEq(d, psi[j][i]);
+            }
+        }
+    }
 }
 
 double CollisionD2Q9LPMChai::getPsi(double *f, int i, int j){
@@ -51,3 +57,44 @@ double CollisionD2Q9LPMChai::fEq(int d, double psi){
 	if(d == 0) return (W[0] - 1)*psi;
 	return W[d]*psi;
 }
+
+
+/* Calculate first velocity moment of psi */
+void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
+    if(psi == NULL){
+        cerr<<"Unable to compute grad(Psi), MEM ERROR!"<<endl;
+        return;
+    }
+    //cout<<"lol"<<endl;
+    double sum;
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            sum = 0;
+            for(int d = 1; d < lm->UDIRS; d++){
+              //  cout<<"f: "<<f[0][j][i][d]<<endl;
+              retX[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ex[d];
+              retY[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ey[d];
+              //  sum += f[0][j][i][d];
+            }
+          //  cout<<"SUM: "<<sum<<endl;
+          //  cout<<"PSI: "<<psi[j][i]<<endl;
+          //  cout<<"rety: "<<retY[j][i]<<endl;
+        }
+    }
+    cout<<"f_eq: "<<fEq(2, psi[1][lm->n.x/2])<<endl;
+    cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;
+//    for(int j = 0; j < lm->n.y-1; j++){
+//        for(int i = 0; i < lm->n.x-1; i++){
+//            retX[j][i] = psi[j][i+1] - psi[j][i];
+//            retY[j][i] = psi[j+1][i] - psi[j][i];
+//        }
+//    }
+//    for(int j = 0; j < lm->n.y; j++){
+//        retY[j][lm->n.x-1] = retY[j][lm->n.x-2];
+//    }
+//
+//    for(int i = 0; i < lm->n.x; i++){
+//        retY[lm->n.y-1][i] = retY[lm->n.y-2][i];
+//    }
+}
+

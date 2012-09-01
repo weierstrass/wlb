@@ -18,7 +18,7 @@ StreamD2Q9::~StreamD2Q9() {
 }
 
 void StreamD2Q9::stream(){
-	cout<<"stream D2Q9"<<endl;
+	//cout<<"stream D2Q9"<<endl;
 	//cout<<"BEFORE :---------"<<endl;
 	//print2DArray(f[0], n.x, n.y, 1);
 	for(int j = 0; j < n.y; j++){

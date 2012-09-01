@@ -21,6 +21,9 @@ template BounceBackNodes<CollisionD2Q9BGKShanChenForce>::BounceBackNodes();
 template void BounceBackNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z);
 template BounceBackNodes<CollisionD2Q9LNP>::BounceBackNodes();
 
+template void BounceBackNodes<CollisionD2Q9LNPSource>::addNode(int x, int y, int z);
+template BounceBackNodes<CollisionD2Q9LNPSource>::BounceBackNodes();
+
 template <class T>
 BounceBackNodes<T>::BounceBackNodes() {
     PRESTREAM = 1;

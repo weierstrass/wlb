@@ -19,6 +19,8 @@ public:
 	double fEq(int d, double psi);
 	void init();
 	double getPsi(double *f, int i, int j);
+	void reset();
+    void getDPsi(double **retX, double **retY);
 protected:
 };
 

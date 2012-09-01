@@ -19,6 +19,9 @@ CollisionD2Q9LPMChai1to1::~CollisionD2Q9LPMChai1to1() {
 
 
 double CollisionD2Q9LPMChai1to1::g_rhs(int i, int j){
+    if(i == lm->n.x/2 && j == 1){
+        cout<<prefactor*sinh(inSinh*psi[j][i])<<endl;
+    }
     return prefactor*sinh(inSinh*psi[j][i]);
 }
 

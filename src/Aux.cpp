@@ -7,6 +7,7 @@
 #include "Aux.h"
 
 template bool** allocate2DArrayT<bool>(int nx, int ny);
+template char** allocate2DArrayT<char>(int nx, int ny);
 /*
  * Array print routine for debugging.
  */
@@ -107,4 +108,12 @@ T **allocate2DArrayT(int nx, int ny){
     }
 
     return ret;
+}
+
+void rescale2DArray(double **arr, double sc, int ny, int nx){
+    for(int j = 0; j < ny; j++){
+        for(int i = 0; i < nx; i++){
+            arr[j][i] *= sc;
+        }
+    }
 }
