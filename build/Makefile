@@ -23,6 +23,7 @@ OBJS := LBM.o \
 		TypeValueNode.o \
 		NodeNeighbors.o \
 		BounceBackNodes.o \
+		SlipNodes.o \
 		HeZouPressureNodes.o \
 		HeZouLPMChaiNodes.o \
 		DirichletLPMNodes.o \
@@ -35,10 +36,12 @@ OBJS := LBM.o \
 		CollisionD2Q9LPMChai.o \
 		CollisionD2Q9LPMChaiHelmholtz.o \
 		CollisionD2Q9LPMChai1to1.o \
+		CollisionD2Q9LPMChaiRHS.o \
 		CollisionD2Q9LPMWang.o \
 		CollisionD2Q9WangHelmholtz.o \
 		CollisionD2Q9LPMWang1to1.o \
 		CollisionD2Q9LNP.o \
+		CollisionD2Q9LNPSource.o \
 		CollisionModel.o \
 		LatticeModel.o \
 		Lattice2D.o \
@@ -48,10 +51,11 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppADTest.o \
+		App1D1to1Chai.o \
+		#AppADSource.o \
+		#AppADTest.o \
 		#App2DElectroOsmoticChannel.o \
 		#AppPoiseuilleForce.o \
-		#App1D1to1Chai.o \
 		#App1D1to1Wang.o \		
 		#AppPoiseuille.o \
 		#AppLPMChaiTest.o \
