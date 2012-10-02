@@ -26,11 +26,11 @@ public:
 	void registerQ(int Q){this->Q = Q;};
 	void registerLatticeModel(LatticeModel *lm){this->lm = lm;};
 	char PRESTREAM;
+    double ****f;
 protected:
 	void addNode(Node *n);
 	LatticeModel *lm;
 	struct LatticeModel::dimension n;
-	double ****f;
 	int Q;
 	vector<Node*> nodes;
 };

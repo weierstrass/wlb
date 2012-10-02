@@ -15,6 +15,7 @@
 
 template void SlipNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z);
 template void SlipNodes<CollisionD2Q9LNP>::init();
+template void SlipNodes<CollisionD2Q9LNP>::updateF();
 template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
 
 template <class T>

@@ -1,6 +1,6 @@
 /*
  * ValueNode.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -11,7 +11,10 @@
 
 class ValueNode : public Node{
 public:
-	ValueNode(int x, int y, int z, double v);
+	ValueNode(int x, int y, int z,
+	          double v);
+    ValueNode(int x, int y, int z,
+              double v1, double v2);
 	virtual ~ValueNode();
 	double v1;
 	double v2;

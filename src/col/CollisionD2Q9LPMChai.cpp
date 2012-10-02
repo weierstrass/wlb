@@ -18,6 +18,7 @@ CollisionD2Q9LPMChai::~CollisionD2Q9LPMChai() {
 void CollisionD2Q9LPMChai::collide(){
 	UnitHandlerLPM *uh = dynamic_cast<UnitHandlerLPM*>(unitHandler);
 	//cout<<"Chai collision"<<endl;
+	//cout<<"GRHS: "<<g_rhs(lm->n.x/2, 1)<<endl;
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
 			psi[j][i] = getPsi(f[0][j][i], i, j);
@@ -78,11 +79,11 @@ void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
             }
           //  cout<<"SUM: "<<sum<<endl;
           //  cout<<"PSI: "<<psi[j][i]<<endl;
-          //  cout<<"rety: "<<retY[j][i]<<endl;
+           // cout<<"rety: "<<retY[j][i]<<endl;
         }
     }
-    cout<<"f_eq: "<<fEq(2, psi[1][lm->n.x/2])<<endl;
-    cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;
+//    cout<<"f_eq: "<<fEq(2, psi[1][lm->n.x/2])<<endl;
+    //cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;
 //    for(int j = 0; j < lm->n.y-1; j++){
 //        for(int i = 0; i < lm->n.x-1; i++){
 //            retX[j][i] = psi[j][i+1] - psi[j][i];

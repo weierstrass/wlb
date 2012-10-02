@@ -13,10 +13,10 @@ int main(){
 	cout<<"LPM Chai test.."<<endl;
 
 	int nx = 3;
-	int ny = 128;
+	int ny = 65;
 	int tMax = 5000;
 	double l0 = 1e-5/(ny-1);
-	double V0 = -100e-3;
+	double V0 = -50e-3;
 	double dt = 1.0;
     double T = 273; //temperature [K]
     double cinf = 1e-4; //ion concentration at inf. [Mol]

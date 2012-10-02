@@ -33,7 +33,10 @@ public:
     void setRHS(double **rhs){this->rhs = rhs;};
     void dataToFile(string path);
     double **getNi(){return ni;};
+    double **getdPsix(){return dPsix;};
+    double **getdPsiy(){return dPsiy;};
     double getZ(){return z;};
+    double getT(){return T;};
     void reset();
 protected:
     double **ux, **uy, **dPsix, **dPsiy, **ni, **rhs;

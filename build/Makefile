@@ -28,6 +28,8 @@ OBJS := LBM.o \
 		HeZouLPMChaiNodes.o \
 		DirichletLPMNodes.o \
 		NeumannLPMNodes.o \
+		NeumannNodes.o \
+		NeumannNodesNP.o \
 		StreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
@@ -51,8 +53,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		App1D1to1Chai.o \
-		#AppADSource.o \
+		AppADSource.o \
+		#App1D1to1Chai.o \
 		#AppADTest.o \
 		#App2DElectroOsmoticChannel.o \
 		#AppPoiseuilleForce.o \

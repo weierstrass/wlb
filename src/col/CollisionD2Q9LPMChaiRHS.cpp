@@ -18,6 +18,9 @@ CollisionD2Q9LPMChaiRHS::~CollisionD2Q9LPMChaiRHS() {
 }
 
 double CollisionD2Q9LPMChaiRHS::g_rhs(int i, int j){
-    //cout<<"PE RHS: "<<rhs[j][i]<<endl;
+//    cout<<"PE RHS: "<<rhs[j][i]<<endl;
+//    if(i == lm->n.x/2 && j == 1){
+//        cout<<rhs[j][i]<<endl;
+//    }
     return rhs[j][i];
 }

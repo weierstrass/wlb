@@ -31,6 +31,8 @@
 #include "bdr/NeumannLPMNodes.h"
 #include "bdr/HeZouLPMChaiNodes.h"
 #include "bdr/SlipNodes.h"
+#include "bdr/NeumannNodes.h"
+#include "bdr/NeumannNodesNP.h"
 //#include "BFLBoundaryNodes.h"
 //#include "ConstantPressureBoundaryNodes.h"
 //#include "ConstantVelocityBoundaryNodes.h"
