@@ -29,6 +29,7 @@
 #include "bdr/HeZouPressureNodes.h"
 #include "bdr/DirichletLPMNodes.h"
 #include "bdr/NeumannLPMNodes.h"
+#include "bdr/HeZouNodes.h"
 #include "bdr/HeZouLPMChaiNodes.h"
 #include "bdr/SlipNodes.h"
 #include "bdr/NeumannNodes.h"

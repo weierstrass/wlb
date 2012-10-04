@@ -31,18 +31,18 @@ int main(){
 
     /* Parameter definitions */
     int nx = 3;
-    int ny = 50;
+    int ny = 65;
 
-    int tNP = 50;
+    int tNP = 1;
     int tPE = 10000;
     int tNS = 50;
     int tMain = 500;
 
     int tMod = 1;
 
-    double l0 = 1.0e-5/(ny-1); //PE, NP
-    double C0 = 1e-5*PHYS_N_A; //NP
-    double u0 = 1.0e-1; //NP
+    double l0 = 1e-5/(ny-1); //PE, NP
+    double C0 = 1e-4*PHYS_N_A; //NP
+    double u0 = 1e-1; //NP
     double dt = 1.0;
     double V0 = -50e-3; //PE
 
@@ -143,16 +143,17 @@ int main(){
 
     /* Boundary conds for NP solver*/
     NeumannNodesNP *bbnNeg = new NeumannNodesNP();
+    lbmNPneg->addBoundaryNodes(bbnNeg);
     bbnNeg->setCollisionModel(cmNPneg);
     for(int i = 0; i < nx; i++){
         bbnNeg->addNode(i, 0, 0, 0.0, 2);
         bbnNeg->addNode(i, ny-1, 0, 0.0, 4);
     }
     bbnNeg->init();
-    lbmNPneg->addBoundaryNodes(bbnNeg);
 
 
     NeumannNodesNP *bbnPos = new NeumannNodesNP();
+    lbmNPpos->addBoundaryNodes(bbnPos);
     bbnPos->setCollisionModel(cmNPpos);
 
     for(int i = 0; i < nx; i++){
@@ -160,7 +161,6 @@ int main(){
        bbnPos->addNode(i, ny-1, 0, 0.0, 4);
     }
     bbnPos->init();
-    lbmNPpos->addBoundaryNodes(bbnPos);
 
 //    //todo test with bounce back....
 //    BounceBackNodes<CollisionD2Q9LNP> *bbTest = new BounceBackNodes<CollisionD2Q9LNP>();
@@ -201,12 +201,12 @@ int main(){
         cout<<"----------DPSIY!!: "<<dPsiy[1][nx/2]<<endl;
         //rescale2DArray(dPsix, -1.54*3*V0, ny, nx);
         //rescale2DArray(dPsiy, -1.54*3*V0, ny, nx);
-        rescale2DArray(dPsix, -3.0*V0, ny, nx);
-        rescale2DArray(dPsiy, -3.0*V0, ny, nx);
+        rescale2DArray(dPsix, -2.54*V0, ny, nx);
+        rescale2DArray(dPsiy, -2.54*V0, ny, nx);
         //rescale2DArray(dPsix, V0, ny, nx);
         //rescale2DArray(dPsiy, V0, ny, nx);
 
-        cout<<"----------DPSIY: "<<dPsiy[1][nx/2]<<endl;
+        cout<<"----------DPSIY: "<<dPsiy[0][nx/2]<<endl;
 
         stringstream ss;
         string base = "vis_scripts/data";
@@ -299,7 +299,9 @@ void updateRho(double **rho_eps,
                             (cos(j*2*M_PI/(lm->n.y-1)) + 1)*0.5*0.5;
         }
     }
-    cout<<"RHS: "<<rho_eps[1][lm->n.x/2]<<endl;
+    cout<<"RH0: "<<rho_eps[0][0]<<endl;
+    cout<<"RHS1: "<<rho_eps[0][1]<<endl;
+    cout<<"RHS2: "<<rho_eps[0][2]<<endl;
 }
 
 /*TODO modified C_neg*/
@@ -309,11 +311,11 @@ void initC(CollisionD2Q9LNP *cmNPneg,
 
     double **Cpos = cmNPpos->getNi();
     double **Cneg = cmNPneg->getNi();
-    for(int j = 1; j < lm->n.y; j++){
+    for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            Cpos[j][i] = 1.0; //(1.0 + cos((double)(j-1)*2.0*M_PI/(lm->n.y-1-2))*0.3);
+            Cpos[j][i] = 1.0;//(1.0 + cos((double)(j-1)*2.0*M_PI/(lm->n.y-1-2))*0.3);
           //  cout<<"cpos: "<<Cpos[j][i]<<endl;
-            Cneg[j][i] = 1.0; //(1.0 - cos((j-1)*2.0*M_PI/(lm->n.y-1-2))*0.3+0.6/(lm->n.y-2));
+            Cneg[j][i] = 0;//(1.0 - cos((j-1)*2.0*M_PI/(lm->n.y-1-2))*0.3+0.6/(lm->n.y-2));
         }
     }
 }

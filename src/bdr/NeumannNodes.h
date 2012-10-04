@@ -10,10 +10,10 @@
 #define NEUMANNNODES_H_
 
 #include "ValueNode.h"
-#include "SlipNodes.h"
+#include "HeZouNodes.h"
 
 template <class T>
-class NeumannNodes : public SlipNodes<T>{
+class NeumannNodes : public HeZouNodes<T>{
 public:
     NeumannNodes();
     virtual ~NeumannNodes();
@@ -24,7 +24,8 @@ public:
     //void setCollisionModel(T *cm){this->cm = cm;};
     void updateNodes(double **vx, double **vy, double **vz);
 protected:
-    vector<ValueNode*> nodes;
+    virtual double cu(int i, int j) = 0;
+    vector<ValueNode*> neumannNodes;
     //T *cm;
 };
 

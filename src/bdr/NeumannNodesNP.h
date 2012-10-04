@@ -17,6 +17,9 @@ public:
     NeumannNodesNP();
     virtual ~NeumannNodesNP();
     void updateF();
+protected:
+    double fEq(int dir, int i, int j);
+    double cu(int i, int j);
 };
 
 #endif /* NEUMANNNODESNP_H_ */

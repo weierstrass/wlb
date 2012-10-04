@@ -20,6 +20,7 @@ public:
     void collide();
     void init();
     double fEq(int d, double ux, double uy, double ni);
+    double fEq(int d, int i, int j);
     double calcConc(double *f, int i, int j);
     void setUx(double **ux){this->ux = ux;};
     void setUy(double **uy){this->uy = uy;};

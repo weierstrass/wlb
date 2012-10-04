@@ -70,20 +70,37 @@ void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
     double sum;
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            sum = 0;
+            //sum = 0;
             for(int d = 1; d < lm->UDIRS; d++){
               //  cout<<"f: "<<f[0][j][i][d]<<endl;
               retX[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ex[d];
               retY[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ey[d];
+              if(i == 0 && j == 0){
+                  cout<<"f"<<d<<": "<<f[0][j][i][d]<<endl;
+                  cout<<"fEQ"<<d<<": "<<fEq(d, psi[j][i])<<endl;
+                  cout<<"RETY: "<<retY[j][i]<<endl;
+              }
               //  sum += f[0][j][i][d];
+            }
+            if(j == 0){
+                cout<<"i: "<<i<<endl;
+                cout<<"retY_i: "<<retY[j][i]<<endl;
             }
           //  cout<<"SUM: "<<sum<<endl;
           //  cout<<"PSI: "<<psi[j][i]<<endl;
-           // cout<<"rety: "<<retY[j][i]<<endl;
         }
     }
+
+    cout<<"RETY0: "<<retY[0][0]<<endl;
+    cout<<"RETY1: "<<retY[0][1]<<endl;
+    cout<<"RETY2: "<<retY[0][2]<<endl;
+    retY[0][0] = retY[0][1];
+    retY[0][2] = retY[0][1];
+    retY[lm->n.y-1][0] = retY[lm->n.y-1][1];
+    retY[lm->n.y-1][2] = retY[lm->n.y-1][1];
+
 //    cout<<"f_eq: "<<fEq(2, psi[1][lm->n.x/2])<<endl;
-    //cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;
+//    cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;
 //    for(int j = 0; j < lm->n.y-1; j++){
 //        for(int i = 0; i < lm->n.x-1; i++){
 //            retX[j][i] = psi[j][i+1] - psi[j][i];

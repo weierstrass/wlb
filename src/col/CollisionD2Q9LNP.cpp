@@ -74,7 +74,7 @@ void CollisionD2Q9LNP::collide(){
         for(int i = 0; i < n.x; i++){
            // cout<<"i: "<<i<<endl;
            // cout<<"j: "<<j<<endl;
-            if(skip != NULL && skip[j][i]){continue;}
+           // if(skip != NULL && skip[j][i]){continue;}
             for(int d = 0; d < 9; d++){
                 f[0][j][i][d] += w*( fEq(d, ux[j][i] - pref*dPsix[j][i],
                                             uy[j][i] - pref*dPsiy[j][i],
@@ -106,7 +106,7 @@ void CollisionD2Q9LNP::updateNi(){
    // cout<<"rhs: "<<rhs[1][lm->n.x/2]<<endl;
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            if(skip != NULL && skip[j][i]){continue;}
+            //if(skip != NULL && skip[j][i]){continue;}
             temp = 0;
             for(int d = 0; d < lm->UDIRS; d++) temp += f[0][j][i][d];
             //cout<<"Z: "<<z<<endl;
@@ -162,6 +162,10 @@ double CollisionD2Q9LNP::fEq(int d, double ux, double uy, double ni){
         cerr<<"Unexpected state..."<<endl;
     }
     return ret;
+}
+
+double CollisionD2Q9LNP::fEq(int d, int i, int j){
+    return fEq(d, ux[j][i], uy[j][i], ni[j][i]);
 }
 
 void CollisionD2Q9LNP::dataToFile(string path){

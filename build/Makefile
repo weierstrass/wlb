@@ -26,6 +26,7 @@ OBJS := LBM.o \
 		SlipNodes.o \
 		HeZouPressureNodes.o \
 		HeZouLPMChaiNodes.o \
+		HeZouNodes.o \
 		DirichletLPMNodes.o \
 		NeumannLPMNodes.o \
 		NeumannNodes.o \
@@ -54,6 +55,7 @@ OBJS := LBM.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
 		AppADSource.o \
+		#PeriodicTest.o \
 		#App1D1to1Chai.o \
 		#AppADTest.o \
 		#App2DElectroOsmoticChannel.o \

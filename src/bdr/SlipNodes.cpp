@@ -20,7 +20,7 @@ template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
 
 template <class T>
 SlipNodes<T>::SlipNodes() {
-    PRESTREAM = 1;
+    PRESTREAM = 0;
 }
 
 template <class T>
