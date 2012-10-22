@@ -34,6 +34,7 @@
 #include "bdr/SlipNodes.h"
 #include "bdr/NeumannNodes.h"
 #include "bdr/NeumannNodesNP.h"
+#include "bdr/NeumannNodesPE.h"
 //#include "BFLBoundaryNodes.h"
 //#include "ConstantPressureBoundaryNodes.h"
 //#include "ConstantVelocityBoundaryNodes.h"
@@ -57,6 +58,7 @@
 #include "col/CollisionD2Q9LPMChai1to1.h"
 #include "col/CollisionD2Q9LNP.h"
 #include "col/CollisionD2Q9LNPSource.h"
+#include "col/CollisionD2Q9AD.h"
 
 #include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"

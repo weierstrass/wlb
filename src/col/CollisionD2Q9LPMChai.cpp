@@ -18,7 +18,6 @@ CollisionD2Q9LPMChai::~CollisionD2Q9LPMChai() {
 void CollisionD2Q9LPMChai::collide(){
 	UnitHandlerLPM *uh = dynamic_cast<UnitHandlerLPM*>(unitHandler);
 	//cout<<"Chai collision"<<endl;
-	//cout<<"GRHS: "<<g_rhs(lm->n.x/2, 1)<<endl;
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
 			psi[j][i] = getPsi(f[0][j][i], i, j);
@@ -59,6 +58,13 @@ double CollisionD2Q9LPMChai::fEq(int d, double psi){
 	return W[d]*psi;
 }
 
+double CollisionD2Q9LPMChai::fEq(int d, int i, int j){
+    return fEq(d, psi[j][i]);
+}
+
+double CollisionD2Q9LPMChai::getPsi(int i, int j){
+    return psi[j][i];
+}
 
 /* Calculate first velocity moment of psi */
 void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
@@ -66,38 +72,37 @@ void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
         cerr<<"Unable to compute grad(Psi), MEM ERROR!"<<endl;
         return;
     }
-    //cout<<"lol"<<endl;
-    double sum;
+
+//    double sum;
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
             //sum = 0;
+            retX[j][i] = 0;
+            retY[j][i] = 0;
             for(int d = 1; d < lm->UDIRS; d++){
               //  cout<<"f: "<<f[0][j][i][d]<<endl;
-              retX[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ex[d];
-              retY[j][i] += (f[0][j][i][d] - fEq(d, psi[j][i])) * lm->ey[d];
-              if(i == 0 && j == 0){
-                  cout<<"f"<<d<<": "<<f[0][j][i][d]<<endl;
-                  cout<<"fEQ"<<d<<": "<<fEq(d, psi[j][i])<<endl;
-                  cout<<"RETY: "<<retY[j][i]<<endl;
-              }
+              retX[j][i] += ( f[0][j][i][d] - fEq(d, getPsi(f[0][j][i], j, i)) ) * lm->ex[d];
+              retY[j][i] += ( f[0][j][i][d] - fEq(d, getPsi(f[0][j][i], j, i)) ) * lm->ey[d];
+//
+//              if(i == 0 && j == 0){
+//                  //cout<<"f"<<d<<": "<<f[0][j][i][d]<<endl;
+//                  //cout<<"fEQ"<<d<<": "<<fEq(d, getPsi(f[0][j][i], j, i))<<endl;
+//                  //cout<<"RETY: "<<retY[j][i]<<endl;
+//              }
               //  sum += f[0][j][i][d];
             }
-            if(j == 0){
-                cout<<"i: "<<i<<endl;
-                cout<<"retY_i: "<<retY[j][i]<<endl;
-            }
-          //  cout<<"SUM: "<<sum<<endl;
-          //  cout<<"PSI: "<<psi[j][i]<<endl;
+            retX[j][i] *= -3.0;
+            retY[j][i] *= -3.0;
         }
     }
 
-    cout<<"RETY0: "<<retY[0][0]<<endl;
-    cout<<"RETY1: "<<retY[0][1]<<endl;
-    cout<<"RETY2: "<<retY[0][2]<<endl;
-    retY[0][0] = retY[0][1];
-    retY[0][2] = retY[0][1];
-    retY[lm->n.y-1][0] = retY[lm->n.y-1][1];
-    retY[lm->n.y-1][2] = retY[lm->n.y-1][1];
+//    cout<<"RETY0: "<<retY[0][0]<<endl;
+//    cout<<"RETY1: "<<retY[0][1]<<endl;
+//    cout<<"RETY2: "<<retY[0][2]<<endl;
+   // retY[0][0] = retY[0][1];
+   // retY[0][lm->n.x-1] = retY[0][1];
+   // retY[lm->n.y-1][0] = retY[lm->n.y-1][1];
+   // retY[lm->n.y-1][lm->n.x-1] = retY[lm->n.y-1][1];
 
 //    cout<<"f_eq: "<<fEq(2, psi[1][lm->n.x/2])<<endl;
 //    cout<<"f: "<<f[0][1][lm->n.x/2][2]<<endl;

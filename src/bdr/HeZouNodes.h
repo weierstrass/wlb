@@ -12,6 +12,8 @@
 #include "BoundaryNodes.h"
 #include "TypeValueNode.h"
 #include "../col/CollisionD2Q9LNP.h"
+#include "../col/CollisionD2Q9LPMChaiRHS.h"
+#include "../col/CollisionD2Q9LPMChai1to1.h"
 
 template <class T>
 class HeZouNodes: public BoundaryNodes {
@@ -19,8 +21,8 @@ public:
     HeZouNodes();
     virtual ~HeZouNodes();
     void updateF();
-    void addNode(int x, int y, int z, double rho);
-    void setCollisionModel(T *cm){this->cm = cm; cout<<"aaaaaaAAAAAAAAAAA"<<endl;};
+    void addNode(int x, int y, int z, double rho, int dir);
+    void setCollisionModel(T *cm){this->cm = cm;};
     void init();
     virtual double fEq(int dir, int i, int j) = 0;
 protected:

@@ -14,7 +14,7 @@ LBM::LBM(LatticeModel *lm, CollisionModel *cm, StreamModel *sm){
 
 	/* Allocate memory */
 	f = allocate4DArray(lm->n.z, lm->n.y, lm->n.x, lm->UDIRS);
-	cout<<"memory allocated.."<<endl;
+	cout<<"Memory for f array allocated.."<<endl;
 
 	setCollisionModel(cm);
 	setStreamModel(sm);
@@ -35,7 +35,7 @@ void LBM::collideAndStream(){
 
     for(int i = 0; i < boundaryNodes.size(); i++){
         if(boundaryNodes[i]->PRESTREAM){
-           // cout<<"PRESTREAM"<<endl;
+            cout<<"PRESTREAM"<<endl;
             boundaryNodes[i]->updateF();
         }
     }

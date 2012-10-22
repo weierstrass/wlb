@@ -1,27 +1,22 @@
 /*
- * CollisionD2Q9LNP.h
+ * CollisisonD2Q9AD.h
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
  * DESCRIPTION - TODO
  */
 
-#ifndef COLLISIOND2Q9LNP_H_
-#define COLLISIOND2Q9LNP_H_
+#ifndef COLLISISOND2Q9AD_H_
+#define COLLISISOND2Q9AD_H_
 
-#include <string.h>
-#include "CollisionD2Q9.h"
-#include "../Aux.h"
+#include "CollisionD2Q9BGK.h"
 
-class CollisionD2Q9LNP: public CollisionD2Q9 {
+class CollisionD2Q9AD: public CollisionD2Q9 {
 public:
-    CollisionD2Q9LNP();
-    virtual ~CollisionD2Q9LNP();
+    CollisionD2Q9AD();
+    virtual ~CollisionD2Q9AD();
+    double fEq(int d, double rho, double jx, double jy);
     void collide();
-    void init();
-    double fEq(int d, double ux, double uy, double ni);
-    double fEq(int d, int i, int j);
-    double calcConc(double *f, int i, int j);
     void setUx(double **ux){this->ux = ux;};
     void setUy(double **uy){this->uy = uy;};
     void setDPsix(double **dPsix){this->dPsix = dPsix;};
@@ -32,21 +27,17 @@ public:
     void setW(double w){this->w = w;};
     void setInitC(double C){this->initC = C;};
     void setRHS(double **rhs){this->rhs = rhs;};
-    void dataToFile(string path);
-    double **getNi(){return ni;};
+    double **getNi(){return rho;};
     double **getdPsix(){return dPsix;};
     double **getdPsiy(){return dPsiy;};
     double getZ(){return z;};
     double getT(){return T;};
-    void reset();
-    double getSourceTerm(int i, int j);
-    double getf0(int i, int j);
+    void init();
+    void dataToFile(string path);
 protected:
-    double **ux, **uy, **dPsix, **dPsiy, **ni, **rhs;
+    void updateRho();
     double Pe, z, T, w, initC;
-    double colPrefactor;
-  // void updateDivTerm();
-    void updateNi();
+    double **rho, **ux, **uy, **dPsix, **dPsiy, **rhs;
 };
 
-#endif /* COLLISIOND2Q9LNP_H_ */
+#endif /* COLLISISOND2Q9AD_H_ */

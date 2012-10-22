@@ -11,6 +11,7 @@
 
 #include "BoundaryNodes.h"
 #include "../col/CollisionD2Q9LNP.h"
+#include "../col/CollisionD2Q9AD.h"
 
 
 template <class T>

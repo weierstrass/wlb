@@ -17,8 +17,10 @@ public:
 	virtual ~CollisionD2Q9LPMChai();
 	void collide();
 	double fEq(int d, double psi);
+	double fEq(int d, int i, int j);
 	void init();
 	double getPsi(double *f, int i, int j);
+	double getPsi(int i, int j);
 	void reset();
     void getDPsi(double **retX, double **retY);
 protected:

@@ -37,6 +37,15 @@ void print2DArray(double ***f, int ni, int nj, int d){
 	cout<<endl;
 }
 
+void printLine(int n){
+    for(int i = 0; i < n; i++){
+        cout<<"-";
+    }
+    cout<<endl;
+}
+
+
+
 void createDirectory(string path){
     struct stat sb;
     if (!stat(path.c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){

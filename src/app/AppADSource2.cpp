@@ -14,8 +14,8 @@
 using namespace std;
 
 void updateRho(double           **rho_eps,
-               CollisionD2Q9LNP *cmNPneg,
-               CollisionD2Q9LNP *cmNPpos,
+               CollisionD2Q9AD *cmNPneg,
+               CollisionD2Q9AD *cmNPpos,
                LatticeModel     *lm,
                double           eps_r,
                double           V0,
@@ -50,12 +50,12 @@ int main(){
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -5e-2;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -1e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
 
     double Pe = u0*l0/D;
-    double wNP = 1/(1.5/Pe + 0.5);
+    double wNP = 1/(3.0/Pe + 0.5);
     double wPE = 1.0;
 
     /*print parameters*/
@@ -71,6 +71,7 @@ int main(){
     cout<<endl;
     cout<<"l0 = "<<l0<<endl;
     cout<<"V0 = "<<V0<<endl;
+    cout<<"GAMMA: "<<gamma<<endl;
     cout<<"l0*gamma/Pe *V0/l0 = "<<l0*gamma/Pe*V0/l0<<endl;
     cout<<"l0^2*gamma/Pe *V0/l0^2 = "<<l0*l0*gamma/Pe*V0/l0/l0<<endl;
     cout<<"1/Pe = "<<1/Pe<<endl;
@@ -129,8 +130,8 @@ int main(){
     bds->init();
 
     /* Nernst Planck solver */
-    CollisionD2Q9LNP *cmNPneg = new CollisionD2Q9LNP();
-    CollisionD2Q9LNP *cmNPpos = new CollisionD2Q9LNP();
+    CollisionD2Q9AD *cmNPneg = new CollisionD2Q9AD();
+    CollisionD2Q9AD *cmNPpos = new CollisionD2Q9AD();
     StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
     LatticeModel *lm = new Lattice2D(nx, ny);
     StreamD2Q9Periodic *sm2 = new StreamD2Q9Periodic();
@@ -163,43 +164,43 @@ int main(){
     LBM *lbmNPneg = new LBM(lm, cmNPneg, sm);
     LBM *lbmNPpos = new LBM(lm2, cmNPpos, sm2);
 
-    /* Boundary conds for NP solver*/
-    NeumannNodesNP *bbnNeg = new NeumannNodesNP();
-    lbmNPneg->addBoundaryNodes(bbnNeg);
-    bbnNeg->setCollisionModel(cmNPneg);
-    for(int i = 0; i < nx; i++){
-        bbnNeg->addNode(i, 0, 0, 0.0, 2);
-        bbnNeg->addNode(i, ny-1, 0, 0.0, 4);
-    }
-    bbnNeg->init();
-
-    NeumannNodesNP *bbnPos = new NeumannNodesNP();
-    lbmNPpos->addBoundaryNodes(bbnPos);
-    bbnPos->setCollisionModel(cmNPpos);
-    for(int i = 0; i < nx; i++){
-       bbnPos->addNode(i, 0, 0, 0.0, 2);
-       bbnPos->addNode(i, ny-1, 0, 0.0, 4);
-    }
-    bbnPos->init();
-
 //    /* Boundary conds for NP solver*/
-//       SlipNodes<CollisionD2Q9LNP> *bbnNeg = new SlipNodes<CollisionD2Q9LNP>();
-//       lbmNPneg->addBoundaryNodes(bbnNeg);
-//       bbnNeg->setCollisionModel(cmNPneg);
-//       for(int i = 0; i < nx; i++){
-//           bbnNeg->addNode(i, 0, 0);
-//           bbnNeg->addNode(i, ny-1, 0);
-//       }
-//       bbnNeg->init();
+//    NeumannNodesNP *bbnNeg = new NeumannNodesNP();
+//    lbmNPneg->addBoundaryNodes(bbnNeg);
+//    bbnNeg->setCollisionModel(cmNPneg);
+//    for(int i = 0; i < nx; i++){
+//        bbnNeg->addNode(i, 0, 0, 0.0, 2);
+//        bbnNeg->addNode(i, ny-1, 0, 0.0, 4);
+//    }
+//    bbnNeg->init();
 //
-//       SlipNodes<CollisionD2Q9LNP> *bbnPos = new SlipNodes<CollisionD2Q9LNP>();
-//       lbmNPpos->addBoundaryNodes(bbnPos);
-//       bbnPos->setCollisionModel(cmNPpos);
-//       for(int i = 0; i < nx; i++){
-//          bbnPos->addNode(i, 0, 0);
-//          bbnPos->addNode(i, ny-1, 0);
-//       }
-//       bbnPos->init();
+//    NeumannNodesNP *bbnPos = new NeumannNodesNP();
+//    lbmNPpos->addBoundaryNodes(bbnPos);
+//    bbnPos->setCollisionModel(cmNPpos);
+//    for(int i = 0; i < nx; i++){
+//       bbnPos->addNode(i, 0, 0, 0.0, 2);
+//       bbnPos->addNode(i, ny-1, 0, 0.0, 4);
+//    }
+//    bbnPos->init();
+
+    /* Boundary conds for NP solver*/
+       SlipNodes<CollisionD2Q9AD> *bbnNeg = new SlipNodes<CollisionD2Q9AD>();
+       lbmNPneg->addBoundaryNodes(bbnNeg);
+       bbnNeg->setCollisionModel(cmNPneg);
+       for(int i = 0; i < nx; i++){
+           bbnNeg->addNode(i, 0, 0);
+           bbnNeg->addNode(i, ny-1, 0);
+       }
+       bbnNeg->init();
+
+       SlipNodes<CollisionD2Q9AD> *bbnPos = new SlipNodes<CollisionD2Q9AD>();
+       lbmNPpos->addBoundaryNodes(bbnPos);
+       bbnPos->setCollisionModel(cmNPpos);
+       for(int i = 0; i < nx; i++){
+          bbnPos->addNode(i, 0, 0);
+          bbnPos->addNode(i, ny-1, 0);
+       }
+       bbnPos->init();
 
 
     /* Initialize solver */
@@ -222,8 +223,6 @@ int main(){
         }
         cmPE->getDPsi(dPsix, dPsiy);
 
-        rescale2DArray(dPsix, V0, ny, nx);
-        rescale2DArray(dPsiy, V0, ny, nx);
         //rescale2DArray(dPsix, V0, ny, nx);
         //rescale2DArray(dPsiy, V0, ny, nx);
 
@@ -258,7 +257,9 @@ int main(){
         }
 
         //rescale rho/eps to SI units. one l0 included in Pe V0/(l0*l0)*(l0*l0)
-        rescale2DArray(rho_eps, V0, ny, nx);
+       // rescale2DArray(rho_eps, V0, ny, nx);
+        rescale2DArray(dPsix, V0, ny, nx);
+        rescale2DArray(dPsiy, V0, ny, nx);
 
         for(int t = 0; t < tNP; t++){
             cout<<"-------------T_NP: "<<t<<endl;
@@ -279,8 +280,8 @@ int main(){
  *
  */
 void updateRho(double **rho_eps,
-               CollisionD2Q9LNP *cmNPneg,
-               CollisionD2Q9LNP *cmNPpos,
+               CollisionD2Q9AD *cmNPneg,
+               CollisionD2Q9AD *cmNPpos,
                LatticeModel *lm,
                double eps_r,
                double V0,

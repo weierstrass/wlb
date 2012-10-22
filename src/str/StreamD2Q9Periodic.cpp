@@ -12,7 +12,7 @@ StreamD2Q9Periodic::StreamD2Q9Periodic() {
 }
 
 void StreamD2Q9Periodic::init(){
-	cout<<"intin per "<<n.x<<endl;
+	cout<<"Allocating memory for aux. array in periodic stream..."<<endl;
 	fv = new double*[6];
 	fh = new double*[6];
 	for(int i = 0; i < 6; i++){

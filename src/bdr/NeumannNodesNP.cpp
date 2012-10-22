@@ -31,10 +31,11 @@ void NeumannNodesNP::updateF(){
     cout<<"Z: "<<com->getZ()<<endl;
     cout<<"gamma: "<<gamma<<endl;
     int x,y;
-    ValueNode *node = NULL;
+    double neumanValue;
+    TypeValueNode *node = NULL;
     //update values of Neumann nodes
-    for(int i = 0; i < neumannNodes.size(); i++){
-        node = neumannNodes[i];
+    for(int i = 0; i < nodes.size(); i++){
+        node = nodes[i];
         if(node == NULL){
             cerr<<"Nullpointer in NeumannNodes!"<<endl;
             break;
@@ -43,11 +44,29 @@ void NeumannNodesNP::updateF(){
         y = node->y;// + lm->ey[(int)node->v2];
       //  cout<<"x: "<<x<<", y: "<<y<<endl;
        // cout<<"n: "<<ni[y][x]<<", dpsi: "<<dPsiy[y][x]<<endl;
-        node->v1 = - gamma * ni[y][x] * dPsiy[y][x] * lm->ey[(int)node->v2];
-        cout<<"updating dC/dn to: "<<node->v1<<endl;
+        neumanValue = - gamma * ni[y][x] * dPsiy[y][x] * lm->ey[(int)node->v3];
+        neumanValue = - gamma * ni[y][x] * (-5e-2)*(-50e-3);
+        node->v1 = getDirichletValue(x, y,
+                                     lm->ex[(int)node->v3],
+                                     lm->ey[(int)node->v3],
+                                     neumanValue);
+
+        cout<<"NODe_PRE: "<<node->v1<<endl;
+        node->v1 -= 0.5*com->getSourceTerm(x, y);
+        node->v1 -= com->getf0(x, y);
+        cout<<"F_0: "<<com->getf0(x, y)<<endl;
+        cout<<"Z: "<<com->getZ()<<", source: "<<0.5*com->getSourceTerm(x, y)<<endl;
+        //node->v1 += com->getZ()*0.22;
+
+        cout<<"dirichlet_value: "<<node->v1<<", neumannval: "<<neumanValue\
+                                 <<", normal_dir:"<<node->v3<<\
+                                 ", dx: "<<lm->ex[(int)node->v3]<<", dy: "<<lm->ey[(int)node->v3]<<\
+                                 ", cu1: "<<cu(node->x + lm->ex[(int)node->v3], node->y + lm->ey[(int)node->v3])<<", cu2: "<<\
+                                 cu(node->x + 2*lm->ex[(int)node->v3], node->y + 2*lm->ey[(int)node->v3])<<
+                                 ", dpsiy: "<<dPsiy[y][x]<<", ni: "<<ni[y][x]<<endl;
     }
 
-    NeumannNodes<CollisionD2Q9LNP>::updateF();
+    HeZouNodes<CollisionD2Q9LNP>::updateF();
 
 }
 

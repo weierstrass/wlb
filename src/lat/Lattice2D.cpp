@@ -15,7 +15,7 @@ const int LatticeModel::ex[] = {0, 1, 0, -1, 0, 1, -1, -1, 1};
 const int LatticeModel::ey[] = {0, 0, 1, 0, -1, 1, 1, -1, -1};
 
 Lattice2D::Lattice2D(int nx, int ny){
-	cout<<"lattice D2Q9"<<endl;
+	cout<<"Creating lattice D2Q9..."<<endl;
 	n.x = nx;
 	n.y = ny;
 	n.z = 1;

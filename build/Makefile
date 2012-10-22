@@ -31,6 +31,7 @@ OBJS := LBM.o \
 		NeumannLPMNodes.o \
 		NeumannNodes.o \
 		NeumannNodesNP.o \
+		NeumannNodesPE.o \
 		StreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
@@ -45,6 +46,7 @@ OBJS := LBM.o \
 		CollisionD2Q9LPMWang1to1.o \
 		CollisionD2Q9LNP.o \
 		CollisionD2Q9LNPSource.o \
+		CollisionD2Q9AD.o \
 		CollisionModel.o \
 		LatticeModel.o \
 		Lattice2D.o \
@@ -54,7 +56,9 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppADSource.o \
+		AppPENeumann.o \
+		#AppADSource2.o \
+		#AppADSource.o \	
 		#PeriodicTest.o \
 		#App1D1to1Chai.o \
 		#AppADTest.o \

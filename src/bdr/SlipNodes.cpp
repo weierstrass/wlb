@@ -18,9 +18,15 @@ template void SlipNodes<CollisionD2Q9LNP>::init();
 template void SlipNodes<CollisionD2Q9LNP>::updateF();
 template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
 
+template void SlipNodes<CollisionD2Q9AD>::addNode(int x, int y, int z);
+template void SlipNodes<CollisionD2Q9AD>::init();
+template void SlipNodes<CollisionD2Q9AD>::updateF();
+template SlipNodes<CollisionD2Q9AD>::SlipNodes();
+
+
 template <class T>
 SlipNodes<T>::SlipNodes() {
-    PRESTREAM = 0;
+    PRESTREAM = 1;
 }
 
 template <class T>
@@ -48,7 +54,7 @@ void SlipNodes<T>::init(){
 
 template <class T>
 void SlipNodes<T>::updateF(){
-    //cout<<"Updating f on slip nodes..."<<endl;
+    cout<<"Updating slip nodes..."<<endl;
     double *fTemp = new double[lm->UDIRS];
     Node *node;
     int x, y, z;
@@ -71,6 +77,8 @@ void SlipNodes<T>::updateF(){
             f[z][y][x][d] = fTemp[lm->slipDirsH[d]];
           //  cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
         }
+
+        //f[z][y][x][0] += 0;
     }
 
     //print2DArray(f[0], lm->n.x, lm->n.y, 2);
