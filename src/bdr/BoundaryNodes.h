@@ -12,7 +12,8 @@
 #include <vector>
 #include <cstring>
 #include "../lat/LatticeModel.h"
-#include "Node.h"
+#include "ValueNode.h"
+
 
 using namespace std;
 
@@ -32,7 +33,7 @@ protected:
 	LatticeModel *lm;
 	struct LatticeModel::dimension n;
 	int Q;
-	vector<Node*> nodes;
+	vector<ValueNode*> nodes;
 };
 
 

@@ -21,6 +21,9 @@ void CollisionD2Q9LPMChai::collide(){
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
 			psi[j][i] = getPsi(f[0][j][i], i, j);
+
+	        //if(skip != NULL && skip[j][i]) continue;
+			//cout<<"psi: "<<psi[j][i]<<endl;
 			for(int d = 0; d < 9; d++){
 				f[0][j][i][d] += w*( fEq(d, psi[j][i]) - f[0][j][i][d] ) + (0.5 - 1.0/w)/3.0*Wa[d]*g_rhs(i, j) *
 								 uh->getTimeStep() * uh->getTimeStep();
@@ -91,6 +94,8 @@ void CollisionD2Q9LPMChai::getDPsi(double **retX, double **retY){
 //              }
               //  sum += f[0][j][i][d];
             }
+            //retX[j][i] += 0.01;
+            //retY[j][i] += 0.01;
             retX[j][i] *= -3.0;
             retY[j][i] *= -3.0;
         }

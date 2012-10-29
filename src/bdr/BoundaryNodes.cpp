@@ -15,7 +15,7 @@ BoundaryNodes::BoundaryNodes() {
 }
 
 void BoundaryNodes::addNode(Node *n){
-	nodes.push_back(n);
+	//nodes.push_back(n);
 }
 
 BoundaryNodes::~BoundaryNodes() {

@@ -68,7 +68,7 @@ void CollisionD2Q9LNP::collide(){
         for(int i = 0; i < n.x; i++){
            // cout<<"i: "<<i<<endl;
            // cout<<"j: "<<j<<endl;
-            if(skip != NULL && skip[j][i]){continue;}
+           // if(skip != NULL && skip[j][i]){continue;}
             for(int d = 0; d < 9; d++){
                 f[0][j][i][d] += w*( fEq(d, ux[j][i] - pref*dPsix[j][i],
                                             uy[j][i] - pref*dPsiy[j][i],

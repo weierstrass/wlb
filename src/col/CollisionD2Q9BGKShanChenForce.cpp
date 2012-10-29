@@ -9,7 +9,6 @@
 #include "CollisionD2Q9BGKShanChenForce.h"
 
 CollisionD2Q9BGKShanChenForce::CollisionD2Q9BGKShanChenForce() {
-
 }
 
 CollisionD2Q9BGKShanChenForce::~CollisionD2Q9BGKShanChenForce() {
@@ -22,7 +21,7 @@ void CollisionD2Q9BGKShanChenForce::collide(){
     double *rhoU = new double[3];
     for(int j = 0; j < n.y; j++){
         for(int i = 0; i < n.x; i++){
-            if(skip[j][i]) continue;
+            //if(skip[j][i]) continue;
             rho = getRho(f[0][j][i]);
             rhoU = getRhoUEq(f[0][j][i], fx[j][i], fy[j][i]);
             for(int d = 0; d < 9; d++){
@@ -49,6 +48,19 @@ double*** CollisionD2Q9BGKShanChenForce::getVelocityField(){
     }
 
     return ret;
+}
+
+void CollisionD2Q9BGKShanChenForce::getU(double **ux, double **uy){
+    double rho;
+    double *rhoU;
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            rho = getRho(f[0][j][i]);
+            rhoU = getRhoU(f[0][j][i], fx[j][i], fy[j][i]);
+            ux[j][i] = rhoU[X]/rho;
+            uy[j][i] = rhoU[Y]/rho;
+        }
+    }
 }
 
 double *CollisionD2Q9BGKShanChenForce::getRhoUEq(double *f, double ffx, double ffy){
@@ -91,13 +103,14 @@ void CollisionD2Q9BGKShanChenForce::dataToFile(string path){
     }
     cout<<"vals calced"<<endl;
     stringstream ss, ssTemp;
-    struct stat sb;
-    ss.str("");
-    ss<<"vis_scripts/"<<path;
-    if (!stat(ss.str().c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){
-        cout<<"creating directory: "<<ss.str()<<endl;
-        mkdir(ss.str().c_str(), 0775);
-    }
+    createDirectory(path);
+//    struct stat sb;
+//    ss.str("");
+//    ss<<"vis_scripts/"<<path;
+//    if (!stat(ss.str().c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){
+//        cout<<"creating directory: "<<ss.str()<<endl;
+//        mkdir(ss.str().c_str(), 0775);
+//    }
 
 //    stringstream ss, ssTemp;
 //    struct stat sb;
@@ -112,15 +125,15 @@ void CollisionD2Q9BGKShanChenForce::dataToFile(string path){
 //        }
 //    }
     ssTemp.str("");
-    ssTemp << ss.str();
+    ssTemp << path;
     ssTemp << "ux.csv";
     write2DArray(ux, NULL, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
-    ssTemp << ss.str();
+    ssTemp << path;
     ssTemp << "uy.csv";
     write2DArray(uy, NULL, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
-    ssTemp << ss.str();
+    ssTemp << path;
     ssTemp << "rho.csv";
     write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
 }

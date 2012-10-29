@@ -10,8 +10,10 @@
 #define SLIPNODES_H_
 
 #include "BoundaryNodes.h"
+#include "ValueNode.h"
 #include "../col/CollisionD2Q9LNP.h"
 #include "../col/CollisionD2Q9AD.h"
+#include "../col/CollisionD2Q9LPMChaiRHS.h"
 
 
 template <class T>
@@ -22,10 +24,11 @@ public:
     void updateF();
     void init();
     void addNode(int x, int y, int z);
+    void addNode(int x, int y, int z, int normDir);
     void setCollisionModel(T *cm){this->cm = cm;};
     T *cm;
 protected:
-    char **slipNodes;
+    //char **slipNodes;
 };
 
 #endif /* SLIPNODES_H_ */

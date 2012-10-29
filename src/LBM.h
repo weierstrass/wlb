@@ -35,6 +35,7 @@
 #include "bdr/NeumannNodes.h"
 #include "bdr/NeumannNodesNP.h"
 #include "bdr/NeumannNodesPE.h"
+#include "bdr/NeumannNodesPESlip.h"
 //#include "BFLBoundaryNodes.h"
 //#include "ConstantPressureBoundaryNodes.h"
 //#include "ConstantVelocityBoundaryNodes.h"

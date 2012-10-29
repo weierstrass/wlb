@@ -1,6 +1,6 @@
 /*
  * HalfWayBBNodes.h
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -20,7 +20,7 @@ public:
 	void updateF();
 	void addNode(int x, int y, int z);
 protected:
-	//vector<Node> nodes2;
+	vector<NodeNeighbors*> nodes;
 
 };
 

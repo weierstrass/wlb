@@ -32,6 +32,7 @@ OBJS := LBM.o \
 		NeumannNodes.o \
 		NeumannNodesNP.o \
 		NeumannNodesPE.o \
+		NeumannNodesPESlip.o \
 		StreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
@@ -56,21 +57,20 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppPENeumann.o \
+		PressureElectro2DChannel.o \
 		#AppADSource2.o \
+		#AppPENeumann.o \
 		#AppADSource.o \	
+		#AppPoiseuilleForce.o \
 		#PeriodicTest.o \
 		#App1D1to1Chai.o \
 		#AppADTest.o \
-		#App2DElectroOsmoticChannel.o \
-		#AppPoiseuilleForce.o \
 		#App1D1to1Wang.o \		
 		#AppPoiseuille.o \
 		#AppLPMChaiTest.o \
 		#AppLPMTest.o \
 		#AppTaylorVortex.o \
 		#AppCylinderBFL.o  \
-		#AppPoiseuilleForce.o \
 		AppForceCylinderBFL.o \
 		#AppCylinder.o  \
 		ConstantPressureBoundaryNodes.o\

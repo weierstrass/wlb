@@ -13,16 +13,20 @@
 #define COR_NODE 4
 #define EDG_NODE 5
 
-template void SlipNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z);
+template void SlipNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z, int normDir);
 template void SlipNodes<CollisionD2Q9LNP>::init();
 template void SlipNodes<CollisionD2Q9LNP>::updateF();
 template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
 
-template void SlipNodes<CollisionD2Q9AD>::addNode(int x, int y, int z);
+template void SlipNodes<CollisionD2Q9AD>::addNode(int x, int y, int z, int normDir);
 template void SlipNodes<CollisionD2Q9AD>::init();
 template void SlipNodes<CollisionD2Q9AD>::updateF();
 template SlipNodes<CollisionD2Q9AD>::SlipNodes();
 
+template void SlipNodes<CollisionD2Q9LPMChaiRHS>::addNode(int x, int y, int z, int normDir);
+template void SlipNodes<CollisionD2Q9LPMChaiRHS>::init();
+template void SlipNodes<CollisionD2Q9LPMChaiRHS>::updateF();
+template SlipNodes<CollisionD2Q9LPMChaiRHS>::SlipNodes();
 
 template <class T>
 SlipNodes<T>::SlipNodes() {
@@ -56,8 +60,8 @@ template <class T>
 void SlipNodes<T>::updateF(){
     cout<<"Updating slip nodes..."<<endl;
     double *fTemp = new double[lm->UDIRS];
-    Node *node;
-    int x, y, z;
+    ValueNode *node;
+    int x, y, z, normalDir;
 
     //print2DArray(f[0], lm->n.x, lm->n.y, 2);
     //  print2DArray(f[0], lm->n.x, lm->n.y, 4);
@@ -67,18 +71,28 @@ void SlipNodes<T>::updateF(){
         x = node->x;
         y = node->y;
         z = node->z;
-    //  cout<<x<<", "<<y<<", "<<z<<endl;
+        normalDir = node->v1;
+        //cout<<x<<", "<<y<<", "<<z<<", normaldir: "<<normalDir<<endl;
 
         for(int j = 0; j < lm->UDIRS; j++){
             fTemp[j] = f[z][y][x][j];
         }
 
         for(int d = 0; d < lm->UDIRS; d++){
-            f[z][y][x][d] = fTemp[lm->slipDirsH[d]];
-          //  cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
-        }
+           // if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
 
-        //f[z][y][x][0] += 0;
+            f[z][y][x][d] = fTemp[lm->slipDirsH[d]];
+
+            // cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
+        }
+//        double sumy = 0;
+//
+//        for(int d = 0; d < 9; d++){
+//            sumy += f[z][y][x][d]*lm->ey[d];
+//        }
+//
+//        cout<<"FIRST YMOMENT: "<<sumy<<endl;
+//        //f[z][y][x][0] += 0;
     }
 
     //print2DArray(f[0], lm->n.x, lm->n.y, 2);
@@ -86,7 +100,7 @@ void SlipNodes<T>::updateF(){
 }
 
 template <class T>
-void SlipNodes<T>::addNode(int x, int y, int z){
-    BoundaryNodes::addNode(new Node(x, y, z));
+void SlipNodes<T>::addNode(int x, int y, int z, int normaldir){
+    nodes.push_back(new ValueNode(x, y, z, normaldir));
     cm->addNodeToSkip(x, y);
 }

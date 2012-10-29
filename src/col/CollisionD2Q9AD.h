@@ -26,7 +26,7 @@ public:
     void setT(double T){this->T =T;};
     void setW(double w){this->w = w;};
     void setInitC(double C){this->initC = C;};
-    void setRHS(double **rhs){this->rhs = rhs;};
+   // void setRHS(double **rhs){this->rhs = rhs;};
     double **getNi(){return rho;};
     double **getdPsix(){return dPsix;};
     double **getdPsiy(){return dPsiy;};
@@ -34,10 +34,13 @@ public:
     double getT(){return T;};
     void init();
     void dataToFile(string path);
+    void getFlux(double **jx, double **jy);
+    double getXFlux(int j, int i);
+    double getYFlux(int j, int i);
 protected:
     void updateRho();
     double Pe, z, T, w, initC;
-    double **rho, **ux, **uy, **dPsix, **dPsiy, **rhs;
+    double **rho, **ux, **uy, **dPsix, **dPsiy;
 };
 
 #endif /* COLLISISOND2Q9AD_H_ */

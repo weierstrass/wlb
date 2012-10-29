@@ -57,7 +57,7 @@ int main(){
 		lbm->collideAndStream();
 	}
 
-	cm->dataToFile("bench_force_poi/");
+	cm->dataToFile("vis_scripts/bench_force_poi/");
 	cout<<"done cyl."<<endl;
 
 	return 0;

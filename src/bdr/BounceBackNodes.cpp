@@ -47,7 +47,7 @@ void BounceBackNodes<T>::updateF(){
 		x = node->x;
 		y = node->y;
 		z = node->z;
-	//	cout<<x<<", "<<y<<", "<<z<<endl;
+		//cout<<x<<", "<<y<<", "<<z<<endl;
 
 		for(int j = 0; j < lm->UDIRS; j++){
 			fTemp[j] = f[z][y][x][j];
@@ -63,6 +63,6 @@ void BounceBackNodes<T>::updateF(){
 
 template <class T>
 void BounceBackNodes<T>::addNode(int x, int y, int z){
-	BoundaryNodes::addNode(new Node(x, y, z));
+	nodes.push_back((new Node(x, y, z)));
 	cm->addNodeToSkip(x, y);
 }

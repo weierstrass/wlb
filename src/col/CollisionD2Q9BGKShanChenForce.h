@@ -20,6 +20,7 @@ public:
     void setForce(double **fx, double **fy){this->fx = fx; this->fy = fy;};
     void dataToFile(string path);
     double ***getVelocityField();
+    void getU(double **ux, double **uy);
 protected:
     double **fx;
     double **fy;

@@ -25,6 +25,8 @@ public:
 	void addNode(int x, int y, int z);
 	void setCollisionModel(T *cm){this->cm = cm;};
 	T *cm;
+protected:
+    vector<Node*> nodes;
 };
 
 #endif /* BOUNCEBACKNODES_H_ */

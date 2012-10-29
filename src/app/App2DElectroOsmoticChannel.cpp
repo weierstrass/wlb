@@ -136,7 +136,6 @@ int main(){
 }
 
 
-
 void calcForce(CollisionD2Q9LPMChai1to1 *lpmcm, UnitHandlerLPM *lpmuh, UnitHandlerNS *lbmuh,
                 Lattice2D *lm,
                 double **fx, double **fy, double **ux, double **uy, double **psi,

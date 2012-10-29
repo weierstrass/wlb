@@ -12,7 +12,7 @@
 #include "NeumannNodes.h"
 #include "../col/CollisionD2Q9LPMChaiRHS.h"
 
-class NeumannNodesPE: public NeumannNodes<CollisionD2Q9LPMChai1to1> { //todo
+class NeumannNodesPE: public NeumannNodes<CollisionD2Q9LPMChaiRHS> { //todo
 public:
     NeumannNodesPE();
     virtual ~NeumannNodesPE();
