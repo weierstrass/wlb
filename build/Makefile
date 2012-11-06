@@ -57,11 +57,13 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		PressureElectro2DChannel.o \
+		AppPoiseuilleForce.o \
+		#OsmosisElectro2DChannel.o \
+		#HetroChargeBdry2DChannel.o \
+		#PressureElectro2DChannel.o \
 		#AppADSource2.o \
 		#AppPENeumann.o \
 		#AppADSource.o \	
-		#AppPoiseuilleForce.o \
 		#PeriodicTest.o \
 		#App1D1to1Chai.o \
 		#AppADTest.o \
