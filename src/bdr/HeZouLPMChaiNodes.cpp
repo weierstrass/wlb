@@ -88,7 +88,7 @@ void HeZouLPMChaiNodes::init(){
 }
 
 void HeZouLPMChaiNodes::updateF(){
-   // cout<<"Updating Chai boundary nodes..."<<endl;
+    cout<<"Updating Chai boundary nodes..."<<endl;
 	int i, j;
 	double temp, rho, psi;
 	for(int k = 0; k < nodes.size(); k++){
@@ -112,6 +112,7 @@ void HeZouLPMChaiNodes::updateF(){
 }
 
 void HeZouLPMChaiNodes::updateNode(int i, int j, double rho, double psi, int bdr){
+    //cout<<"aadasd "<<endl;
 	double feqDiff = (cm->fEq(DIR1(1), psi) - cm->fEq(DIR1(3), psi));
 	//cout<<"f_"<<DIR1(1)<<" = f_"<<DIR1(3)<<endl;
 	f[0][j][i][DIR1(1)] = f[0][j][i][DIR1(3)] + feqDiff;

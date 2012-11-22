@@ -11,7 +11,7 @@
 
 #include "BoundaryNodes.h"
 #include "ValueNode.h"
-#include "../col/CollisionD2Q9LNP.h"
+//#include "../col/CollisionD2Q9LNP.h"
 #include "../col/CollisionD2Q9AD.h"
 #include "../col/CollisionD2Q9LPMChaiRHS.h"
 

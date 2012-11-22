@@ -1,6 +1,6 @@
 /*
  * AppTaylorVortex.cpp
- * Andreas BŸlling, 2012
+ * Andreas BÃ¼lling, 2012
  * DESCRIPTION - TODO
  */
 #define _USE_MATH_DEFINES
@@ -17,70 +17,89 @@
 
 using namespace std;
 
-void setForce(int t, double G, double nu, LBM_D2Q9 *lbm);
+//void setForce(int t, double G, double nu, LBM *lbm);
 //void setRho(int t, double u0, double nu, LBM_D2Q9 *lbm);
-
+void updateForce(int t, double G, double nu, double **fx, double **fy, Lattice2D *lm);
 //void setVelBdries(int t, double nu, double u0, LBM_D2Q9 *lbm);
 
 int main(){
-	int nx = 65, ny = 65, tMax = 50, writeMod = 1;
-	double nu = 0.05;
-	nu = nu*DT/(DX*DX); //TODO
+	int nx = 65, ny = 65, tMax = 50, tMod = 1; int tInit = 64;
+	double nu = 0.005;
 	cout<<"nu: "<<nu<<endl;
 	double w = 1.0/(3*nu + 0.5);
+    cout<<"omega: "<<w<<endl;
 	double c = 1.0;//DX/DT;
 	double u0 = sqrt(0.001);//sqrt(0.001);
 	double G = u0*u0;
 	//u0 *= DT/DX;
 	cout<<"u0: "<<u0<<endl;
 	cout<<"Taylor vortex flow..."<<endl;
-	LBM_D2Q9 *lbm = new LBM_D2Q9(nx, ny);
 
-	double **uxInit = new double*[nx];
-	double **uyInit = new double*[nx];
-	double **rhoInit = new double*[nx];
-	for(int i = 0; i < ny; i++){
-		uxInit[i] = new double[ny];
-		uyInit[i] = new double[ny];
-		rhoInit[i] = new double[ny];
-	}
+	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
+	CollisionD2Q9BGKShanChenForce *cm = new CollisionD2Q9BGKShanChenForce();
+	Lattice2D *lm = new Lattice2D(nx, ny);
 
-	double x, y;
-	for(int i = 0; i < nx; i++){
-		x = (((double)i)/(nx))*2*M_PI;
-		cout<<"cos: "<<cos(x)<<endl;
-		for(int j = 0; j < ny; j++){
-			y = (((double)j)/(ny))*2*M_PI;
-			uxInit[i][j] = -u0*cos(x)*sin(y);
-			uyInit[i][j] = u0*sin(x)*cos(y);
-			rhoInit[i][j] = 1.0 - u0*u0/4.0*(cos(2*x) + cos(2*y))*3;
-		}
-	}
+	LBM *lbm = new LBM(lm, cm, sm);
+
+	double **fx = allocate2DArray(nx, ny);
+	double **fy = allocate2DArray(nx, ny);
+	cm->setForce(fx, fy);
+//	double **uxInit = new double*[nx];
+//	double **uyInit = new double*[nx];
+//	double **rhoInit = new double*[nx];
+//	for(int i = 0; i < ny; i++){
+//		uxInit[i] = new double[ny];
+//		uyInit[i] = new double[ny];
+//		rhoInit[i] = new double[ny];
+//	}
+//
+//	double x, y;
+//	for(int i = 0; i < nx; i++){
+//		x = (((double)i)/(nx))*2*M_PI;
+//		cout<<"cos: "<<cos(x)<<endl;
+//		for(int j = 0; j < ny; j++){
+//			y = (((double)j)/(ny))*2*M_PI;
+//			uxInit[i][j] = -u0*cos(x)*sin(y);
+//			uyInit[i][j] = u0*sin(x)*cos(y);
+//			rhoInit[i][j] = 1.0 - u0*u0/4.0*(cos(2*x) + cos(2*y))*3;
+//		}
+//	}
 
 	/* Initialize solver */
-	StreamModel *sm = new PeriodicStreamModel(nx, ny);
-	lbm->setStreamModel(sm);
-	lbm->setW(w);
-	lbm->setC(c);
-	lbm->initVelocity(uxInit, uyInit);
-	lbm->initRho(rhoInit);
+
+	cm->setW(w);
+	cm->setC(c);
+	//lbm->initVelocity(uxInit, uyInit);
+	//lbm->initRho(rhoInit);
 	lbm->init();
 	//lbm->calcMacroscopicVars();
 	//lbm->handleWetBoundaries();
-	lbm->dataToFile();
+	//lbm->dataToFile();
 
+	/*init...*/
+    updateForce(0, G, nu, fx, fy, lm);
+
+	for(int t = 1; t < tInit; t++){
+        lbm->collideAndStream();
+    }
+
+    cm->dataToFile("vis_scripts/dataNS0/");
+
+	 stringstream ss;
+     string base = "vis_scripts/data";
 	/* Main loop */
 	for(int t = 1; t < tMax; t++){
 		cout<<t<<endl;
-	//	setForce(t, G, nu, lbm);
-		lbm->BGKCollision();
+		updateForce(t, G, nu, fx, fy, lm);
 
-		lbm->stream();
+		lbm->collideAndStream();
 
-		lbm->calcMacroscopicVars();
-
-		if(t % writeMod == 0){
-			lbm->dataToFile();
+		if(t % tMod == 0){
+		    ss.str("");
+		    ss<<base<<"NS";
+		    ss<<t/tMod<<"/";
+		    createDirectory(ss.str());
+		    cm->dataToFile(ss.str());
 		}
 	}
 
@@ -89,45 +108,46 @@ int main(){
 	return 0;
 }
 
-void setRho(int t, double u0, double nu, LBM_D2Q9 *lbm){
-	cout<<"setting rho"<<endl;
-	double **rho = lbm->getRho();
-	int nx = lbm->getNx();
-	int ny = lbm->getNy();
-	double x, y;
-	double k1 = 1; double k2 = 1;
+//void setRho(int t, double u0, double nu, LBM_D2Q9 *lbm){
+//	cout<<"setting rho"<<endl;
+//	double **rho = lbm->getRho();
+//	int nx = lbm->getNx();
+//	int ny = lbm->getNy();
+//	double x, y;
+//	double k1 = 1; double k2 = 1;
+//
+//	for(int i = 0; i < nx; i++){
+//		x = (((double)i)/(nx))*2*M_PI;
+//		cout<<"x: "<<x<<", exp(-4nut): "<<exp(-4*nu*t)<<endl;
+//		for(int j = 0; j < ny; j++){
+//			y = (((double)j)/(ny))*2*M_PI;
+//			//rho[i][j] = 1.0 - u0*u0/4.0*(cos(2*x) + cos(2*y))*3*exp(-4*nu*t);
+//			//cout<<"fx: "<<fx<<", fy: "<<fy<<endl;
+//		}
+//	}
+//
+//}
 
-	for(int i = 0; i < nx; i++){
-		x = (((double)i)/(nx))*2*M_PI;
-		cout<<"x: "<<x<<", exp(-4nut): "<<exp(-4*nu*t)<<endl;
-		for(int j = 0; j < ny; j++){
-			y = (((double)j)/(ny))*2*M_PI;
-			//rho[i][j] = 1.0 - u0*u0/4.0*(cos(2*x) + cos(2*y))*3*exp(-4*nu*t);
-			//cout<<"fx: "<<fx<<", fy: "<<fy<<endl;
-		}
-	}
-
-}
-
-void setForce(int t, double G, double nu, LBM_D2Q9 *lbm){
+void updateForce(int t, double G, double nu, double **fx, double **fy, Lattice2D *lm){
 	cout<<"calcing force..."<<endl;
-	double **rho = lbm->getRho();
-	int nx = lbm->getNx();
-	int ny = lbm->getNy();
-	double fx, fy, x, y;
+	//double **rho = lbm->getRho();
+	int nx = lm->n.x;
+	int ny = lm->n.y;
+	double x, y;
 	double k1 = 1.0; double k2 = 1.0;
 
 	for(int i = 0; i < nx; i++){
-		x = (((double)i)/(nx))*2*M_PI;
-	//	cout<<"x: "<<x<<", exp(-4nut): "<<exp(-4*nu*t)<<endl;
+		x = (((double)i)/(nx-1))*2*M_PI;
+		//cout<<"x: "<<x<<", exp(-4nut): "<<exp(-4*nu*t)<<endl;
 		for(int j = 0; j < ny; j++){
-			y = (((double)j)/(ny))*2*M_PI;
-			fx = -1*G*0.5*sin(2*x)*exp(-4*nu*t*DT)*rho[i][j]*DT*DT/DX;//TODO
-			fy = -1*G*0.5*sin(2*y)*exp(-4*nu*t*DT)*rho[i][j]*DT*DT/DX; //TODO
-			//cout<<"fx: "<<fx<<", fy: "<<fy<<endl;
-			lbm->setF(fx, fy, i, j);
+			y = (((double)j)/(ny-1))*2*M_PI - M_PI/2;
+			//cout<<"y: "<<y<<", exp(-4nut): "<<exp(-4*nu*t)<<endl;
+
+			fx[j][i] = -1*G*0.5*sin(x)*sin(y)*exp(-4*nu*t);
+			fy[j][i] = -1*G*0.5*cos(x)*cos(y)*exp(-4*nu*t);
 		}
 	}
+    cout<<"fX: "<<fx[15][15]<<endl;
 }
 //
 //void setVelBdries(int t, double nu, double u0, LBM_D2Q9 *lbm){

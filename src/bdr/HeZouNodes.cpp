@@ -15,10 +15,10 @@
 #define DIR1(i) 1 + (bdr + (i-1))%4
 #define DIR5(i) 5 + (bdr + (i-1))%4
 
-template void HeZouNodes<CollisionD2Q9LNP>::addNode(int, int, int, double, int);
-template HeZouNodes<CollisionD2Q9LNP>::HeZouNodes();
-template HeZouNodes<CollisionD2Q9LNP>::~HeZouNodes();
-template void HeZouNodes<CollisionD2Q9LNP>::init();
+//template void HeZouNodes<CollisionD2Q9LNP>::addNode(int, int, int, double, int);
+//template HeZouNodes<CollisionD2Q9LNP>::HeZouNodes();
+//template HeZouNodes<CollisionD2Q9LNP>::~HeZouNodes();
+//template void HeZouNodes<CollisionD2Q9LNP>::init();
 
 template void HeZouNodes<CollisionD2Q9LPMChaiRHS>::addNode(int, int, int, double, int);
 template HeZouNodes<CollisionD2Q9LPMChaiRHS>::HeZouNodes();

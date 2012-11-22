@@ -5,6 +5,7 @@
  */
 
 #include "CollisionD2Q9LPMChai.h"
+#include "../unit/UnitHandlerLPM.h"
 
 CollisionD2Q9LPMChai::CollisionD2Q9LPMChai() {
 	// TODO Auto-generated constructor stub
@@ -35,8 +36,10 @@ void CollisionD2Q9LPMChai::collide(){
 
 /* allocate mem for psi  */
 void CollisionD2Q9LPMChai::init(){
+    cout<<"Initializing Chai collision...";
 	psi = allocate2DArray(n.y, n.x);
 	reset();
+	cout<<" done"<<endl;
 }
 
 void CollisionD2Q9LPMChai::reset(){

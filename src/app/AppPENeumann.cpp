@@ -15,8 +15,8 @@ int main(){
     cout<<"LPM Chai test.."<<endl;
 
     int nx = 3;
-    int ny = 65;
-    int tMax = 15000;
+    int ny = 101;
+    int tMax = 20000;
     double l0 = 2e-5/(ny-1);
     double V0 = -50e-3;
     double dt = 1.0;

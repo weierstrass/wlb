@@ -8,7 +8,7 @@
 #define DIRICHLETLPMNODES_H_
 
 #include "BoundaryNodes.h"
-#include "../col/CollisionD2Q9LPM.h"
+//#include "../col/CollisionD2Q9LPM.h"
 #include "ValueNode.h"
 
 template <class T>

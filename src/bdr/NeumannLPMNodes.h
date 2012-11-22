@@ -1,6 +1,6 @@
 /*
  * NeumannLPMNodes.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -8,7 +8,7 @@
 #define NEUMANNLPMNODES_H_
 
 #include "BoundaryNodes.h"
-#include "../col/CollisionD2Q9LPM.h"
+//#include "../col/CollisionD2Q9LPM.h"
 #include "ValueNode.h"
 
 template <class T>

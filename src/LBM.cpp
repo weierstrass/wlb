@@ -35,7 +35,7 @@ void LBM::collideAndStream(){
 
     for(int i = 0; i < boundaryNodes.size(); i++){
         if(boundaryNodes[i]->PRESTREAM){
-            cout<<"PRESTREAM"<<endl;
+          //  cout<<"PRESTREAM"<<endl;
             boundaryNodes[i]->updateF();
         }
     }

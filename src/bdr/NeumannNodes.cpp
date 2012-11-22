@@ -8,12 +8,12 @@
 
 #include "NeumannNodes.h"
 
-template NeumannNodes<CollisionD2Q9LNP>::NeumannNodes();
-template NeumannNodes<CollisionD2Q9LNP>::~NeumannNodes();
-template void NeumannNodes<CollisionD2Q9LNP>::init();
-template void NeumannNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z,
-                                                      double v1, int dir);
-template double NeumannNodes<CollisionD2Q9LNP>::getDirichletValue(int, int, int, int, double);
+//template NeumannNodes<CollisionD2Q9LNP>::NeumannNodes();
+//template NeumannNodes<CollisionD2Q9LNP>::~NeumannNodes();
+//template void NeumannNodes<CollisionD2Q9LNP>::init();
+//template void NeumannNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z,
+//                                                      double v1, int dir);
+//template double NeumannNodes<CollisionD2Q9LNP>::getDirichletValue(int, int, int, int, double);
 
 template NeumannNodes<CollisionD2Q9LPMChaiRHS>::NeumannNodes();
 template NeumannNodes<CollisionD2Q9LPMChaiRHS>::~NeumannNodes();

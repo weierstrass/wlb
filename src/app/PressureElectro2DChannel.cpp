@@ -33,7 +33,7 @@ int main(){
     int nx = 3;
     int ny = 101;
 
-    int tNP = 10;
+    int tNP = 150;
     int tPE = 10000;
       int tNS = tNP;//tNP;
     int tMain = 1000;
@@ -51,11 +51,11 @@ int main(){
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -0.75e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -0.1e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
     double dPdx = 1e-6;//1e3 * l0/(rho0 * u0 * u0); //lattice units
-    double bulkConductivity = 1.2639e-6; //conductivity [S/m]
+    double bulkConductivity = 0.75e-6; //conductivity [S/m]
 
     double Pe = u0*l0/D;
     double wNP = 1/(3.0/Pe + 0.5);
@@ -231,7 +231,7 @@ int main(){
     for(int tt = 0; tt < tMain; tt++){
         cout<<"TT: "<<tt<<endl;
 
-        if(tt == 120){ tNP = 1; tNS = 1;}
+//        if(tt == 12){ tNP = 8; tNS = 8;}
 
         /* Update net charge density */
         updateRho(rho_eps, cmNPneg, cmNPpos, lm, eps_r, V0, l0, C0);
@@ -305,6 +305,14 @@ int main(){
             ss<<tt/tMod<<"/";
             createDirectory(ss.str());
             cmNS->dataToFile(ss.str());
+
+            //fx
+            ss.str("");
+            ss<<base<<"FX";
+            ss<<tt/tMod<<"/";
+            createDirectory(ss.str());
+            ss<<"fx.csv";
+            write2DArray(fx, NULL, ss.str(), nx, ny);
         }
     }
 

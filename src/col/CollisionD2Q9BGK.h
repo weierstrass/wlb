@@ -29,11 +29,16 @@ public:
 	virtual ~CollisionD2Q9BGK();
 	void collide();
 	void init();
-	double fEq(int d, double rho, double ux, double uy);
-	double getRho(double *f);
-	double *getRhoU(double *f);
+	virtual void fEq(int i, int j, double *eq) = 0;
+	double get0moment(int i, int j);
+    void get1moment(int i, int j, double *ret);
 	void setW(double w);
 	void dataToFile(string path);
+    //double getRho(double *f);
+    //double *getRhoU(double *f);
+    //double fEq(int d, double rho, double ux, double uy);
+protected:
+	double *eq;
 };
 
 #endif /* COLLISIOND2Q9BGK_H_ */

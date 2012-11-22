@@ -15,13 +15,13 @@ CollisionD2Q9BGKShanChenForce::~CollisionD2Q9BGKShanChenForce() {
     // TODO Auto-generated destructor stub
 }
 void CollisionD2Q9BGKShanChenForce::collide(){
-    cout<<"D2Q9 BGK SC collision"<<endl;
+   // cout<<"D2Q9 BGK SC collision"<<endl;
 
     double rho;
     double *rhoU = new double[3];
     for(int j = 0; j < n.y; j++){
         for(int i = 0; i < n.x; i++){
-            //if(skip[j][i]) continue;
+            if(skip != NULL && skip[j][i]) continue;
             rho = getRho(f[0][j][i]);
             rhoU = getRhoUEq(f[0][j][i], fx[j][i], fy[j][i]);
             for(int d = 0; d < 9; d++){

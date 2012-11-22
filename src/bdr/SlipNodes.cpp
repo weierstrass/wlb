@@ -13,10 +13,10 @@
 #define COR_NODE 4
 #define EDG_NODE 5
 
-template void SlipNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z, int normDir);
-template void SlipNodes<CollisionD2Q9LNP>::init();
-template void SlipNodes<CollisionD2Q9LNP>::updateF();
-template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
+//template void SlipNodes<CollisionD2Q9LNP>::addNode(int x, int y, int z, int normDir);
+//template void SlipNodes<CollisionD2Q9LNP>::init();
+//template void SlipNodes<CollisionD2Q9LNP>::updateF();
+//template SlipNodes<CollisionD2Q9LNP>::SlipNodes();
 
 template void SlipNodes<CollisionD2Q9AD>::addNode(int x, int y, int z, int normDir);
 template void SlipNodes<CollisionD2Q9AD>::init();
@@ -78,16 +78,43 @@ void SlipNodes<T>::updateF(){
             fTemp[j] = f[z][y][x][j];
         }
 
-        for(int d = 0; d < lm->UDIRS; d++){
-           // if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
+        if(normalDir == 2 || normalDir == 4){
+            for(int d = 0; d < lm->UDIRS; d++){
+                // if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
 
-            f[z][y][x][d] = fTemp[lm->slipDirsH[d]];
+                f[z][y][x][d] = fTemp[lm->slipDirsH[d]];
 
-            // cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
+                // cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
+            }
+        }else if(normalDir == 1 || normalDir == 3){
+            for(int d = 0; d < lm->UDIRS; d++){
+                // if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
+
+                f[z][y][x][d] = fTemp[lm->slipDirsV[d]];
+
+                // cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
+            }
+        }else{ //corner node
+            f[z][y][x][normalDir] = 0;
+            for(int d = 0; d < lm->UDIRS; d++){
+                // if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
+
+
+                // cout<<"slip: "<<lm->slipDirsH[d]<<" -> "<<d<<endl;
+                if(d == lm->oppDirs[normalDir]){
+                    f[z][y][x][d] = fTemp[normalDir];
+                    continue;
+                }
+                if(d == normalDir+2 || d == normalDir-2) continue;
+                f[z][y][x][d] =  0.5*fTemp[lm->slipDirsV[d]];
+                f[z][y][x][d] += 0.5*fTemp[lm->slipDirsH[d]];
+
+            }
+
         }
-//        double sumy = 0;
-//
-//        for(int d = 0; d < 9; d++){
+        //        double sumy = 0;
+        //
+        //        for(int d = 0; d < 9; d++){
 //            sumy += f[z][y][x][d]*lm->ey[d];
 //        }
 //

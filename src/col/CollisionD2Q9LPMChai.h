@@ -8,10 +8,11 @@
 #define COLLISIOND2Q9LPMCHAI_H_
 
 #include <math.h>
-#include "CollisionD2Q9LPM.h"
+//#include "CollisionD2Q9LPM.h"
+#include "CollisionD2Q9BGK.h"
 #include "../Constants.h"
 
-class CollisionD2Q9LPMChai : public CollisionD2Q9LPM{
+class CollisionD2Q9LPMChai : public CollisionD2Q9BGK {
 public:
 	CollisionD2Q9LPMChai();
 	virtual ~CollisionD2Q9LPMChai();

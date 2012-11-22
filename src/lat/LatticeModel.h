@@ -26,6 +26,7 @@ public:
 	static const int oppDirs[];
     static const int slipDirsH[];
     static const int slipDirsV[];
+    static const int slipDirsC[];
 	static const int ex[];
 	static const int ey[];
 	static const int ez[];

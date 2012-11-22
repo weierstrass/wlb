@@ -4,8 +4,9 @@
  * andreas@bulling.se
  *
  * Collision operator for incompressible flow.
- * Navier-stokes.
- * BGK type collision
+ * General BGK type collision.
+ * Equilibrium distribution is specified through
+ * the chosen interface as a pointer to an array.
  */
 
 #include "CollisionD2Q9BGK.h"
@@ -17,70 +18,55 @@ CollisionD2Q9BGK::CollisionD2Q9BGK() : CollisionD2Q9(){
 }
 
 CollisionD2Q9BGK::~CollisionD2Q9BGK() {
-	// TODO Auto-generated destructor stub
+	delete[] eq;
 }
 
 void CollisionD2Q9BGK::collide(){
     cout<<"D2Q9 BGK collision"<<endl;
+	for(int j = 0; j < lm->n.y; j++){
+	    for(int i = 0; i < lm->n.x; i++){
 
-	double rho;
-	double *rhoU = new double[3];
-	for(int j = 0; j < n.y; j++){
-	    for(int i = 0; i < n.x; i++){
-	        //skip the fullway bb nodes..
 	        if(skip[j][i]) continue;
-			rho = getRho(f[0][j][i]);
-			rhoU = getRhoU(f[0][j][i]);
-			for(int d = 0; d < 9; d++){
-				f[0][j][i][d] += w*( fEq(d, rho, rhoU[X]/rho, rhoU[Y]/rho) - f[0][j][i][d] );
+
+	        fEq(i, j, eq);
+			for(int d = 0; d < lm->UDIRS; d++){
+				f[0][j][i][d] += w*( eq[d] - f[0][j][i][d] );
 			}
 		}
 	}
 }
 
 void CollisionD2Q9BGK::setW(double w){
-	cout<<"w: "<<w<<endl;
 	this->w = w;
 }
 
-double CollisionD2Q9BGK::fEq(int d, double rho, double ux, double uy){
-    double cu = lm->ex[d]*ux + lm->ey[d]*uy;
-    double c2 = c*c;
-    double u2 = ux*ux + uy*uy;
-    return W[d]*rho*(1 + 3.0/c2*(cu) \
-                       + 4.5/(c2*c2)*(cu*cu) \
-                       - 1.5/c2*u2);
+double CollisionD2Q9BGK::get0moment(int i, int j){
+    double ret = 0;
+    for(int d = 0; d < lm->UDIRS; d++) ret += f[0][j][i][d];
+    return ret;
 }
 
-
-double CollisionD2Q9BGK::getRho(double *f){
-    double rho = 0;
-    for(int i = 0; i < 9; i++) rho += f[i];
-    return rho;
-}
-
-double *CollisionD2Q9BGK::getRhoU(double *f){
-    double *u = new double[3];
-    u[X] = f[1] + f[8] + f[5] - (f[3] + f[6] + f[7]);
-    u[Y] = f[2] + f[5] + f[6] - (f[7] + f[4] + f[8]);
-    u[Z] = -1;
-    return u;
+void CollisionD2Q9BGK::get1moment(int i, int j, double *ret){
+    ret[X] = 0;
+    ret[Y] = 0;
+    for(int d = 0; d < lm->UDIRS; d++){
+        ret[X] += f[0][j][i][d] * lm->ex[d];
+        ret[Y] += f[0][j][i][d] * lm->ey[d];
+    }
 }
 
 void CollisionD2Q9BGK::init(){
-	cout<<"init f: f=f_eq"<<endl;
-	double rho;
-	//double *rhoU;
+	cout<<"Initializing BGK collision operator... ";
+    eq = new double[lm->UDIRS+1];
+
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
-			rho = 1.0;
 			for(int d = 0; d < 9; d++){
-				f[0][j][i][d] = fEq(d, rho, 0, 0);
+				f[0][j][i][d] = W[d];
 			}
 		}
 	}
-
-   //print2DArray(f[0], lm->n.x, lm->n.y, 0);
+	cout<<"done."<<endl;
 }
 
 void CollisionD2Q9BGK::dataToFile(string path){
@@ -91,8 +77,8 @@ void CollisionD2Q9BGK::dataToFile(string path){
     double *rhoUTemp = new double[3];
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            rho[j][i] = getRho(f[0][j][i]);
-            rhoUTemp = getRhoU(f[0][j][i]);
+            rho[j][i] = get0moment(i, j);
+            get1moment(i, j, rhoUTemp);
             ux[j][i] = rhoUTemp[X]/rho[j][i];
             uy[j][i] = rhoUTemp[Y]/rho[j][i];
         }
@@ -101,7 +87,7 @@ void CollisionD2Q9BGK::dataToFile(string path){
     stringstream ss, ssTemp;
     struct stat sb;
     ss.str("");
-    ss<<"vis_scripts/"<<path;
+    ss<<path;
     if (!stat(ss.str().c_str(), &sb) == 0 || !S_ISDIR(sb.st_mode)){
         cout<<"creating directory: "<<ss.str()<<endl;
         mkdir(ss.str().c_str(), 0775);
@@ -133,3 +119,27 @@ void CollisionD2Q9BGK::dataToFile(string path){
     write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
 }
 
+
+//double CollisionD2Q9BGK::getRho(double *f){
+//    double rho = 0;
+//    for(int i = 0; i < 9; i++) rho += f[i];
+//    return rho;
+//}
+//
+//double *CollisionD2Q9BGK::getRhoU(double *f){
+//    double *u = new double[3];
+//    u[X] = f[1] + f[8] + f[5] - (f[3] + f[6] + f[7]);
+//    u[Y] = f[2] + f[5] + f[6] - (f[7] + f[4] + f[8]);
+//    u[Z] = -1;
+//    return u;
+//}
+
+
+//double CollisionD2Q9BGK::fEq(int d, double rho, double ux, double uy){
+//    double cu = lm->ex[d]*ux + lm->ey[d]*uy;
+//    double c2 = c*c;
+//    double u2 = ux*ux + uy*uy;
+//    return W[d]*rho*(1 + 3.0/c2*(cu) \
+//                       + 4.5/(c2*c2)*(cu*cu) \
+//                       - 1.5/c2*u2);
+//}

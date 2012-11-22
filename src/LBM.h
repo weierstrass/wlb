@@ -33,7 +33,6 @@
 #include "bdr/HeZouLPMChaiNodes.h"
 #include "bdr/SlipNodes.h"
 #include "bdr/NeumannNodes.h"
-#include "bdr/NeumannNodesNP.h"
 #include "bdr/NeumannNodesPE.h"
 #include "bdr/NeumannNodesPESlip.h"
 //#include "BFLBoundaryNodes.h"
@@ -50,16 +49,13 @@
 #include "col/CollisionD2Q9.h"
 #include "col/CollisionD2Q9BGK.h"
 #include "col/CollisionD2Q9BGKShanChenForce.h"
-#include "col/CollisionD2Q9LPM.h"
 #include "col/CollisionD2Q9LPMChai.h"
 #include "col/CollisionD2Q9LPMChaiRHS.h"
-#include "col/CollisionD2Q9WangHelmholtz.h"
 #include "col/CollisionD2Q9LPMChaiHelmholtz.h"
-#include "col/CollisionD2Q9LPMWang1to1.h"
 #include "col/CollisionD2Q9LPMChai1to1.h"
-#include "col/CollisionD2Q9LNP.h"
-#include "col/CollisionD2Q9LNPSource.h"
 #include "col/CollisionD2Q9AD.h"
+#include "col/CollisionD2Q9BGKNS.h"
+#include "col/CollisionD2Q9BGKNSF.h"
 
 #include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"
@@ -67,6 +63,14 @@
 #include "unit/UnitHandler.h"
 #include "unit/UnitHandlerLPM.h"
 #include "unit/UnitHandlerNS.h"
+
+
+//#include "col/CollisionD2Q9LPM.h"
+//#include "col/CollisionD2Q9WangHelmholtz.h"
+//#include "col/CollisionD2Q9LPMWang1to1.h"
+//#include "col/CollisionD2Q9LNP.h"
+//#include "col/CollisionD2Q9LNPSource.h"
+//#include "bdr/NeumannNodesNP.h"
 
 using namespace std;
 

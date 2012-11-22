@@ -21,42 +21,46 @@ void updateRho(double           **rho_eps,
                double           V0,
                double           l0,
                double           C0);
-//
-//void initC(CollisionD2Q9LNP     *cmNPneg,
-//           CollisionD2Q9LNP     *cmNPpos,
-//           LatticeModel         *lm);
+
+void updateForce(double **fx, double **fy, double **ux, double **uy, double **rho_eps,
+                 Lattice2D *lm, double eps_r, double u0, double l0, double V0, double C0,
+                 double bulkCond, double E, CollisionD2Q9AD *cmNPpos, CollisionD2Q9AD *cmNPneg);
 
 int main(){
-    cout<<"2D, NS <-> PE <-> NP"<<endl;
+    cout<<"2D, electroosmotic flow"<<endl;
 
     /* Parameter definitions */
     int nx = 3;
     int ny = 101;
 
-    int tNP = 20;
+    int tNP = 50;
     int tPE = 10000;
-    int tNS = 50;
-    int tMain = 300;
+      int tNS = tNP;//tNP;
+    int tMain = 1000;
 
-    int tMod = 1;
+    int tMod = 1; //undersök i detalj.... ok.
 
-    double l0 = 2e-5/(ny-1); //PE, NP
+    double l0 = 3e-5/(ny-1); //PE, NP
     double C0 = 1e-4*PHYS_N_A; //NP
-    double u0 = 1e-1; //NP
+    double u0 = 1e-1; //NP, NS
     double dt = 1.0;
     double V0 = -50e-3; //PE
+    double rho0 = 1e3; //NS
 
     double D = 1.0e-8;
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -1e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -1.0e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
+    double E = 0.1;//1e3 * l0/(rho0 * u0 * u0); //lattice units
+    double bulkConductivity = 0.75e-6; //conductivity [S/m]
 
     double Pe = u0*l0/D;
     double wNP = 1/(3.0/Pe + 0.5);
     double wPE = 1.0;
+    double wNS = 0.3;
 
     /*print parameters*/
     printLine(20);
@@ -75,6 +79,7 @@ int main(){
     cout<<"l0*gamma/Pe *V0/l0 = "<<l0*gamma/Pe*V0/l0<<endl;
     cout<<"l0^2*gamma/Pe *V0/l0^2 = "<<l0*l0*gamma/Pe*V0/l0/l0<<endl;
     cout<<"1/Pe = "<<1/Pe<<endl;
+    cout<<"E = "<<E<<endl;
     printLine(20);
 
     /* Allocate memory for velocity and grad. potential arrays */
@@ -83,11 +88,15 @@ int main(){
     double **dPsix = allocate2DArray(ny, nx);
     double **dPsiy = allocate2DArray(ny, nx);
     double **rho_eps = allocate2DArray(ny, nx);
+    double **fx = allocate2DArray(ny, nx);
+    double **fy = allocate2DArray(ny, nx);
 
     for(int j = 0; j < ny; j++){
         for(int i = 0; i < nx; i++){
-            ux[j][i] = u0x;
+            ux[j][i] = 0;
             uy[j][i] = 0;
+            fx[j][i] = 0;
+            fy[j][i] = 0;
             dPsix[j][i] = 0.0;
             dPsiy[j][i] = 0.0;
             rho_eps[j][i] = 0.0;//-l0*l0/V0*2*PHYS_E_CHARGE*C0/(eps_r *PHYS_EPS0)*\
@@ -183,14 +192,44 @@ int main(){
     }
     bbnPos->init();
 
-
     /* Initialize solver */
     lbmNPneg->init();
     lbmNPpos->init();
 
+
+    /* NS Solver */
+    CollisionD2Q9BGKShanChenForce *cmNS = new CollisionD2Q9BGKShanChenForce();
+    StreamD2Q9Periodic *smNS = new StreamD2Q9Periodic();
+    Lattice2D *lmNS = new Lattice2D(nx, ny);
+
+    cmNS->setW(wNS);
+    cmNS->setC(1.0);
+
+    LBM *lbmNS = new LBM(lmNS, cmNS, smNS);
+
+    /* Set boundary conditions for flow */
+    BounceBackNodes<CollisionD2Q9BGKShanChenForce> *bbNS =
+            new BounceBackNodes<CollisionD2Q9BGKShanChenForce>();
+    bbNS->setCollisionModel(cmNS);
+    for(int i = 0; i < nx; i++){
+        bbNS->addNode(i, 0, 0);
+        bbNS->addNode(i, ny-1, 0);
+    }
+    lbmNS->addBoundaryNodes(bbNS);
+
+    lbmNS->init();
+    cmNS->setForce(fx, fy);
+
+    for(int t = 0; t < tNS; t++){
+        cout<<"T: "<<t<<endl;
+        lbmNS->collideAndStream();
+    }
+
     /* Main loops */
     for(int tt = 0; tt < tMain; tt++){
         cout<<"TT: "<<tt<<endl;
+
+//        if(tt == 12){ tNP = 8; tNS = 8;}
 
         /* Update net charge density */
         updateRho(rho_eps, cmNPneg, cmNPpos, lm, eps_r, V0, l0, C0);
@@ -210,6 +249,18 @@ int main(){
             lbmNPneg->collideAndStream();
             lbmNPpos->collideAndStream();
         }
+
+
+        updateForce(fx, fy, ux, uy, rho_eps,\
+                         lmNS, eps_r, u0, l0, V0, C0,\
+                         bulkConductivity, E, cmNPpos, cmNPneg);
+        for(int t = 0; t < tNS; t++){
+
+            lbmNS->collideAndStream();
+        }
+
+        /* update velocities */
+        cmNS->getU(ux, uy);
 
         /*write result to file*/
         stringstream ss;
@@ -245,12 +296,59 @@ int main(){
             ss<<tt/tMod<<"/";
             ss<<"ni_pos.csv";
             cmNPpos->dataToFile(ss.str());
+
+            //U and rho_m
+            ss.str("");
+            ss<<base<<"NS";
+            ss<<tt/tMod<<"/";
+            createDirectory(ss.str());
+            cmNS->dataToFile(ss.str());
+
+            //fx
+            ss.str("");
+            ss<<base<<"FX";
+            ss<<tt/tMod<<"/";
+            createDirectory(ss.str());
+            ss<<"fx.csv";
+            write2DArray(fx, NULL, ss.str(), nx, ny);
         }
     }
 
     cout<<"done LNP."<<endl;
 
     return 0;
+}
+
+void updateForce(double **fx, double **fy, double **ux, double **uy, double **rho_eps,
+                 Lattice2D *lm, double eps_r, double u0, double l0, double V0, double C0,
+                 double bulkCond, double E, CollisionD2Q9AD *cmNPpos, CollisionD2Q9AD *cmNPneg){
+
+    double rho0 = 1e3;
+    double rs = eps_r*PHYS_EPS0*V0/l0/l0;
+    double prefactor = u0*rs*rs/bulkCond *l0 / (u0 * u0 * rho0); //rescale to L.U.
+
+    double jx = 0;
+    double jy = 0;
+    double prefactorJ = PHYS_E_CHARGE*C0* rs*u0 / bulkCond *l0 / (u0 * u0 * rho0);
+
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            fx[j][i] = rho_eps[j][i]* E;
+            //fx[j][i] = dPdx;
+            //cout<<"ux: "<<ux[j][i]<<endl;
+           // cout<<"FX_ADV: "<<fx[j][i]<<endl;
+
+//            jx = cmNPpos->getXFlux(j, i) - cmNPneg->getXFlux(j, i);
+//            jy = cmNPpos->getYFlux(j, i) - cmNPneg->getYFlux(j, i);
+//
+//            fx[j][i] = prefactorJ*jx*rho_eps[j][i] + dPdx;
+//
+//            cout<<"FX_FLUX: "<<fx[j][i]<<endl;
+
+            fy[j][i] = 0;//prefactorJ*jy*rho_eps[j][i];
+           // cout<<"FY_FLUX: "<<fy[j][i]<<endl;
+        }
+    }
 }
 
 /* updates rho_eps = -rho/(eps_r*eps_0)

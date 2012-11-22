@@ -8,10 +8,11 @@
 #define BOUNCEBACKNODES_H_
 
 #include "BoundaryNodes.h"
-#include "../col/CollisionD2Q9BGK.h"
+#include "../col/CollisionD2Q9BGKNSF.h"
+#include "../col/CollisionD2Q9BGKNS.h"
 #include "../col/CollisionD2Q9BGKShanChenForce.h"
-#include "../col/CollisionD2Q9LNP.h"
-#include "../col/CollisionD2Q9LNPSource.h"
+//#include "../col/CollisionD2Q9LNP.h"
+//#include "../col/CollisionD2Q9LNPSource.h"
 #include "../Aux.h"
 #include "../Constants.h"
 
