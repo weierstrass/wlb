@@ -22,11 +22,11 @@ CollisionD2Q9BGK::~CollisionD2Q9BGK() {
 }
 
 void CollisionD2Q9BGK::collide(){
-    cout<<"D2Q9 BGK collision"<<endl;
+    //cout<<"D2Q9 BGK collision"<<endl;
 	for(int j = 0; j < lm->n.y; j++){
 	    for(int i = 0; i < lm->n.x; i++){
 
-	        if(skip[j][i]) continue;
+	        if(skip != NULL && skip[j][i]) continue;
 
 	        fEq(i, j, eq);
 			for(int d = 0; d < lm->UDIRS; d++){
@@ -57,7 +57,7 @@ void CollisionD2Q9BGK::get1moment(int i, int j, double *ret){
 
 void CollisionD2Q9BGK::init(){
 	cout<<"Initializing BGK collision operator... ";
-    eq = new double[lm->UDIRS+1];
+    eq = new double[lm->UDIRS];
 
 	for(int j = 0; j < n.y; j++){
 		for(int i = 0; i < n.x; i++){
@@ -66,6 +66,7 @@ void CollisionD2Q9BGK::init(){
 			}
 		}
 	}
+
 	cout<<"done."<<endl;
 }
 

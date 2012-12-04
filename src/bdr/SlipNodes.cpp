@@ -23,10 +23,15 @@ template void SlipNodes<CollisionD2Q9AD>::init();
 template void SlipNodes<CollisionD2Q9AD>::updateF();
 template SlipNodes<CollisionD2Q9AD>::SlipNodes();
 
-template void SlipNodes<CollisionD2Q9LPMChaiRHS>::addNode(int x, int y, int z, int normDir);
-template void SlipNodes<CollisionD2Q9LPMChaiRHS>::init();
-template void SlipNodes<CollisionD2Q9LPMChaiRHS>::updateF();
-template SlipNodes<CollisionD2Q9LPMChaiRHS>::SlipNodes();
+template void SlipNodes<CollisionD2Q9BGKPE>::addNode(int x, int y, int z, int normDir);
+template void SlipNodes<CollisionD2Q9BGKPE>::init();
+template void SlipNodes<CollisionD2Q9BGKPE>::updateF();
+template SlipNodes<CollisionD2Q9BGKPE>::SlipNodes();
+//
+//template void SlipNodes<CollisionD2Q9LPMChaiRHS>::addNode(int x, int y, int z, int normDir);
+//template void SlipNodes<CollisionD2Q9LPMChaiRHS>::init();
+//template void SlipNodes<CollisionD2Q9LPMChaiRHS>::updateF();
+//template SlipNodes<CollisionD2Q9LPMChaiRHS>::SlipNodes();
 
 template <class T>
 SlipNodes<T>::SlipNodes() {

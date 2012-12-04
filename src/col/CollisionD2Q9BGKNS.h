@@ -16,6 +16,7 @@ public:
     CollisionD2Q9BGKNS();
     virtual ~CollisionD2Q9BGKNS();
     void fEq(int i, int j, double *eq);
+    void init(double **rho, double **ux, double **uy);
     double *u;
 protected:
     void fEq(double rho, double *u, double *eq);

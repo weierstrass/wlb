@@ -10,10 +10,10 @@
 #define NEUMANNNODESPESLIP_H_
 
 #include "SlipNodes.h"
-#include "../col/CollisionD2Q9LPMChaiRHS.h"
+#include "../col/CollisionD2Q9BGKPE.h"
 #include "ValueNode.h"
 
-class NeumannNodesPESlip: public SlipNodes<CollisionD2Q9LPMChaiRHS> { //todo
+class NeumannNodesPESlip: public SlipNodes<CollisionD2Q9BGKPE> { //todo
 public:
     NeumannNodesPESlip();
     virtual ~NeumannNodesPESlip();

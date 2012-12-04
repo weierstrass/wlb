@@ -23,11 +23,14 @@ OBJS := LBM.o \
 		TypeValueNode.o \
 		NodeNeighbors.o \
 		BounceBackNodes.o \
+		SlipNodes.o \
+		NeumannNodesPESlip.o \
 		StreamModel.o \
 		CollisionD2Q9.o \
 		CollisionD2Q9BGK.o \
 		CollisionD2Q9BGKNS.o \
 		CollisionD2Q9BGKNSF.o \
+		CollisionD2Q9BGKPE.o \
 		CollisionD2Q9AD.o \
 		CollisionModel.o \
 		LatticeModel.o \
@@ -38,12 +41,14 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppPoiseuilleForce.o \
+		App2DChannelNP.o \
+		#AppFourRowsMill.o \
+		#AppTaylorVortex.o \
+		#AppPoiseuilleForce.o \
 		#AppHelmholtzChai.o \
 		#App2DChargedSquareArray.o \
 		#AppSquareArray.o \
 		#AppSquareArray.o \
-		#AppTaylorVortex.o \
 		#OsmosisElectro2DChannel.o \
 		#HetroChargeBdry2DChannel.o \
 		#PressureElectro2DChannel.o \
@@ -77,7 +82,6 @@ OBJS := LBM.o \
 		CollisionD2Q9LPMChai1to1.o \
 		CollisionD2Q9LPMChaiRHS.o \
 		CollisionD2Q9BGKShanChenForce.o \
-		SlipNodes.o \
 		HeZouPressureNodes.o \
 		HeZouLPMChaiNodes.o \
 		HeZouNodes.o \
@@ -85,7 +89,6 @@ OBJS := LBM.o \
 		NeumannLPMNodes.o \
 		NeumannNodes.o \
 		NeumannNodesPE.o \
-		NeumannNodesPESlip.o \
 		
 		
 #C++-compiler

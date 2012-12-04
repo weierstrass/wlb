@@ -8,7 +8,7 @@ u = csvread([path 'rho.csv']);
 
 figure(4); clf;
 [X Y] = meshgrid(linspace(0, 1, nx), linspace(0, 1, ny))
-surf(X, Y, u);shading interp;
+surf(X, Y, u);
 axis tight
 lambda = 2.0;
 
@@ -21,7 +21,7 @@ title('ANA')
 axis tight
 
 figure(6); clf;
-surf(X, Y, abs(u-z));shading interp;
+surf(X, Y, abs(u-z));
 %title('|u_{chai} - u_{ana}|')
 %view([0 ,0, 1]);
 axis tight

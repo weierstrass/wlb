@@ -32,7 +32,7 @@ void NeumannNodesPESlip::updateF(){
         normalDir = v->v2;
         x = v->x;
         y = v->y;
-//       cout<<"x: "<<x<<", y: "<<y<<", neumann: "<<neumanValue<<", normalDir: "<<normalDir<<endl;
+       //cout<<"x: "<<x<<", y: "<<y<<", neumann: "<<neumanValue<<", normalDir: "<<normalDir<<endl;
 //        cout<<"F_4 PRE: "<<f[0][y][x][4]<<endl;
 //        cout<<"F_1 PRE: "<<f[0][y][x][1]<<endl;
 //        cout<<"F_0 PRE: "<<f[0][y][x][0]<<endl;
@@ -43,19 +43,19 @@ void NeumannNodesPESlip::updateF(){
 
         if(normalDir == 4 || normalDir == 2){
             for(int d = 0; d < lm->UDIRS; d++){
-           //     if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
+                if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
                // cout<<"updating horizontal nodes"<<endl;
-                f[0][y][x][d] = fTemp[lm->slipDirsH[d]] +\
-                        (fEq(d, x, y) - fEq(lm->slipDirsH[d], x, y) - neumanValue/9.0);// *\
+           //     if(d == lm->slipDirsH[d]) continue;
+                f[0][y][x][d] = fTemp[lm->slipDirsH[d]] - neumanValue/9.0;// *\
                         lm->ey[normalDir]; //lm->ey[d]*lm->ey[normalDir];
             }
         }else if(normalDir == 1 || normalDir == 3){
             for(int d = 0; d < lm->UDIRS; d++){
                // cout<<"ugyukgkuygkug: "<<normalDir<<endl;
-          //      if(lm->ex[d]*lm->ex[normalDir] <= 0){continue;}
+                if(lm->ex[d]*lm->ex[normalDir] <= 0){continue;}
               //  cout<<"updating vertical nodes"<<endl;
-                f[0][y][x][d] = fTemp[lm->slipDirsV[d]] +\
-                        (fEq(d, x, y) - fEq(lm->slipDirsV[d], x, y) - neumanValue/9.0);// *\
+              //  if(d == lm->slipDirsV[d]) continue;
+                f[0][y][x][d] = fTemp[lm->slipDirsV[d]] - neumanValue/9.0;// *\
                         lm->ex[normalDir]; //lm->ex[d]*lm->ex[normalDir];
             }
         }else{ //corner node..
@@ -65,11 +65,9 @@ void NeumannNodesPESlip::updateF(){
            //     if(lm->ex[d]*lm->ex[normalDir] <= 0){continue;}
            //     if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
                 //  cout<<"updating vertical nodes"<<endl;
-                f[0][y][x][d] = (fTemp[lm->slipDirsV[d]] +\
-                        (fEq(d, x, y) - fEq(lm->slipDirsV[d], x, y) - neumanValue/9.0) *\
+                f[0][y][x][d] = (fTemp[lm->slipDirsV[d]] - neumanValue/9.0 *\
                         1)*0.5; //lm->ex[d]*lm->ex[normalDir]
-                f[0][y][x][d] += (fTemp[lm->slipDirsH[d]] +\
-                        (fEq(d, x, y) - fEq(lm->slipDirsH[d], x, y) - neumanValue/9.0) *\
+                f[0][y][x][d] += (fTemp[lm->slipDirsH[d]]  - neumanValue/9.0 *\
                         1)*0.5;//lm->ey[d]*lm->ey[normalDir]
             }
             f[0][y][x][lm->oppDirs[normalDir]] = fTemp[normalDir];
@@ -88,18 +86,18 @@ void NeumannNodesPESlip::updateF(){
   //  cout<<"end"<<endl;
 }
 
-double NeumannNodesPESlip::fEq(int dir, int i, int j){
-    CollisionD2Q9LPMChaiRHS *com = dynamic_cast<CollisionD2Q9LPMChaiRHS*>(this->cm);
-    return com->fEq(dir, i, j);
-}
-
-double NeumannNodesPESlip::cu(int i, int j){
-    CollisionD2Q9LPMChaiRHS *com = dynamic_cast<CollisionD2Q9LPMChaiRHS*>(this->cm);
-    return com->getPsi(i, j);
-}
+//double NeumannNodesPESlip::fEq(int dir, int i, int j){
+//    CollisionD2Q9LPMChaiRHS *com = dynamic_cast<CollisionD2Q9LPMChaiRHS*>(this->cm);
+//    return com->fEq(dir, i, j);
+//}
+//
+//double NeumannNodesPESlip::cu(int i, int j){
+//    CollisionD2Q9LPMChaiRHS *com = dynamic_cast<CollisionD2Q9LPMChaiRHS*>(this->cm);
+//    return com->getPsi(i, j);
+//}
 
 void NeumannNodesPESlip::addNode(int x, int y, int z,
                               double val, int dir){
     nodes.push_back(new ValueNode(x, y, z, val, dir));
-    this->cm->addNodeToSkip(x, y);
+    //this->cm->addNodeToSkip(x, y);
 }

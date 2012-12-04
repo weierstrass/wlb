@@ -50,13 +50,16 @@ int main(){
 	double **uyInit = allocate2DArray(nx, ny);
 	double **rhoInit = allocate2DArray(nx, ny);
 
+	double a2 = (2*M_PI/nx)*(2*M_PI/nx);
+
 	for(int j = 0; j < ny; j++){
 	    for(int i = 0; i < nx; i++){
 	        uxInit[j][i] = -u0*cos(Xc(i))*sin(Yc(j));
 	        uyInit[j][i] = u0*sin(Xc(i))*cos(Yc(j));
 	        rhoInit[j][i] = -0.25*cs2 *u0*u0* (cos(2*Xc(i)) + cos(2*Yc(j))) + 1;
-	        fx[j][i] = 0;
-	        fy[j][i] = 0;
+	        fx[j][i] = -2*nu*a2*u0*cos(Xc(i))*sin(Yc(j));
+	        cout<<"fx: "<<fx[j][i]<<endl;
+	        fy[j][i] = 2*nu*a2*u0*sin(Xc(i))*cos(Yc(j));
 	    }
 	}
 
@@ -104,7 +107,7 @@ int main(){
 		cout<<t<<endl;
 		//updateForce(t, G, nu, fx, fy, lm);
 
-		if(t % tMod == 0){
+		if(t  == 1756){//% tMod == 0){
 		    ss.str("");
 		    ss<<base<<"NS";
 		    ss<<t/tMod<<"/";

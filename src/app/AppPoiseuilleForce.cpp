@@ -11,7 +11,7 @@
 using namespace std;
 
 int main(){
-	int nx = 3, ny = 50, tMax = 20000;
+	int nx = 3, ny = 50, tMax = 100000;
 	double w = 0.75;
 	double c = 1.0;
 

@@ -11,12 +11,17 @@
 
 #include "CollisionD2Q9BGK.h"
 
-class CollisionD2Q9LPMChaiRHS: public CollisionD2Q9BGK {
+class CollisionD2Q9BGKPE : public CollisionD2Q9BGK {
 public:
-    CollisionD2Q9LPMChaiRHS();
-    virtual ~CollisionD2Q9LPMChaiRHS();
+    CollisionD2Q9BGKPE();
+    virtual ~CollisionD2Q9BGKPE();
+    void fEq(int i, int j, double *eq);
     double g_rhs(int i, int j);
+    void collide();
     void setRHS(double **rhs){this->rhs = rhs;};
+    void reset();
+    void getDPsi(double **jx, double **jy);
+    void dataToFile(string path);
 protected:
     double **rhs;
 };
