@@ -53,6 +53,14 @@ void CollisionD2Q9BGKPE::reset(){
     cout<<"done"<<endl;
 }
 
+void CollisionD2Q9BGKPE::getPsi(double **psi){
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            psi[j][i] = get0moment(i, j);
+        }
+    }
+}
+
 void CollisionD2Q9BGKPE::getDPsi(double **jx, double **jy){
     double *res = new double[2];
 

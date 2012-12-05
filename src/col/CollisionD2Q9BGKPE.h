@@ -20,6 +20,7 @@ public:
     void collide();
     void setRHS(double **rhs){this->rhs = rhs;};
     void reset();
+    void getPsi(double **psi);
     void getDPsi(double **jx, double **jy);
     void dataToFile(string path);
 protected:

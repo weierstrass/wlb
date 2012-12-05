@@ -3,7 +3,7 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * Benchmarking of the Nernst-Planck solver
+ * Benchmarking of the PB solver
  * The PB case will be reproduced by simulating
  * a system that fulfills the PB assumptions.
  *
@@ -18,8 +18,7 @@ using namespace std;
 
 
 void updateRho(double           **rho_eps,
-               CollisionD2Q9AD *cmNPneg,
-               CollisionD2Q9AD *cmNPpos,
+                double          **psi,
                LatticeModel     *lm,
                double           eps_r,
                double           V0,
@@ -37,14 +36,14 @@ int main(){
     int nx = 3;
     int ny = 101;
 
-    int tNP = 50;
-    int tPE = 20000;
-    int tNS = 50;
-    int tMain = 300;
+    int tNP = 20;
+    int tPE = 10000;
+    int tNS = 1;
+    int tMain = 1;
 
     int tMod = 1;
 
-    double l0 = 10e-6/(ny-1); //PE, NP
+    double l0 = 1e-6/(ny-1); //PE, NP
     double C0 = 1e-4*PHYS_N_A; //NP
     double u0 = 1e-3; //NP
     double dt = 1.0;
@@ -54,7 +53,7 @@ int main(){
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -1e-2;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -1e-3;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
 
@@ -82,18 +81,12 @@ int main(){
     printLine(20);
 
     /* Allocate memory for velocity and grad. potential arrays */
-    double **ux = allocate2DArray(ny, nx);
-    double **uy = allocate2DArray(ny, nx);
-    double **dPsix = allocate2DArray(ny, nx);
-    double **dPsiy = allocate2DArray(ny, nx);
+    double **psi = allocate2DArray(ny, nx);
     double **rho_eps = allocate2DArray(ny, nx);
 
     for(int j = 0; j < ny; j++){
         for(int i = 0; i < nx; i++){
-            ux[j][i] = u0x;
-            uy[j][i] = 0;
-            dPsix[j][i] = 0.0;
-            dPsiy[j][i] = 0.0;
+            psi[j][i] = 0;
             rho_eps[j][i] = 0.0;//-l0*l0/V0*2*PHYS_E_CHARGE*C0/(eps_r *PHYS_EPS0)*\
                             (cos(j*2*M_PI/(ny-1)) + 1)*0.5;
         }
@@ -133,122 +126,36 @@ int main(){
     }
     bds->init();
 
-    /* Nernst Planck solver */
-    CollisionD2Q9AD *cmNPneg = new CollisionD2Q9AD();
-    CollisionD2Q9AD *cmNPpos = new CollisionD2Q9AD();
-    StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
-    LatticeModel *lm = new Lattice2D(nx, ny);
-    StreamD2Q9Periodic *sm2 = new StreamD2Q9Periodic();
-    LatticeModel *lm2 = new Lattice2D(nx, ny);
-
-    cmNPneg->setW(wNP);
-    cmNPneg->setC(1);
-    cmNPneg->setZ(-1);
-    cmNPneg->setInitC(bulk_charge);
-    cmNPneg->setUx(ux);
-    cmNPneg->setUy(uy);
-    cmNPneg->setDPsix(dPsix);
-    cmNPneg->setDPsiy(dPsiy);
-    cmNPneg->setT(T);
-    cmNPneg->setPe(Pe);
-    //cmNPneg->setRHS(rho_eps);
-
-    cmNPpos->setW(wNP);
-    cmNPpos->setC(1);
-    cmNPpos->setZ(1);
-    cmNPpos->setInitC(bulk_charge);
-    cmNPpos->setUx(ux);
-    cmNPpos->setUy(uy);
-    cmNPpos->setDPsix(dPsix);
-    cmNPpos->setDPsiy(dPsiy);
-    cmNPpos->setT(T);
-    cmNPpos->setPe(Pe);
-    //cmNPpos->setRHS(rho_eps);
-
-    LBM *lbmNPneg = new LBM(lm, cmNPneg, sm);
-    LBM *lbmNPpos = new LBM(lm2, cmNPpos, sm2);
-
-    /* Boundary conds for NP solver*/
-    SlipNodes<CollisionD2Q9AD> *bbnNeg = new SlipNodes<CollisionD2Q9AD>();
-    lbmNPneg->addBoundaryNodes(bbnNeg);
-    bbnNeg->setCollisionModel(cmNPneg);
-    for(int i = 0; i < nx; i++){
-        bbnNeg->addNode(i, 0, 0, 2);
-        bbnNeg->addNode(i, ny-1, 0, 4);
-    }
-    bbnNeg->init();
-
-    SlipNodes<CollisionD2Q9AD> *bbnPos = new SlipNodes<CollisionD2Q9AD>();
-    lbmNPpos->addBoundaryNodes(bbnPos);
-    bbnPos->setCollisionModel(cmNPpos);
-    for(int i = 0; i < nx; i++){
-        bbnPos->addNode(i, 0, 0, 2);
-        bbnPos->addNode(i, ny-1, 0, 4);
-    }
-    bbnPos->init();
-
-
-    /* Initialize solver */
-    lbmNPneg->init();
-    lbmNPpos->init();
 
     /* Main loops */
     for(int tt = 0; tt < tMain; tt++){
         cout<<"TT: "<<tt<<endl;
 
         /* Update net charge density */
-        updateRho(rho_eps, cmNPneg, cmNPpos, lm, eps_r, V0, l0, C0);
         cmPE->reset();
 
         for(int t = 0; t < tPE; t++){
             //cout<<"tPE "<<t<<endl;
+            cmPE->getPsi(psi);
+            updateRho(rho_eps, psi, lmPE, eps_r, V0, l0, C0);
             lbmPE->collideAndStream();
         }
-        cmPE->getDPsi(dPsix, dPsiy);
+        //cmPE->getDPsi(dPsix, dPsiy);
 
-        //scale potential gradients to SI units *l0
-        rescale2DArray(dPsix, V0, ny, nx);
-        rescale2DArray(dPsiy, V0, ny, nx);
 
-        for(int t = 0; t < tNP; t++){
-            lbmNPneg->collideAndStream();
-            lbmNPpos->collideAndStream();
-        }
 
         /*write result to file*/
         stringstream ss;
         string base = "vis_scripts/data";
         if(tt % tMod == 0){
-            //dPsiY
-            ss.str("");
-            ss<<base<<"PSI";
-            ss<<tt/tMod<<"/";
-            createDirectory(ss.str());
-            ss<<"dpsiy.csv";
-            write2DArray(dPsiy, NULL, ss.str(), nx, ny);
 
             //potential
             ss.str("");
-            ss<<base<<"PE";
+            ss<<base<<"PBE";
             ss<<tt/tMod<<"/";
             createDirectory(ss.str());
             ss<<"rho.csv";
             cmPE->dataToFile(ss.str());
-
-            //C_neg
-            ss.str("");
-            ss<<base<<"NP";
-            ss<<tt/tMod<<"/";
-            createDirectory(ss.str());
-            ss<<"ni_neg.csv";
-            cmNPneg->dataToFile(ss.str());
-
-            //C_pos
-            ss.str("");
-            ss<<base<<"NP";
-            ss<<tt/tMod<<"/";
-            ss<<"ni_pos.csv";
-            cmNPpos->dataToFile(ss.str());
         }
     }
 
@@ -261,24 +168,22 @@ int main(){
  * return value in: lattice units.
  */
 void updateRho(double **rho_eps,
-               CollisionD2Q9AD *cmNPneg,
-               CollisionD2Q9AD *cmNPpos,
+               double **psi,
                LatticeModel *lm,
                double eps_r,
                double V0,
                double l0,
                double C0){
 
-    double **Cpos = cmNPpos->getNi();
-    double **Cneg = cmNPneg->getNi();
-    double zPos = cmNPpos->getZ();
-    double zNeg = cmNPneg->getZ();
-    double prefactor = -PHYS_E_CHARGE*l0*l0*C0/(eps_r*PHYS_EPS0*V0);
-
+    double prefactor = -2*PHYS_E_CHARGE*l0*l0*C0/(eps_r*PHYS_EPS0*V0);
+    //cout<<"PREF: "<<prefactor<<endl;
+    //prefactorChargeSI = prefactor*V0/l2*eps;
+    double inSinh = PHYS_E_CHARGE*V0/PHYS_KB/293.0;
+    //cout<<"insinh: "<<inSinh<<endl;
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            rho_eps[j][i] = zPos*Cpos[j][i] +
-                            zNeg*Cneg[j][i];
+            rho_eps[j][i] = sinh(inSinh*psi[j][i]);
+            //cout<<"psi: "<<psi[j][i]<<endl;
             rho_eps[j][i] *= prefactor;
         }
     }
