@@ -41,7 +41,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		App2DChannelNP.o \
+		AppCompBound.o \
+		#App2DChannelNP.o \
 		#AppFourRowsMill.o \
 		#AppTaylorVortex.o \
 		#AppPoiseuilleForce.o \
