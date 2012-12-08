@@ -41,7 +41,9 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppCompBound.o \
+		OsmosisElectro2DChannel.o \
+		#PressureElectro2DChannel.o \
+		#AppCompBound.o \
 		#App2DChannelNP.o \
 		#AppFourRowsMill.o \
 		#AppTaylorVortex.o \
@@ -50,9 +52,7 @@ OBJS := LBM.o \
 		#App2DChargedSquareArray.o \
 		#AppSquareArray.o \
 		#AppSquareArray.o \
-		#OsmosisElectro2DChannel.o \
 		#HetroChargeBdry2DChannel.o \
-		#PressureElectro2DChannel.o \
 		#AppADSource2.o \
 		#AppPENeumann.o \
 		#AppADSource.o \	

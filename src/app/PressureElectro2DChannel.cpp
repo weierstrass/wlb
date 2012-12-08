@@ -35,32 +35,34 @@ int main(){
 
     int tNP = 150;
     int tPE = 10000;
-      int tNS = tNP;//tNP;
+    int tNS = tNP;//tNP;
     int tMain = 1000;
 
     int tMod = 1; //undersök i detalj.... ok.
 
-    double l0 = 1e-5/(ny-1); //PE, NP
+    double l0 = 1e-6/(ny-1); //PE, NP
     double C0 = 1e-4*PHYS_N_A; //NP
-    double u0 = 1e-1; //NP, NS
+    double u0 = 1e-2; //NP, NS
     double dt = 1.0;
     double V0 = -50e-3; //PE
     double rho0 = 1e3; //NS
 
-    double D = 1.0e-8;
+    double nu = 1.0e-6; //m^2/s
+    double D = 1.0e-10; //m^2/s
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -0.1e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -0.25e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
-    double dPdx = 1e-6;//1e3 * l0/(rho0 * u0 * u0); //lattice units
-    double bulkConductivity = 0.75e-6; //conductivity [S/m]
+    double dPdx = 1e-4;//1e3 * l0/(rho0 * u0 * u0); //lattice units
+    double bulkConductivity = 1.5e-3; //conductivity [S/m]
 
     double Pe = u0*l0/D;
-    double wNP = 1/(3.0/Pe + 0.5);
+    double Re = u0*1e4*l0/nu;
+    double wNP = 1.0/(3.0/Pe + 0.5);
     double wPE = 1.0;
-    double wNS = 0.5;
+    double wNS = 1.0/(3.0/Re + 0.5);
 
     /*print parameters*/
     printLine(20);
@@ -69,9 +71,11 @@ int main(){
     cout<<"RHO_SURFACE = "<<rho_surface<<", "<<rho_surface*V0/l0*PHYS_EPS0*eps_r<<" C/M^2"<<endl;
     cout<<"BULK_CHARGE = "<<bulk_charge<<endl;
     cout<<"PE = "<<Pe<<endl;
+    cout<<"RE = "<<Re<<endl;
     cout<<endl;
     cout<<"w_np = "<<wNP<<endl;
     cout<<"w_pe = "<<wPE<<endl;
+    cout<<"w_ns = "<<wNS<<endl;
     cout<<endl;
     cout<<"l0 = "<<l0<<endl;
     cout<<"V0 = "<<V0<<endl;
@@ -105,7 +109,7 @@ int main(){
     }
 
     /* Poisson eq. solver */
-    CollisionD2Q9LPMChaiRHS *cmPE = new CollisionD2Q9LPMChaiRHS();
+    CollisionD2Q9BGKPE *cmPE = new CollisionD2Q9BGKPE();
     StreamD2Q9Periodic *smPE = new StreamD2Q9Periodic();
     Lattice2D *lmPE = new Lattice2D(nx, ny);
     UnitHandlerLPM *uhPE = new UnitHandlerLPM();
@@ -198,7 +202,7 @@ int main(){
 
 
     /* NS Solver */
-    CollisionD2Q9BGKShanChenForce *cmNS = new CollisionD2Q9BGKShanChenForce();
+    CollisionD2Q9BGKNSF *cmNS = new CollisionD2Q9BGKNSF();
     StreamD2Q9Periodic *smNS = new StreamD2Q9Periodic();
     Lattice2D *lmNS = new Lattice2D(nx, ny);
 
@@ -208,8 +212,8 @@ int main(){
     LBM *lbmNS = new LBM(lmNS, cmNS, smNS);
 
     /* Set boundary conditions for flow */
-    BounceBackNodes<CollisionD2Q9BGKShanChenForce> *bbNS =
-            new BounceBackNodes<CollisionD2Q9BGKShanChenForce>();
+    BounceBackNodes<CollisionD2Q9BGKNSF> *bbNS =
+            new BounceBackNodes<CollisionD2Q9BGKNSF>();
     bbNS->setCollisionModel(cmNS);
     for(int i = 0; i < nx; i++){
         bbNS->addNode(i, 0, 0);
@@ -220,10 +224,10 @@ int main(){
     lbmNS->init();
     cmNS->setForce(fx, fy);
 
-    for(int t = 0; t < tNS; t++){
-        cout<<"T: "<<t<<endl;
-        lbmNS->collideAndStream();
-    }
+//    for(int t = 0; t < tNS; t++){
+//        cout<<"T: "<<t<<endl;
+//        lbmNS->collideAndStream();
+//    }
 
     cmNS->dataToFile("vis_scripts/bench_force_poi2/");
 
@@ -335,10 +339,10 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
 
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
-            fx[j][i] = -prefactor*ux[j][i]*rho_eps[j][i]*rho_eps[j][i] + dPdx;
+          //  fx[j][i] = -prefactor*ux[j][i]*rho_eps[j][i]*rho_eps[j][i] + dPdx;
             //fx[j][i] = dPdx;
             //cout<<"ux: "<<ux[j][i]<<endl;
-            cout<<"FX_ADV: "<<fx[j][i]<<endl;
+           // cout<<"FX_ADV: "<<fx[j][i]<<endl;
 
             jx = cmNPpos->getXFlux(j, i) - cmNPneg->getXFlux(j, i);
             jy = cmNPpos->getYFlux(j, i) - cmNPneg->getYFlux(j, i);
@@ -347,7 +351,7 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
 
             cout<<"FX_FLUX: "<<fx[j][i]<<endl;
 
-            fy[j][i] = 0;//prefactorJ*jy*rho_eps[j][i];
+            fy[j][i] = prefactorJ*jy*rho_eps[j][i];
             cout<<"FY_FLUX: "<<fy[j][i]<<endl;
         }
     }

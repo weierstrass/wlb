@@ -35,8 +35,9 @@ BounceBackNodes<T>::~BounceBackNodes() {}
 
 template <class T>
 void BounceBackNodes<T>::updateF(){
-	cout<<"Updating f on BB nodes..."<<endl;
-	double *fTemp = new double[lm->UDIRS];
+	//cout<<"Updating f on BB nodes..."<<endl;
+
+    double *fTemp = new double[lm->UDIRS];
 	Node *node;
 	int x, y, z, *opp, opp2;
 

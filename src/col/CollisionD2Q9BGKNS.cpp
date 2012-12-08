@@ -23,6 +23,18 @@ void CollisionD2Q9BGKNS::fEq(int i, int j, double *eq){
     fEq(rho, u, eq);
 }
 
+void CollisionD2Q9BGKNS::getU(double **ux, double **uy){
+    double rho;
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            get1moment(i, j, u);
+            rho = get0moment(i, j);
+            ux[j][i] = u[X]/rho;
+            uy[j][i] = u[Y]/rho;
+        }
+    }
+}
+
 void CollisionD2Q9BGKNS::init(double **rhoI, double **uxI, double **uyI){
     double *uTemp = new double[2];
     double *eq = new double[lm->UDIRS];

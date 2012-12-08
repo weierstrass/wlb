@@ -18,6 +18,8 @@ public:
     void fEq(int i, int j, double *eq);
     void init(double **rho, double **ux, double **uy);
     double *u;
+    void getU(double **ux, double **uy);
+
 protected:
     void fEq(double rho, double *u, double *eq);
 };
