@@ -342,7 +342,7 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
 //
 //            fx[j][i] = prefactorJ*jx*rho_eps[j][i] + dPdx;
 //
-            cout<<"FX_force: "<<fx[j][i]<<endl;
+           // cout<<"FX_force: "<<fx[j][i]<<endl;
 
             fy[j][i] = 0;//prefactorJ*jy*rho_eps[j][i];
            // cout<<"FY_FLUX: "<<fy[j][i]<<endl;

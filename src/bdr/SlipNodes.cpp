@@ -65,7 +65,7 @@ void SlipNodes<T>::init(){
 
 template <class T>
 void SlipNodes<T>::updateF(){
-    cout<<"Updating slip nodes..."<<endl;
+   // cout<<"Updating slip nodes..."<<endl;
     double *fTemp = new double[lm->UDIRS];
     ValueNode *node;
     int x, y, z, normalDir;
