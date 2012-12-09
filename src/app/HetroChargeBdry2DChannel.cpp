@@ -40,28 +40,29 @@ int main(){
 
     int tMod = 1; //undersök i detalj.... ok.
 
-    double l0 = 1e-5/(ny-1); //PE, NP
+    double l0 = 1e-6/(ny-1); //PE, NP
     double C0 = 1e-4*PHYS_N_A; //NP
-    double u0 = 1e-1; //NP, NS
+    double u0 = 1e-2; //NP, NS
     double dt = 1.0;
     double V0 = -50e-3; //PE
     double rho0 = 1e3; //NS
 
-    double D = 1.0e-8;
+    double nu = 1.0e-6; //m^2/s
+    double D = 1.0e-10; //m^2/s
     double u0x = 0.0;
     double T = 293;
     double eps_r = 80;
-    double rho_surface = -0.1e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
+    double rho_surface = -0.25e-1;//-50e-3*eps_r*PHYS_EPS0/1e-7/V0*l0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
-    double dPdx = 0.0;//1e-6;//1e3 * l0/(rho0 * u0 * u0); //lattice units
-    double E = 1e0;//l.u.
-    double bulkConductivity = 0.75e-6; //conductivity [S/m]
+    double E = 1.0;//1e3 * l0/(rho0 * u0 * u0); //lattice units
+    double bulkConductivity = 1.5e-3; //conductivity [S/m]
 
     double Pe = u0*l0/D;
-    double wNP = 1/(3.0/Pe + 0.5);
+    double Re = u0*1e4*l0/nu;
+    double wNP = 1.0/(3.0/Pe + 0.5);
     double wPE = 1.0;
-    double wNS = 0.5;
+    double wNS = 1.0/(3.0/Re + 0.5);
 
     /*print parameters*/
     printLine(20);
@@ -80,7 +81,7 @@ int main(){
     cout<<"l0*gamma/Pe *V0/l0 = "<<l0*gamma/Pe*V0/l0<<endl;
     cout<<"l0^2*gamma/Pe *V0/l0^2 = "<<l0*l0*gamma/Pe*V0/l0/l0<<endl;
     cout<<"1/Pe = "<<1/Pe<<endl;
-    cout<<"dPdx = "<<dPdx<<endl;
+    cout<<"E = "<<E<<endl;
     printLine(20);
 
     /* Allocate memory for velocity and grad. potential arrays */
@@ -106,7 +107,7 @@ int main(){
     }
 
     /* Poisson eq. solver */
-    CollisionD2Q9LPMChaiRHS *cmPE = new CollisionD2Q9LPMChaiRHS();
+    CollisionD2Q9BGKPE *cmPE = new CollisionD2Q9BGKPE();
     StreamD2Q9Periodic *smPE = new StreamD2Q9Periodic();
     Lattice2D *lmPE = new Lattice2D(nx, ny);
     UnitHandlerLPM *uhPE = new UnitHandlerLPM();
@@ -202,7 +203,7 @@ int main(){
 
 
     /* NS Solver */
-    CollisionD2Q9BGKShanChenForce *cmNS = new CollisionD2Q9BGKShanChenForce();
+    CollisionD2Q9BGKNSF *cmNS = new CollisionD2Q9BGKNSF();
     StreamD2Q9Periodic *smNS = new StreamD2Q9Periodic();
     Lattice2D *lmNS = new Lattice2D(nx, ny);
 
@@ -212,8 +213,8 @@ int main(){
     LBM *lbmNS = new LBM(lmNS, cmNS, smNS);
 
     /* Set boundary conditions for flow */
-    BounceBackNodes<CollisionD2Q9BGKShanChenForce> *bbNS =
-            new BounceBackNodes<CollisionD2Q9BGKShanChenForce>();
+    BounceBackNodes<CollisionD2Q9BGKNSF> *bbNS =
+            new BounceBackNodes<CollisionD2Q9BGKNSF>();
     bbNS->setCollisionModel(cmNS);
     for(int i = 0; i < nx; i++){
         bbNS->addNode(i, 0, 0);
@@ -335,6 +336,8 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
     double jx = 0;
     double jy = 0;
     double prefactorJ = PHYS_E_CHARGE*C0* rs*u0 / bulkCond *l0 / (u0 * u0 * rho0);
+    double prefactorE = PHYS_E_CHARGE*C0 * V0/l0 *l0/(rho0 *u0 *u0);
+   // cout<<"pre"<<prefactorE<<endl;
 
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
@@ -346,12 +349,15 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
             jx = cmNPpos->getXFlux(j, i) - cmNPneg->getXFlux(j, i);
             jy = cmNPpos->getYFlux(j, i) - cmNPneg->getYFlux(j, i);
 
-            cout<<"F_E: "<<rho_eps[j][i]*E<<endl;
-            fx[j][i] = prefactorJ*jx*rho_eps[j][i] - rho_eps[j][i]*E;
+          //  cout<<"F_E: "<<rho_eps[j][i]*E<<endl;
+          //  cout<<"F_str"<<prefactorJ*jx*rho_eps[j][i]<<endl;
+            fx[j][i] = prefactorJ*jx*rho_eps[j][i]  + prefactorE*rho_eps[j][i]*E;
+            fx[j][i] = rho_eps[j][i]*E;
 
             //cout<<"FX_FLUX: "<<fx[j][i]<<endl;
 
             fy[j][i] = prefactorJ*jy*rho_eps[j][i];
+            fy[j][i] = 0;
             //cout<<"FY_FLUX: "<<fy[j][i]<<endl;
         }
     }
