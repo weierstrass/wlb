@@ -10,6 +10,7 @@
  */
 
 #include "CollisionD2Q9BGK.h"
+#include <omp.h>
 
 CollisionD2Q9BGK::CollisionD2Q9BGK() : CollisionD2Q9(){
     rho = NULL;
@@ -23,17 +24,22 @@ CollisionD2Q9BGK::~CollisionD2Q9BGK() {
 
 void CollisionD2Q9BGK::collide(){
     //cout<<"D2Q9 BGK collision"<<endl;
-	for(int j = 0; j < lm->n.y; j++){
-	    for(int i = 0; i < lm->n.x; i++){
+    int j, i;
+    #pragma omp parallel private(j, i)
+    {
+	for(j = 0; j < lm->n.y; j++){
+	    for(i = 0; i < lm->n.x; i++){
 
 	        if(skip != NULL && skip[j][i]) continue;
 
 	        fEq(i, j, eq);
 			for(int d = 0; d < lm->UDIRS; d++){
+			   // cout<<"i: "<<i<<", j: "<<", d"<<d<<", thread: "<<omp_get_thread_num()<<endl;
 				f[0][j][i][d] += w*( eq[d] - f[0][j][i][d] );
 			}
 		}
 	}
+    }
 }
 
 void CollisionD2Q9BGK::setW(double w){
@@ -106,6 +112,7 @@ void CollisionD2Q9BGK::dataToFile(string path){
 //            break;
 //        }
 //    }
+    cout<<"bgk base..."<<endl;
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "ux.csv";

@@ -7,6 +7,7 @@
  */
 
 #include "CollisionD2Q9BGKNSF.h"
+#include <omp.h>
 
 CollisionD2Q9BGKNSF::CollisionD2Q9BGKNSF() : CollisionD2Q9BGKNS(){
 
@@ -69,16 +70,20 @@ void CollisionD2Q9BGKNSF::dataToFile(string path){
 //            break;
 //        }
 //    }
+    cout<<"lål"<<omp_get_thread_num()<<endl;
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "ux.csv";
+    cout<<"lål"<<endl;
     write2DArray(ux, NULL, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "uy.csv";
+    cout<<"lål"<<endl;
     write2DArray(uy, NULL, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "rho.csv";
+    cout<<"lål"<<endl;
     write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
 }

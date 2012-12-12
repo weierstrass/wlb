@@ -11,7 +11,10 @@
 using namespace std;
 
 int main(){
-	int nx = 3, ny = 50, tMax = 100000;
+
+    omp_set_num_threads(1);
+
+	int nx = 3, ny = 50, tMax = 10;
 	double w = 0.75;
 	double c = 1.0;
 
@@ -52,7 +55,7 @@ int main(){
 
 	/* Main loop */
 	for(int t = 0; t < tMax; t++){
-		cout<<t<<endl;
+		//cout<<t<<endl;
 		lbm->collideAndStream();
 	}
 

@@ -17,6 +17,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <math.h>
+#include <omp.h>
 
 #include "Constants.h"
 #include "Aux.h"
