@@ -41,7 +41,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		App2DChargedSquareArray.o \
+		AppPoiseuilleForce.o \
+		#App2DChargedSquareArray.o \
 		#HetroChargeBdry2DChannel.o \
 		#OsmosisElectro2DChannel.o \
 		#PressureElectro2DChannel.o \
@@ -49,7 +50,6 @@ OBJS := LBM.o \
 		#App2DChannelNP.o \
 		#AppFourRowsMill.o \
 		#AppTaylorVortex.o \
-		#AppPoiseuilleForce.o \
 		#AppHelmholtzChai.o \
 		#AppSquareArray.o \
 		#AppSquareArray.o \
@@ -96,7 +96,7 @@ OBJS := LBM.o \
 CXX = g++
 
 #Compiler options
-CPPFLAGS =-O2 -pg
+CPPFLAGS = -O2 -fopenmp -pg
 
 #Libraries
 LIBS = -lm
