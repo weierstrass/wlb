@@ -41,11 +41,11 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppPoiseuilleForce.o \
+		PressureMeanApp2DChannel.o \
+		#AppPoiseuilleForce.o \
 		#App2DChargedSquareArray.o \
 		#HetroChargeBdry2DChannel.o \
 		#OsmosisElectro2DChannel.o \
-		#PressureElectro2DChannel.o \
 		#AppCompBound.o \
 		#App2DChannelNP.o \
 		#AppFourRowsMill.o \

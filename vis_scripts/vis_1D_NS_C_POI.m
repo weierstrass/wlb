@@ -3,7 +3,7 @@
 clear all;
 clc;
 
-N = 68
+N = 100
 % 
  path = ['dataPE' num2str(N) '/rho.csv']
  rho = csvread(path)
@@ -107,7 +107,7 @@ figure(69); clf;
 rhoNS = csvread([path 'rho.csv'])
 surf(rhoNS)
 
-figure(70); clf;hold on
+figure(70);hold on
 %analyical solution
 yvv = linspace(0 + 0.5/(ny-1), 1 - 0.5/(ny-1), 200);
 w = 2/7;

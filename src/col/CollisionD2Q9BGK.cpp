@@ -25,8 +25,6 @@ CollisionD2Q9BGK::~CollisionD2Q9BGK() {
 void CollisionD2Q9BGK::collide(){
     //cout<<"D2Q9 BGK collision"<<endl;
     int j, i;
-    #pragma omp parallel private(j, i)
-    {
 	for(j = 0; j < lm->n.y; j++){
 	    for(i = 0; i < lm->n.x; i++){
 
@@ -39,7 +37,6 @@ void CollisionD2Q9BGK::collide(){
 			}
 		}
 	}
-    }
 }
 
 void CollisionD2Q9BGK::setW(double w){

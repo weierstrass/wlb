@@ -70,7 +70,7 @@ void CollisionD2Q9BGKNSF::dataToFile(string path){
 //            break;
 //        }
 //    }
-    cout<<"lål"<<omp_get_thread_num()<<endl;
+    //cout<<"lål"<<omp_get_thread_num()<<endl;
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "ux.csv";
