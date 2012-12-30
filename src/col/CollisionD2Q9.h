@@ -1,7 +1,9 @@
 /*
  * CollisionD2Q9.h
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ * andreas@bulling.se
+ *
+ * Abstract base class for D2Q9 collision operators.
  */
 
 #ifndef COLLISIOND2Q9_H_
@@ -21,9 +23,9 @@ public:
 	static const double W[9];
 protected:
     bool **skip;
-	int ex[9];
-	int ey[9];
+	//int ex[9];
+	//int ey[9];
 };
 
 
-#endif COLLISIOND2Q9_H_
+#endif /* COLLISIOND2Q9_H_ */

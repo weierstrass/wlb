@@ -12,8 +12,8 @@
 #include "BoundaryNodes.h"
 #include "TypeValueNode.h"
 //#include "../col/CollisionD2Q9LNP.h"
-#include "../col/CollisionD2Q9LPMChaiRHS.h"
-#include "../col/CollisionD2Q9LPMChai1to1.h"
+//#include "../col/CollisionD2Q9LPMChaiRHS.h"
+//#include "../col/CollisionD2Q9LPMChai1to1.h"
 
 template <class T>
 class HeZouNodes: public BoundaryNodes {

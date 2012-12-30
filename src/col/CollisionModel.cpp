@@ -3,7 +3,7 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * Abstract mother class for collision operators.
+ * Distribution function: f[z][y][x][dir].
  */
 
 #include "CollisionModel.h"
@@ -11,16 +11,19 @@
 CollisionModel::CollisionModel() {
 	unitHandler = NULL;
 	lm = NULL;
+	f = NULL;
+	c = 1.0;
 }
 
 CollisionModel::~CollisionModel() {
-	// TODO Auto-generated destructor stub
+	// Deallocate lm, f, unithandler.
 }
-//
+
 void CollisionModel::registerF(double ****f){
 	this->f = f;
 }
-//
+
+//Deprecated.. TBR!
 void CollisionModel::registerN(struct LatticeModel::dimension &n){
 	this->n = n;
 }

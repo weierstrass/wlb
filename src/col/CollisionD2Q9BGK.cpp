@@ -16,6 +16,8 @@ CollisionD2Q9BGK::CollisionD2Q9BGK() : CollisionD2Q9(){
     rho = NULL;
     ux = NULL;
     uy = NULL;
+    eq = NULL;
+    w = 1.0;
 }
 
 CollisionD2Q9BGK::~CollisionD2Q9BGK() {

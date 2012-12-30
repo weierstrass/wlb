@@ -9,7 +9,11 @@
 #ifndef COLLISISOND2Q9AD_H_
 #define COLLISISOND2Q9AD_H_
 
+#include <string>
+#include <iostream>
 #include "CollisionD2Q9BGK.h"
+
+using namespace std;
 
 class CollisionD2Q9AD: public CollisionD2Q9 {
 public:

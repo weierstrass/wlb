@@ -1,9 +1,9 @@
 /*
- * LBM-D2Q9.cpp
+ * LBM.cpp
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * Core class in lattice boltzmann solver.
+ * Core class in lattice-Boltzmann solver.
  *
  */
 
@@ -21,7 +21,7 @@ LBM::LBM(LatticeModel *lm, CollisionModel *cm, StreamModel *sm){
 }
 
 /*
- * Initialize f, for now, start by just setting f = f_eq.
+ * Initialize f
  */
 void LBM::init(){
 	collisionModel->init();
@@ -29,10 +29,10 @@ void LBM::init(){
 }
 
 void LBM::collideAndStream(){
-	//cout<<"colliding..."<<endl;
-	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
+	// collide
 	collisionModel->collide();
 
+	// pre-stream boundary conditions
     for(int i = 0; i < boundaryNodes.size(); i++){
         if(boundaryNodes[i]->PRESTREAM){
           //  cout<<"PRESTREAM"<<endl;
@@ -40,27 +40,21 @@ void LBM::collideAndStream(){
         }
     }
 
-	//cout<<"streaming..."<<endl;
-	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
+    // stream
 	streamModel->stream();
 
+	//post-stream boundary conditions
 	for(int i = 0; i < boundaryNodes.size(); i++){
 	    if(!boundaryNodes[i]->PRESTREAM){
 	        boundaryNodes[i]->updateF();
 	    }
 	}
-	//cout<<"post streaming"<<endl;
-	//print2DArray(f[0], latticeModel->n.x, latticeModel->n.y, 1);
 }
 
 void LBM::addBoundaryNodes(BoundaryNodes *bn){
 	boundaryNodes.push_back(bn);
 	bn->registerF(f);
 	bn->registerLatticeModel(latticeModel);
-}
-
-void LBM::handleBoundaries(){
-    cout<<"NOTHING DONE HERE"<<endl;
 }
 
 void LBM::setStreamModel(StreamModel *s){
@@ -80,3 +74,7 @@ void LBM::setLatticeModel(LatticeModel *lm){
 	latticeModel = lm;
 }
 
+// deprecated
+void LBM::handleBoundaries(){
+    cout<<"NOTHING DONE HERE"<<endl;
+}

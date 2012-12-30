@@ -3,7 +3,13 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * DESCRIPTION - TODO
+ * Collision operator for solving the
+ * incompressible Navier-Stokes equations
+ * with a force term present.
+ *
+ * Force is implemented using the
+ * Shan-Chen method.
+ *
  */
 
 #ifndef COLLISIOND2Q9BGKNSF_H_

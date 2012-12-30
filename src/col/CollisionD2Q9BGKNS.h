@@ -3,7 +3,8 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * DESCRIPTION - TODO
+ * Collision operator for solving the
+ * incompressible Navier-Stokes equations.
  */
 
 #ifndef COLLISIOND2Q9BGKNS_H_
@@ -17,10 +18,9 @@ public:
     virtual ~CollisionD2Q9BGKNS();
     void fEq(int i, int j, double *eq);
     void init(double **rho, double **ux, double **uy);
-    double *u;
     void getU(double **ux, double **uy);
-
 protected:
+    double *u;
     void fEq(double rho, double *u, double *eq);
 };
 
