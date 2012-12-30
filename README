@@ -10,10 +10,10 @@ Gothenburg. The accompanying report is available upon request (email me).
 Technical overview:
  Collision operators:
    BGK:
-	+ Navier-Stokes
+    + Navier-Stokes
      - Shan-Chen force implementation
-	+ Advection-diffusion
-	+ Poisson's equation
+    + Advection-diffusion
+    + Poisson's equation
  Boundary conditions:
   + Bounce back (Full way implementation)
   + Slip (Mirror reflection)
