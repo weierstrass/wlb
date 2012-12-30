@@ -5,9 +5,10 @@ respectively. Various implementations of Dirichlet/Neumann boundary conditions
 are also implemented. The code deals (so far) only with 2D systems.
 
 This code is part of a  master thesis project carried out at Chalmers University, 
-Gothenburg. The accompanying report is available upon request (email me). 
-
-![Velocity field in some gemoetry](example.png)
+Gothenburg. The accompanying report is available upon request (email me).
+ 
+Example of computed velocity field in some geometry (no electrical effects here)
+https://raw.github.com/weierstrass/Lattice-Boltzmann/master/example.png
 
 Technical overview:
  Collision operators:
