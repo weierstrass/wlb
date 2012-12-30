@@ -28,6 +28,7 @@ template BounceBackNodes<CollisionD2Q9BGKNSF>::BounceBackNodes();
 template <class T>
 BounceBackNodes<T>::BounceBackNodes() {
     PRESTREAM = 1;
+    cm = NULL;
 }
 
 template <class T>
