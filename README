@@ -7,6 +7,8 @@ are also implemented. The code deals (so far) only with 2D systems.
 This code is part of a  master thesis project carried out at Chalmers University, 
 Gothenburg. The accompanying report is available upon request (email me). 
 
+![Velocity field in some gemoetry](example.png)
+
 Technical overview:
  Collision operators:
    BGK:
