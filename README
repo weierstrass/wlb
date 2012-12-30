@@ -7,50 +7,45 @@ are also implemented. The code deals (so far) only with 2D systems.
 This code is part of a  master thesis project carried out at Chalmers University, 
 Gothenburg. The accompanying report is available upon request (email me). 
 
-OVERVIEW OF CURRENT SUPPORT
- D2Q9
-  Collision operators:
-   - N-S (BGK)
-    + with Shan-Chen force
-   - LPM Chai (BGK)
-   - LPM Wang (BGK)
-   - N-P (BGK)
-  Boundary conditions:
-   - Bounce back (Full way implementation)
-   - Slip (Mirror reflection)
-   - Periodic
-   - BFL (Bouzidi's rule) [NYFI]
-   - He/Zou Constant density
-   - He/Zou Constant velocity [NYFI]
-   - LPM Dirichlet (From Wang paper)
-   - LPM Neumann (From Wang paper) [NYFI]
-   - LPM modified He/Zou constant density
- D3Q19
-  Collision operators:
-   - BGK
-  Boundary conditions:
-   - Bounce back
+Technical overview:
+ Collision operators:
+   BGK:
+	+ Navier-Stokes
+     - Shan-Chen force implementation
+	+ Advection-diffusion
+	+ Poisson's equation
+ Boundary conditions:
+  + Bounce back (Full way implementation)
+  + Slip (Mirror reflection)
+  + Periodic
+  + He/Zou Constant density
+  + He/Zou Constant velocity
+ Boundary conditions (Not yet fully implemented)
+  + LPM Neumann (From Wang paper) [NYFI]
+  + He/Zou Constant velocity [NYFI]
+  + BFL (Bouzidi's rule) [NYFI]
 
-EXAMPLES
- D2Q9
-  - Poiseuille flow
-   + Driven by pressure grad.
-   + Constant velocity driven
-   + Force driven
-  - Taylor-Green Vortex
-  - Cylindrical obstacle
-   + Bounce back
-   + BFL 
-  - 1D Poison-Boltzmann (Wang+Chai)
-  - 2D Helmholtz equation (Wang+Chai)
-  - 1D Advection-diffusion
+Examples:
+ + Poiseuille flow
+  - Driven by pressure grad.
+  - Constant velocity driven
+  - Force driven
+ + Taylor-Green Vortex
+ + Cylindrical obstacle
+  - Bounce back
+  - BFL 
+ + 1D Poison-Boltzmann vs. Nernst-Planck
+ + 2D Helmholtz equation (Wang+Chai)
+ + 1D Advection-diffusion of point mass
 
-COMPILE AND RUN
- $ make
- $ ./a.out
-	
-HOW TO USE 
- some notes here...
+Compile and run:
+ 1. Add source file to make file (temporary solution)
+ 2. $ make
+ 3. $ ./a.out
+
+Further notes:
+ In a near future, the make lattice-Boltzmann code will be separated from the
+ examples and be compliled into a library.
  
   
 
