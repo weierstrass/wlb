@@ -2,7 +2,7 @@ A Lattice-Boltzmann code for solving coupled equations in electrohydrodynamics.
 Three collision operators are implemented for the (incompressible) Navier-Stokes, 
 Nernst-Planck (advection-diffusion) and Poission's equation for electrostatics 
 respectively. Various implementations of Dirichlet/Neumann boundary conditions 
-are also implemented. The code deals (so far) only with 2D systems.
+are also available. The code deals (so far) only with 2D systems.
 
 This code is part of a  master thesis project carried out at Chalmers University, 
 Gothenburg. The accompanying report is available upon request (email me).
