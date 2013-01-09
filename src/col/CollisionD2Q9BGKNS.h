@@ -22,6 +22,9 @@ public:
 protected:
     double *u;
     void fEq(double rho, double *u, double *eq);
+private:
+    double c1, c2, c3;
+
 };
 
 #endif /* COLLISIOND2Q9BGKNS_H_ */

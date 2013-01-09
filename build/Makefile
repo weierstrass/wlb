@@ -1,6 +1,7 @@
 # Makefile for Lattice Boltzmann code
 # Andreas Bülling, 2012
 # andreas@bulling.se
+################################################################################
 
 #Paths
 SRCDIR = ../src
@@ -41,7 +42,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		PressureMeanApp2DChannel.o \
+		AppMlups.o \
+		#PressureMeanApp2DChannel.o \
 		#AppPoiseuilleForce.o \
 		#App2DChargedSquareArray.o \
 		#HetroChargeBdry2DChannel.o \
@@ -96,7 +98,9 @@ OBJS := LBM.o \
 CXX = g++
 
 #Compiler options
-CPPFLAGS = -O2 -fopenmp -pg
+CPPFLAGS = -O2 -fopenmp 
+
+#-pg
 
 #Libraries
 LIBS = -lm

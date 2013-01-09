@@ -11,6 +11,10 @@
 CollisionD2Q9BGKNS::CollisionD2Q9BGKNS() {
     cout<<"allocating u memory"<<endl;
     u = new double[2];
+    double c2inv = 1.0/c*c;
+    c1 = 3.0*c2inv;
+    c2 = 4.5*(c2inv*c2inv);
+    c3 = - 1.5*c2inv;
 }
 
 CollisionD2Q9BGKNS::~CollisionD2Q9BGKNS() {
@@ -58,8 +62,9 @@ void CollisionD2Q9BGKNS::init(double **rhoI, double **uxI, double **uyI){
 }
 
 void CollisionD2Q9BGKNS::fEq(double rho, double *u, double *eq){
-    u[X] /= rho;
-    u[Y] /= rho;
+	double rho_inv = 1/rho;
+    u[X] *= rho_inv;
+    u[Y] *= rho_inv;
 
     double c2inv = 1.0/c*c;
     double u2 = u[X]*u[X] + u[Y]*u[Y];
@@ -67,8 +72,11 @@ void CollisionD2Q9BGKNS::fEq(double rho, double *u, double *eq){
     for(int d = 0; d < lm->UDIRS; d++){
         double cu = lm->ex[d]*u[X] + lm->ey[d]*u[Y];
 
-        eq[d] = W[d]*rho*(1 + 3.0*c2inv*(cu) \
+       // eq[d] = W[d]*rho*(1 + 3.0*c2inv*(cu) \
                 + 4.5*(c2inv*c2inv)*(cu*cu) \
                 - 1.5*c2inv*u2);
+       // cout<<eq[d] <<" == ";
+        eq[d] = rho * W[d] * ( 1 + c1*cu + c2*cu*cu + c3*u2 );
+        //cout<<eq[d]<<"?"<<endl;
     }
 }

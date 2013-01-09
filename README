@@ -47,8 +47,8 @@ Compile and run:
  3. $ ./a.out
 
 Further notes:
- In a near future, the make lattice-Boltzmann code will be separated from the
- examples and be compliled into a library.
+ In a near future, the lattice-Boltzmann code will be separated from the
+ examples and be compiled into a library.
  
   
 
