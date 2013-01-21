@@ -3,9 +3,9 @@
 clear all;
 clc;
 
-N = 2
+N = 7
 
-sd = 50;
+sd = 0;
  
 path = ['dataPE' num2str(N) '/rho.csv']
 rho = csvread(path);

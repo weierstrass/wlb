@@ -41,7 +41,8 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		PressureMeanApp2DChannel.o \
+		AppSUMO.o \
+		#PressureMeanApp2DChannel.o \
 		#AppPoiseuilleForce.o \
 		#App2DChargedSquareArray.o \
 		#HetroChargeBdry2DChannel.o \
