@@ -42,7 +42,7 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppMlups.o \
+		AppKarmanVortex.o \
 		#PressureMeanApp2DChannel.o \
 		#AppPoiseuilleForce.o \
 		#App2DChargedSquareArray.o \
