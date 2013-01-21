@@ -1,13 +1,14 @@
 /*
- * LBM-D2Q9.h
+ * LBM.h
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
+ * Spider class, couples the lattice, streaming,
+ * boundary conditions  and collision.
  */
 
 #ifndef LBM_H_
 #define LBM_H_
-
 
 #include <iostream>
 #include <list>
@@ -31,18 +32,11 @@
 #include "bdr/DirichletLPMNodes.h"
 #include "bdr/NeumannLPMNodes.h"
 #include "bdr/HeZouNodes.h"
-#include "bdr/HeZouLPMChaiNodes.h"
+//#include "bdr/HeZouLPMChaiNodes.h"
 #include "bdr/SlipNodes.h"
-//#include "bdr/NeumannNodes.h"
-//#include "bdr/NeumannNodesPE.h"
 #include "bdr/NeumannNodesPESlip.h"
-//#include "BFLBoundaryNodes.h"
-//#include "ConstantPressureBoundaryNodes.h"
-//#include "ConstantVelocityBoundaryNodes.h"
 
 #include "str/StreamModel.h"
-//#include "str/PeriodicStreamModel.h"
-//#include "str/DefaultStreamModel.h"
 #include "str/StreamD2Q9.h"
 #include "str/StreamD2Q9Periodic.h"
 
@@ -68,6 +62,12 @@
 //#include "col/CollisionD2Q9LNP.h"
 //#include "col/CollisionD2Q9LNPSource.h"
 //#include "bdr/NeumannNodesNP.h"
+//#include "str/PeriodicStreamModel.h"
+//#include "str/DefaultStreamModel.h"
+//#include "str/PeriodicStreamModel.h"
+//#include "str/DefaultStreamModel.h"
+//#include "bdr/NeumannNodes.h"
+//#include "bdr/NeumannNodesPE.h"
 
 
 //#include "col/CollisionD2Q9BGKShanChenForce.h"
@@ -75,6 +75,8 @@
 //#include "col/CollisionD2Q9LPMChaiRHS.h"
 //#include "col/CollisionD2Q9LPMChaiHelmholtz.h"
 //#include "col/CollisionD2Q9LPMChai1to1.h"
+//#include "str/PeriodicStreamModel.h"
+//#include "str/DefaultStreamModel.h"
 
 using namespace std;
 

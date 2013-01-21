@@ -8,7 +8,7 @@
 #define HEZOULPMCHAINODES_H_
 
 #include "BoundaryNodes.h"
-#include "../col/CollisionD2Q9LPMChai.h"
+//#include "../col/CollisionD2Q9LPMChai.h"
 #include "TypeValueNode.h"
 
 class HeZouLPMChaiNodes: public BoundaryNodes {

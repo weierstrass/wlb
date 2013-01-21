@@ -10,7 +10,8 @@
 #include <omp.h>
 
 CollisionD2Q9BGKNSF::CollisionD2Q9BGKNSF() : CollisionD2Q9BGKNS(){
-
+	fx = NULL;
+	fy = NULL;
 }
 
 CollisionD2Q9BGKNSF::~CollisionD2Q9BGKNSF(){

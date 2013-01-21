@@ -8,7 +8,8 @@
 #include "StreamD2Q9Periodic.h"
 
 StreamD2Q9Periodic::StreamD2Q9Periodic() {
-	// TODO Auto-generated constructor stub
+	fh = NULL;
+	fv = NULL;
 }
 
 void StreamD2Q9Periodic::init(){

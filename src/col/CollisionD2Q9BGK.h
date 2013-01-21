@@ -1,7 +1,15 @@
 /*
  * CollisionD2Q9BGK.h
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ * andreas@bulling.se
+ *
+ * Abstract D2Q9 BGK collision operator.
+ *
+ * Collision rule is defined as the BGK relaxation
+ * operator. As default initialisation is taken as the
+ * equilibrium distribution.
+ * Children must implement an equilibrium distribution
+ * through fEq().
  */
 
 #ifndef COLLISIOND2Q9BGK_H_

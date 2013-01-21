@@ -3,3 +3,4 @@
 *~
 *.csv
 vis_scripts
+cachegrind*
