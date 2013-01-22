@@ -3,7 +3,7 @@
 clear all;
 clc;
 
-N = 6
+N = 2
 
 sd = 0;
  
@@ -49,8 +49,8 @@ path = ['dataNS' num2str(N) '/'];
 ux = csvread([path 'ux.csv']);
 ux = ux(2:ny-1, :);
 uy = csvread([path 'uy.csv']);
-ux(start:start+sd, start:start+sd) = 0;
-uy(start:start+sd, start:start+sd) = 0;
+%ux(start:start+sd, start:start+sd) = 0;
+%uy(start:start+sd, start:start+sd) = 0;
 uy = uy(2:ny-1, :);
 
  figure(66)
