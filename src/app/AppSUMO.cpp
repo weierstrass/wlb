@@ -242,9 +242,19 @@ int main(){
             new BounceBackNodes<CollisionD2Q9BGKNSF>();
     bbNS->setCollisionModel(cmNS);
 
-    for(int i = start; i < start + sd +1; i++){
-        bbNS->addNode(i, start, 0);
-        bbNS->addNode(i, ny-1-start, 0);
+    int verRod = ny/5;
+
+    for(int j = 0; j < verRod+1; j++){
+        bbNS->addNode(nx/2, j, 0);
+        bbNS->addNode(nx/2+10, j, 0);
+
+        bbNS->addNode(nx/2, ny - 1 -j, 0);
+        bbNS->addNode(nx/2+10, ny - 1 - j, 0);
+    }
+
+    for(int i = nx/2+1; i < nx/2 + 10; i++){
+        bbNS->addNode(i, verRod, 0);
+        bbNS->addNode(i, ny - 1 - verRod, 0);
     }
 
     for(int i = start + 1; i < start + sd; i++){
