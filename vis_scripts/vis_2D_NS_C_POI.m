@@ -3,7 +3,7 @@
 clear all;
 clc;
 
-N = 2
+N = 12
 
 sd = 0;
  

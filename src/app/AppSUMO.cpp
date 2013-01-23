@@ -26,13 +26,17 @@ void updateForce(double **fx, double **fy, double **ux, double **uy, double **rh
                  Lattice2D *lm, double eps_r, double u0, double l0, double V0, double C0,
                  double bulkCond, double dPdx, CollisionD2Q9AD *cmNPpos, CollisionD2Q9AD *cmNPneg);
 
+void addRect(int x, int y, int w, int h, double rho_surface, BounceBackNodes<CollisionD2Q9BGKNSF> *bbNS,
+		NeumannNodesPESlip *bds, SlipNodes<CollisionD2Q9AD> *bbnNeg,
+		SlipNodes<CollisionD2Q9AD> *bbnPos);
+
 int main(){
     cout<<"2D, NS <-> PE <-> NP"<<endl;
 
     /* Parameter definitions */
     int nx = 101;
     int ny = 101;
-    int sd = 51;
+   // int sd = 51;
 
     int tNP = 150;
     int tPE = 10000;
@@ -138,20 +142,7 @@ int main(){
     lbmPE->addBoundaryNodes(bds);
     bds->setCollisionModel(cmPE);
 
-    int start = ((nx-1) - sd)/2;
-    for(int i = start+1; i < nx-start-1; i++){
-        bds->addNode(i, start, 0, rho_surface, 2);
-        bds->addNode(i, ny-1-start, 0, rho_surface, 4);
 
-        bds->addNode(start, i, 0, rho_surface, 1);
-        bds->addNode(nx-1-start, i, 0, rho_surface, 3);
-    }
-    //corner nodes..
-    bds->addNode(start, start, 0, rho_surface, 6);
-    bds->addNode(start, ny-1-start, 0, rho_surface, 7);//7
-    bds->addNode(nx-1-start, start, 0, rho_surface, 5);//5
-    bds->addNode(nx-1-start, ny-1-start, 0, rho_surface, 8);//8
-    bds->init();
 
     /* Nernst Planck solver */
     CollisionD2Q9AD *cmNPneg = new CollisionD2Q9AD();
@@ -192,35 +183,33 @@ int main(){
     SlipNodes<CollisionD2Q9AD> *bbnNeg = new SlipNodes<CollisionD2Q9AD>();
     lbmNPneg->addBoundaryNodes(bbnNeg);
     bbnNeg->setCollisionModel(cmNPneg);
-    for(int i = start + 1 ; i < nx - start - 1; i++){
-        bbnNeg->addNode(i, start, 0, 2);
-        bbnNeg->addNode(i, ny-1-start, 0, 4);
-
-        bbnNeg->addNode(start, i, 0, 1);
-        bbnNeg->addNode(nx-1-start, i, 0, 3);
-    }
-    //corner nodes
-    bbnNeg->addNode(start, start, 0, 6);
-    bbnNeg->addNode(start, ny-1-start, 0, 7);
-    bbnNeg->addNode(nx-1-start, start, 0, 5);
-    bbnNeg->addNode(nx-1-start, ny-1-start, 0, 8);
-    bbnNeg->init();
+//    for(int i = start + 1 ; i < nx - start - 1; i++){
+//        bbnNeg->addNode(i, start, 0, 2);
+//        bbnNeg->addNode(i, ny-1-start, 0, 4);
+//
+//        bbnNeg->addNode(start, i, 0, 1);
+//        bbnNeg->addNode(nx-1-start, i, 0, 3);
+//    }
+//    //corner nodes
+//    bbnNeg->addNode(start, start, 0, 6);
+//    bbnNeg->addNode(start, ny-1-start, 0, 7);
+//    bbnNeg->addNode(nx-1-start, start, 0, 5);
+//    bbnNeg->addNode(nx-1-start, ny-1-start, 0, 8);
 
     SlipNodes<CollisionD2Q9AD> *bbnPos = new SlipNodes<CollisionD2Q9AD>();
     lbmNPpos->addBoundaryNodes(bbnPos);
     bbnPos->setCollisionModel(cmNPpos);
-    for(int i = start + 1; i < nx - start - 1; i++){
-        bbnPos->addNode(i, start, 0, 2);
-        bbnPos->addNode(i, ny-1-start, 0, 4);
-
-        bbnPos->addNode(start, i, 0, 1);
-        bbnPos->addNode(nx-1-start, i, 0, 3);
-    }
-    bbnPos->addNode(start, start, 0, 6);
-    bbnPos->addNode(start, ny-1-start, 0, 7);
-    bbnPos->addNode(nx-1-start, start, 0, 5);
-    bbnPos->addNode(nx-1-start, ny-1-start, 0, 8);
-    bbnPos->init();
+//    for(int i = start + 1; i < nx - start - 1; i++){
+//        bbnPos->addNode(i, start, 0, 2);
+//        bbnPos->addNode(i, ny-1-start, 0, 4);
+//
+//        bbnPos->addNode(start, i, 0, 1);
+//        bbnPos->addNode(nx-1-start, i, 0, 3);
+//    }
+//    bbnPos->addNode(start, start, 0, 6);
+//    bbnPos->addNode(start, ny-1-start, 0, 7);
+//    bbnPos->addNode(nx-1-start, start, 0, 5);
+//    bbnPos->addNode(nx-1-start, ny-1-start, 0, 8);
 
     /* Initialize solver */
     lbmNPneg->init();
@@ -241,29 +230,40 @@ int main(){
     BounceBackNodes<CollisionD2Q9BGKNSF> *bbNS =
             new BounceBackNodes<CollisionD2Q9BGKNSF>();
     bbNS->setCollisionModel(cmNS);
-
-    int verRod = ny/5;
-
-    for(int j = 0; j < verRod+1; j++){
-        bbNS->addNode(nx/2, j, 0);
-        bbNS->addNode(nx/2+10, j, 0);
-
-        bbNS->addNode(nx/2, ny - 1 -j, 0);
-        bbNS->addNode(nx/2+10, ny - 1 - j, 0);
-    }
-
-    for(int i = nx/2+1; i < nx/2 + 10; i++){
-        bbNS->addNode(i, verRod, 0);
-        bbNS->addNode(i, ny - 1 - verRod, 0);
-    }
-
-    for(int i = start + 1; i < start + sd; i++){
-        bbNS->addNode(start, i, 0);
-        bbNS->addNode(nx-1-start, i, 0);
-    }
     lbmNS->addBoundaryNodes(bbNS);
 
+
+    //vertical rod
+//    int verRod = ny/5;
+//    for(int j = 0; j < verRod+1; j++){
+//        bbNS->addNode(nx/2, j, 0);
+//        bbNS->addNode(nx/2+10, j, 0);
+//
+//        bbNS->addNode(nx/2, ny - 1 -j, 0);
+//        bbNS->addNode(nx/2+10, ny - 1 - j, 0);
+//    }
+//
+//    for(int i = nx/2+1; i < nx/2 + 10; i++){
+//        bbNS->addNode(i, verRod, 0);
+//        bbNS->addNode(i, ny - 1 - verRod, 0);
+//    }
+
+    //small square
+    addRect(nx/2, 0, nx/10, ny/5, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(nx/2, ny - 1 - ny/5, nx/10, ny/6, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(nx/6, ny/4, nx/6, ny/6, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    //addRect(nx - nx/6, ny/2, nx/10, ny/3, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    //addRect(nx/2 - 10, 2*ny/3, nx/5, ny/5, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    bds->init();
+    bbnPos->init();
+    bbnNeg->init();
     lbmNS->init();
+
     cmNS->setForce(fx, fy);
 
 
@@ -421,6 +421,54 @@ void updateRho(double **rho_eps,
     }
 }
 
+void addRect(int x, int y, int w, int h, double rho_surface, BounceBackNodes<CollisionD2Q9BGKNSF> *bbNS,
+		NeumannNodesPESlip *bds, SlipNodes<CollisionD2Q9AD> *bbnNeg,
+		SlipNodes<CollisionD2Q9AD> *bbnPos){
+	//NS
+	for(int i = x; i < x + w + 1; i++){
+		bbNS->addNode(i, y, 0);
+		bbNS->addNode(i, y + h, 0);
+	}
+
+	for(int j = y + 1; j < y + h; j++){
+		bbNS->addNode(x, j, 0);
+		bbNS->addNode(x + w, j, 0);
+	}
+
+	//PE + NP
+    for(int i = x + 1; i < x + w; i++){
+        bds->addNode(i, y, 0, rho_surface, 2);
+        bbnPos->addNode(i, y, 0, 2);
+        bbnNeg->addNode(i, y, 0, 2);
+
+        bds->addNode(i, y + h, 0, rho_surface, 4);
+        bbnNeg->addNode(i, y + h, 0, 4);
+        bbnPos->addNode(i, y + h, 0, 4);
+    }
+
+	for(int j = y + 1; j < y + h; j++){
+        bds->addNode(x, j, 0, rho_surface, 1);
+        bbnNeg->addNode(x, j, 0, 1);
+        bbnPos->addNode(x, j, 0, 1);
+
+        bds->addNode(x + w, j, 0, rho_surface, 3);
+        bbnNeg->addNode(x + w, j, 0, 3);
+        bbnPos->addNode(x + w, j, 0, 3);
+	}
+
+    bds->addNode(x, y, 0, rho_surface, 6);
+    bbnNeg->addNode(x, y, 0, 6);
+    bbnPos->addNode(x, y, 0, 6);
+    bds->addNode(x, y + h, 0, rho_surface, 7);//7
+    bbnNeg->addNode(x, y + h, 0, 7);//7
+    bbnPos->addNode(x, y + h, 0, 7);//7
+    bds->addNode(x + w, y, 0, rho_surface, 5);//5
+    bbnNeg->addNode(x + w, y, 0, 5);//5
+    bbnPos->addNode(x + w, y, 0, 5);//5
+    bds->addNode(x + w, y + h, 0, rho_surface, 8);//8
+    bbnNeg->addNode(x + w, y + h, 0, 8);//8
+    bbnPos->addNode(x + w, y + h, 0, 8);//8
+}
 ///*TODO modified C_neg*/
 //void initC(CollisionD2Q9LNP *cmNPneg,
 //           CollisionD2Q9LNP *cmNPpos,
