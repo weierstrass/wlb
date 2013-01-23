@@ -3,7 +3,7 @@
 clear all;
 clc;
 
-N = 12
+N = 5
 
 sd = 0;
  
@@ -72,9 +72,9 @@ title('u charged')
 % title('density')
 
 %force
-% figure(93);clf;
-%  path = ['dataFX' num2str(N) '/'];
-% 
-% fx = csvread([path 'fx.csv']);
-% surf(fx)
-% title('fx')
+figure(93);clf;
+ path = ['dataFX' num2str(N) '/'];
+
+fx = csvread([path 'fx.csv']);
+surf(fx)
+title('fx')

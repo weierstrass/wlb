@@ -34,8 +34,8 @@ int main(){
     cout<<"2D, NS <-> PE <-> NP"<<endl;
 
     /* Parameter definitions */
-    int nx = 101;
-    int ny = 101;
+    int nx = 201;
+    int ny = 201;
    // int sd = 51;
 
     int tNP = 150;
@@ -52,7 +52,7 @@ int main(){
     double V0 = -50e-3; //PE
     double rho0 = 1e3; //NS
 
-    double nu = 1.0e-6; //m^2/s
+    double nu = 1.0e-7; //m^2/s
     double D = 1.0e-10; //m^2/s
     double u0x = 0.0;
     double T = 293;
@@ -61,7 +61,7 @@ int main(){
     rho_surface = 0.0;
     double bulk_charge = 1.0;
     double gamma = PHYS_E_CHARGE/(PHYS_KB*T);
-    double dPdx = 0.5e-3;//1e3 * l0/(rho0 * u0 * u0); //lattice units
+    double dPdx = 0.005e-3;//1e3 * l0/(rho0 * u0 * u0); //lattice units
     double bulkConductivity = 1.5e-3; //conductivity [S/m]
 
     double Pe = u0*l0/D;
@@ -81,6 +81,7 @@ int main(){
     cout<<endl;
     cout<<"w_np = "<<wNP<<endl;
     cout<<"w_pe = "<<wPE<<endl;
+    cout<<"w_ns = "<<wNS<<endl;
     cout<<endl;
     cout<<"l0 = "<<l0<<endl;
     cout<<"V0 = "<<V0<<endl;
@@ -249,15 +250,25 @@ int main(){
 //    }
 
     //small square
-    addRect(nx/2, 0, nx/10, ny/5, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+    addRect(nx*3/4, 0, nx/10, ny/5, rho_surface, bbNS, bds, bbnNeg, bbnPos);
 
-    addRect(nx/2, ny - 1 - ny/5, nx/10, ny/6, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+    addRect(nx*3/4, ny - 1 - ny/5, nx/10, ny/6, rho_surface, bbNS, bds, bbnNeg, bbnPos);
 
-    addRect(nx/6, ny/4, nx/6, ny/6, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+    addRect(nx/6, ny/4, nx/4, ny/4, rho_surface, bbNS, bds, bbnNeg, bbnPos);
 
+    addRect(nx/8, ny*3/4, nx/4, ny/8, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(nx*3/6, ny/6, nx/6, ny/8, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(nx*3/5-5, ny/2, nx/8, ny/4, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(4, ny/2, nx/20, ny/3-1, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+
+    addRect(nx*3/4+5, ny/3, nx/20, ny/20, rho_surface, bbNS, bds, bbnNeg, bbnPos);
     //addRect(nx - nx/6, ny/2, nx/10, ny/3, rho_surface, bbNS, bds, bbnNeg, bbnPos);
 
     //addRect(nx/2 - 10, 2*ny/3, nx/5, ny/5, rho_surface, bbNS, bds, bbnNeg, bbnPos);
+    //addRect(nx/4, ny/4, nx/2, ny/2, rho_surface, bbNS, bds, bbnNeg, bbnPos);
 
     bds->init();
     bbnPos->init();
@@ -274,26 +285,26 @@ int main(){
 
 //        if(tt == 12){ tNP = 8; tNS = 8;}
 
-        /* Update net charge density */
-        updateRho(rho_eps, cmNPneg, cmNPpos, lm, eps_r, V0, l0, C0);
-        cmPE->reset();
-
-        for(int t = 0; t < tPE; t++){
-            //cout<<"tPE "<<t<<endl;
-            lbmPE->collideAndStream();
-        }
-        cmPE->getDPsi(dPsix, dPsiy);
-
-        //scale potential gradients to SI units *l0
-        rescale2DArray(dPsix, V0, ny, nx);
-        rescale2DArray(dPsiy, V0, ny, nx);
-
-        for(int t = 0; t < tNP; t++){
-            lbmNPneg->collideAndStream();
-            lbmNPpos->collideAndStream();
-        }
-
-
+//        /* Update net charge density */
+//        updateRho(rho_eps, cmNPneg, cmNPpos, lm, eps_r, V0, l0, C0);
+//        cmPE->reset();
+//
+//        for(int t = 0; t < tPE; t++){
+//            //cout<<"tPE "<<t<<endl;
+//            lbmPE->collideAndStream();
+//        }
+//        cmPE->getDPsi(dPsix, dPsiy);
+//
+//        //scale potential gradients to SI units *l0
+//        rescale2DArray(dPsix, V0, ny, nx);
+//        rescale2DArray(dPsiy, V0, ny, nx);
+//
+//        for(int t = 0; t < tNP; t++){
+//            lbmNPneg->collideAndStream();
+//            lbmNPpos->collideAndStream();
+//        }
+//
+//
         updateForce(fx, fy, ux, uy, rho_eps,\
                          lmNS, eps_r, u0, l0, V0, C0,\
                          bulkConductivity, dPdx, cmNPpos, cmNPneg);

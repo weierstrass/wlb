@@ -43,6 +43,7 @@ OBJS := LBM.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
 		AppSUMO.o \
+		#AppCompBound.o \
 		#PressureMeanApp2DChannel.o \
 		#AppPoiseuilleForce.o \
 		#App2DChargedSquareArray.o \
