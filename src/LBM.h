@@ -55,6 +55,8 @@
 #include "unit/UnitHandlerLPM.h"
 #include "unit/UnitHandlerNS.h"
 
+#include "io/OutputCSV.h"
+
 
 //#include "col/CollisionD2Q9LPM.h"
 //#include "col/CollisionD2Q9WangHelmholtz.h"

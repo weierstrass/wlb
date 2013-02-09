@@ -11,7 +11,7 @@ Example of computed (steady state) velocity field in some geometry
 (no electrical effects here):
 https://raw.github.com/weierstrass/Lattice-Boltzmann/master/example.png
 
-Another example showing the famous Karman vortex street:
+Another example showing a Karman vortex street:
 http://www.youtube.com/watch?v=azrFJ8qbrKM
 
 Technical overview:

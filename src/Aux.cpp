@@ -59,7 +59,7 @@ void createDirectory(string path){
  *  Write 2D Array csv to file
  */
 void write2DArray(double **a, string file, int nx, int ny){
-    //cout<<"Writing data to "<<file<<"...";
+    cout<<"Writing data to "<<file<<"...";
     ofstream oFile;
     cout<<"asd: "<<file.c_str()<<endl;
     oFile.open(file.c_str());

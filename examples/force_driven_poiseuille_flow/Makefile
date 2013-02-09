@@ -15,7 +15,7 @@ TOPDIR = ../..
 
 # If the .so file is not placed under the library path, specify 
 # the path here. 
-PATH_TO_WLB = /Users/andreasbulling/Documents/workspace/LBM
+PATH_TO_WLB = ../..
 
 
 vpath %.cpp $(SRCDIR)

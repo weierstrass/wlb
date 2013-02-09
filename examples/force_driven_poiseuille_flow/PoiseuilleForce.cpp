@@ -1,7 +1,9 @@
 /*
  * PoiseuilleForce.cpp
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ *
+ * Simulation of 2D Poisueille flow driven by a constant force.
+ *
  */
 
 #include <iostream>
@@ -21,7 +23,7 @@ int main(){
 	double **fx = allocate2DArray(ny, nx);
     double **fy = allocate2DArray(ny, nx);
 
-	cout<<"Forced poiseuille flow..."<<endl;
+	cout<<"Forced Poiseuille flow..."<<endl;
 	LatticeModel *lm = new Lattice2D(nx, ny);
 	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
 	CollisionD2Q9BGKNSF *cm = new CollisionD2Q9BGKNSF();
@@ -59,7 +61,11 @@ int main(){
 		lbm->collideAndStream();
 	}
 
-	cm->dataToFile("vis_scripts/bench_force_poi/");
+	//cm->dataToFile("vis_scripts/bench_force_poi/");
+	OutputCSV<CollisionD2Q9BGKNSF> *oFile =
+			new OutputCSV<CollisionD2Q9BGKNSF>(cm, lm);
+	oFile->writeData();
+
 	cout<<"done cyl."<<endl;
 
 	return 0;

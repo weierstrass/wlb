@@ -21,7 +21,8 @@ TOPDIR = .
 
 vpath %.cpp $(SRCDIR) $(SRCDIR)/col \
 			$(SRCDIR)/lat $(SRCDIR)/str \
-			$(SRCDIR)/bdr $(SRCDIR)/unit
+			$(SRCDIR)/bdr $(SRCDIR)/unit \
+			$(SRCDIR)/io
 
 #Settings
 
@@ -52,6 +53,7 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
+		OutputCSV.o
 		#AppSUMO.o \
 		#AppCompBound.o \
 		#PressureMeanApp2DChannel.o \
@@ -109,7 +111,7 @@ OBJS := LBM.o \
 CXX = g++
 
 #Compiler options
-CPPFLAGS = -O2 -fopenmp 
+CPPFLAGS = -O2 -fopenmp -fPIC
 
 #-pg
 
