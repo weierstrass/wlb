@@ -18,7 +18,7 @@ void print2DArray(double **f, int ni, int nj);
 void print2DArray(double ***f, int ni, int nj, int d);
 void printLine(int n);
 
-void write2DArray(double **a, bool **deadNodes, string file, int nx, int ny);
+void write2DArray(double **a, string file, int nx, int ny);
 void createDirectory(string path);
 double poiseuilleVelocity(int x, int n1, int n2, double uMax);
 double**** allocate4DArray(int dirs, int nx, int ny, int nz);

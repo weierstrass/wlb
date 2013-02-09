@@ -58,19 +58,20 @@ void createDirectory(string path){
 /*
  *  Write 2D Array csv to file
  */
-void write2DArray(double **a, bool **deadNodes, string file, int nx, int ny){
-	cout<<"Writing data to "<<file<<"...";
-	ofstream oFile;
-		oFile.open(file.c_str());
-		for(int i = 0; i < ny; i++){
-			for(int j = 0; j < nx; j++){
-				oFile << a[i][j];
-				if(j < nx-1) oFile << ",";
-			}
-			oFile << "\n";
-		}
-		oFile.close();
-		cout<<" done."<<endl;
+void write2DArray(double **a, string file, int nx, int ny){
+    //cout<<"Writing data to "<<file<<"...";
+    ofstream oFile;
+    cout<<"asd: "<<file.c_str()<<endl;
+    oFile.open(file.c_str());
+    for(int i = 0; i < ny; i++){
+        for(int j = 0; j < nx; j++){
+            oFile << a[i][j];
+            if(j < nx-1) oFile << ",";
+        }
+        oFile << "\n";
+    }
+    oFile.close();
+    cout<<" done."<<endl;
 }
 
 /*

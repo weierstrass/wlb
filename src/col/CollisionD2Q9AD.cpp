@@ -99,5 +99,5 @@ double CollisionD2Q9AD::fEq(int d, double rho, double jx, double jy){
 }
 
 void CollisionD2Q9AD::dataToFile(string path){
-    write2DArray(rho, NULL, path, n.x, n.y);
+    write2DArray(rho, path, n.x, n.y);
 }

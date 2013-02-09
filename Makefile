@@ -1,15 +1,25 @@
-# Makefile for Lattice Boltzmann code
-# Andreas Bülling, 2012
+#################################################################
+#
+# Core Makefile for Lattice Boltzmann code WLB
+# 
+# The code is compiled into a static and a share library. 
+# Chose the one to use from your own preferences. The code
+# is tested and verified on a X86_64 architecture, but should 
+# function fine (in some cases by minor modifications) on
+# other architectures as well.
+#
+# Andreas Bülling, 2013
 # andreas@bulling.se
-################################################################################
+#
+#################################################################
 
 #Paths
-SRCDIR = ../src
-APPDIR = $(SRCDIR)/app
+SRCDIR = ./src
+#APPDIR = $(SRCDIR)/app
 TESTDIR = $(SRCDIR)/tests
-TOPDIR = ..
+TOPDIR = .
 
-vpath %.cpp $(SRCDIR) $(APPDIR) $(SRCDIR)/col \
+vpath %.cpp $(SRCDIR) $(SRCDIR)/col \
 			$(SRCDIR)/lat $(SRCDIR)/str \
 			$(SRCDIR)/bdr $(SRCDIR)/unit
 
@@ -42,7 +52,7 @@ OBJS := LBM.o \
 		UnitHandler.o \
 		UnitHandlerLPM.o \
 		UnitHandlerNS.o \
-		AppSUMO.o \
+		#AppSUMO.o \
 		#AppCompBound.o \
 		#PressureMeanApp2DChannel.o \
 		#AppPoiseuilleForce.o \
@@ -109,10 +119,10 @@ LIBS = -lm
 #misc for osx
 #OSX = -framework cocoa
 
-all: a.out 
+all: libwlb.so
 
-a.out: $(OBJS)
-	$(CXX) -o $@ $(CPPFLAGS) $(OBJS) $(LIBS)
+libwlb.so: $(OBJS)
+	$(CXX) -shared -o $@ $(CPPFLAGS) $(OBJS) $(LIBS)
 	
 clean:
-	rm -f a.out *.o
+	rm -f a.out *.o libwlb.so

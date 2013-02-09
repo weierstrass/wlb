@@ -84,5 +84,5 @@ void CollisionD2Q9BGKPE::dataToFile(string path){
         }
     }
 
-    write2DArray(rho, NULL, path, lm->n.x, lm->n.y);
+    write2DArray(rho, path, lm->n.x, lm->n.y);
 }

@@ -115,15 +115,15 @@ void CollisionD2Q9BGK::dataToFile(string path){
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "ux.csv";
-    write2DArray(ux, NULL, ssTemp.str(), lm->n.x, lm->n.y);
+    write2DArray(ux, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "uy.csv";
-    write2DArray(uy, NULL, ssTemp.str(), lm->n.x, lm->n.y);
+    write2DArray(uy, ssTemp.str(), lm->n.x, lm->n.y);
     ssTemp.str("");
     ssTemp << ss.str();
     ssTemp << "rho.csv";
-    write2DArray(rho, NULL, ssTemp.str(), lm->n.x, lm->n.y);
+    write2DArray(rho, ssTemp.str(), lm->n.x, lm->n.y);
 }
 
 
