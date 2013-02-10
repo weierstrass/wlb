@@ -13,6 +13,7 @@
 using namespace std;
 
 int main() {
+
 	omp_set_num_threads(1);
 
 	int nx = 3, ny = 128, tMax = 100000;
@@ -23,6 +24,7 @@ int main() {
 	double **fy = allocate2DArray(ny, nx);
 
 	cout << "Forced Poiseuille flow..." << endl;
+
 	LatticeModel *lm = new Lattice2D(nx, ny);
 	StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
 	CollisionD2Q9BGKNSF *cm = new CollisionD2Q9BGKNSF();
@@ -32,7 +34,7 @@ int main() {
 
 	LBM *lbm = new LBM(lm, cm, sm);
 
-	/* Set boundary conditions*/
+	/* Set boundary conditions */
 	BounceBackNodes<CollisionD2Q9BGKNSF> *bbns =
 			new BounceBackNodes<CollisionD2Q9BGKNSF>();
 	bbns->setCollisionModel(cm);
@@ -60,8 +62,9 @@ int main() {
 		lbm->collideAndStream();
 	}
 
-	OutputCSV<CollisionD2Q9BGKNSF> *oFile = new OutputCSV<CollisionD2Q9BGKNSF>(
-			cm, lm);
+	/* Write result to file */
+	OutputCSV<CollisionD2Q9BGKNSF> *oFile =
+			new OutputCSV<CollisionD2Q9BGKNSF>(cm, lm);
 	oFile->writeData();
 
 	cout << "done." << endl;
