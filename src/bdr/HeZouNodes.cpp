@@ -20,15 +20,15 @@
 //template HeZouNodes<CollisionD2Q9LNP>::~HeZouNodes();
 //template void HeZouNodes<CollisionD2Q9LNP>::init();
 
-template void HeZouNodes<CollisionD2Q9LPMChaiRHS>::addNode(int, int, int, double, int);
-template HeZouNodes<CollisionD2Q9LPMChaiRHS>::HeZouNodes();
-template HeZouNodes<CollisionD2Q9LPMChaiRHS>::~HeZouNodes();
-template void HeZouNodes<CollisionD2Q9LPMChaiRHS>::init();
-
-template void HeZouNodes<CollisionD2Q9LPMChai1to1>::addNode(int, int, int, double, int);
-template HeZouNodes<CollisionD2Q9LPMChai1to1>::HeZouNodes();
-template HeZouNodes<CollisionD2Q9LPMChai1to1>::~HeZouNodes();
-template void HeZouNodes<CollisionD2Q9LPMChai1to1>::init();
+//template void HeZouNodes<CollisionD2Q9LPMChaiRHS>::addNode(int, int, int, double, int);
+//template HeZouNodes<CollisionD2Q9LPMChaiRHS>::HeZouNodes();
+//template HeZouNodes<CollisionD2Q9LPMChaiRHS>::~HeZouNodes();
+//template void HeZouNodes<CollisionD2Q9LPMChaiRHS>::init();
+//
+//template void HeZouNodes<CollisionD2Q9LPMChai1to1>::addNode(int, int, int, double, int);
+//template HeZouNodes<CollisionD2Q9LPMChai1to1>::HeZouNodes();
+//template HeZouNodes<CollisionD2Q9LPMChai1to1>::~HeZouNodes();
+//template void HeZouNodes<CollisionD2Q9LPMChai1to1>::init();
 
 template <class T>
 HeZouNodes<T>::HeZouNodes() {
