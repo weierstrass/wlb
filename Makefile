@@ -1,17 +1,17 @@
-#################################################################
-#                                                               #
-# Core Makefile for Lattice Boltzmann code WLB                  #
-#                                                               # 
-# The code is compiled into a static and a share library.       #
-# Chose the one to use from your own preferences. The code      #
-# is tested and verified on a X86_64 architecture, but should   #
-# function fine (in some cases with minor modifications) on     #
-# other architectures as well.                                  #
-#                                                               #
-# Andreas Bülling, 2013                                         #
-# andreas@bulling.se                                            #
-#                                                               # 
-#################################################################
+################################################################################
+#                                                                              #
+# Core Makefile for Lattice Boltzmann code WLB                                 #
+#                                                                              # 
+# The code is compiled into a static and a share library.                      #
+# Chose the one to use from your own preferences. The code                     #
+# is tested and verified on a X86_64 architecture, but should                  #
+# function fine (in some cases with minor modifications) on                    #
+# other architectures as well.                                                 #
+#                                                                              #
+# Andreas Bülling, 2013                                                        #
+# andreas@bulling.se                                                           #
+#                                                                              #  
+################################################################################
 
 # Paths
 SRCDIR = src

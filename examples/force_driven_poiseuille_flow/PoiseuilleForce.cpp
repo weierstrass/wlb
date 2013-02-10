@@ -16,7 +16,7 @@ int main(){
 
     omp_set_num_threads(1);
 
-	int nx = 3, ny = 50, tMax = 100;
+	int nx = 3, ny = 128, tMax = 100000;
 	double w = 0.75;
 	double c = 1.0;
 
@@ -46,7 +46,7 @@ int main(){
 	/* Set force */
 	for(int i = 0; i < nx; i++){
 		for(int j = 0; j < ny; j++){
-		    fx[j][i] = 0.0001;
+		    fx[j][i] = 0.00001;
 		    fy[j][i] = 0.0;
 		}
 	}
