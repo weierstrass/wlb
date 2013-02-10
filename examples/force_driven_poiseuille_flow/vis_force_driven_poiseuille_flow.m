@@ -1,8 +1,9 @@
-% Visualization script for the force driven poiseiulle benchmark.
+% Visualization script for the force driven poiseuille benchmark.
 %
 % Andreas Bülling, 2013
 % andreas@bulling.se
 %
+
 clc; close all;
 addpath('../../vis_scripts')
 
