@@ -22,19 +22,25 @@ class CollisionModel {
 public:
 	CollisionModel();
 	virtual ~CollisionModel();
+	void setC(double c);
+	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
+	void setUnitHandler(UnitHandler *u){unitHandler = u;};
+	void setF(double ****f){this->f = f;};
+	virtual void collide() = 0;
+	virtual void init() = 0;
+
+	//deprecated to be removed...
 	void registerF(double ****f);
 	void registerN(struct LatticeModel::dimension &n);
 	void registerLatticeModel(LatticeModel *lm){this->lm = lm;};
-	void setC(double c);
-	void setUnitHandler(UnitHandler *u){unitHandler = u;};
-	virtual void collide() = 0;
-	virtual void init() = 0;
 protected:
 	LatticeModel *lm;
 	UnitHandler *unitHandler;
-	struct LatticeModel::dimension n;
 	double ****f;
 	double c;
+
+	//deprecated to be removed in the future
+	struct LatticeModel::dimension n;
 };
 
 #endif /* COLLISIONMODEL_H_ */

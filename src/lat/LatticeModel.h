@@ -30,6 +30,8 @@ public:
 	static const int ex[];
 	static const int ey[];
 	static const int ez[];
+	int **e;
+	static const double W[];
 private:
 };
 

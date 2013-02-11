@@ -41,6 +41,8 @@
 #include "str/StreamD2Q9Periodic.h"
 
 #include "col/CollisionModel.h"
+#include "col/CollisionBGK.h"
+#include "col/CollisionBGKNS.h"
 #include "col/CollisionD2Q9.h"
 #include "col/CollisionD2Q9BGK.h"
 #include "col/CollisionD2Q9AD.h"
@@ -85,8 +87,8 @@ using namespace std;
 
 class LBM{
 private:
-	int nx;
-	int ny;
+	//int nx;
+	//int ny;
 	double ****f;
 	//double ***rho;
 	//double ***ux;

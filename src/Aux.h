@@ -25,8 +25,14 @@ double**** allocate4DArray(int dirs, int nx, int ny, int nz);
 double*** allocate3DArray(int nx, int ny, int nz);
 double** allocate2DArray(int nx, int ny);
 void rescale2DArray(double **arr, double sc, int ny, int nx);
-
 template <typename T>
 T** allocate2DArrayT(int nx, int ny);
-
+template <typename T>
+bool isNull(T *p){
+	if (p == NULL){
+		cerr << "ERROR: NULL pointer encountered" << endl;
+		return true;
+	}
+	return false;
+}
 #endif /* AUX_H_ */
