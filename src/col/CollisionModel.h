@@ -15,6 +15,7 @@
 #define COLLISIONMODEL_H_
 
 #include "../Constants.h"
+#include "../Aux.h"
 #include "../lat/LatticeModel.h"
 #include "../unit/UnitHandler.h"
 
@@ -28,6 +29,7 @@ public:
 	void setF(double ****f){this->f = f;};
 	virtual void collide() = 0;
 	virtual void init() = 0;
+	void addNodeToSkip(int k, int j, int i);
 
 	//deprecated to be removed...
 	void registerF(double ****f);
@@ -38,6 +40,7 @@ protected:
 	UnitHandler *unitHandler;
 	double ****f;
 	double c;
+    bool ***skip;
 
 	//deprecated to be removed in the future
 	struct LatticeModel::dimension n;

@@ -13,24 +13,29 @@ CollisionBGKNS::CollisionBGKNS() : CollisionBGK() {
 	c1 = 3.0 * c2inv;
 	c2 = 4.5 * (c2inv * c2inv);
 	c3 = -1.5 * c2inv;
+	u = NULL;
+	rho = 1.0;
 }
 
 CollisionBGKNS::~CollisionBGKNS() {
-	// TODO Auto-generated destructor stub
+	delete[] u;
 }
 
-void CollisionBGKNS::fEq(int k, int j, int i, double *eq) {
-	double rho = get0moment(k, j, i);
-	double cu;
-	double rho_inv = 1 / rho;
+void CollisionBGKNS::fEq(int k, int j, int i, double *eq){
+	rho = get0moment(k, j, i);
 	get1moment(k, j, i, u);
+	fEq(eq);
+}
+
+void CollisionBGKNS::fEq(double *eq) {
+	double cu, u2 = 0;
+	double rho_inv = 1 / rho;
+	double c2inv = 1.0 / c * c;
 
 	for(int l = 0; l < lm->DIM; l++){
 		u[l] *= rho_inv;
+		u2 += u[l]*u[l];
 	}
-
-	double c2inv = 1.0 / c * c;
-	double u2 = u[X] * u[X] + u[Y] * u[Y];
 
 	for (int d = 0; d < lm->UDIRS; d++) {
 		double cu = 0;

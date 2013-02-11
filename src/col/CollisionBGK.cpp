@@ -10,6 +10,7 @@
 
 CollisionBGK::CollisionBGK() {
 	w = 1.0;
+	wInv = 1.0;
 	eq = NULL;
 }
 
@@ -27,7 +28,7 @@ void CollisionBGK::collide() {
 		for (int j = 0; j < lm->n.y; j++) {
 			for (int i = 0; i < lm->n.x; i++) {
 
-				// if(skip != NULL && skip[j][i]) continue;
+				if(skip != NULL && skip[k][j][i]) continue;
 
 				fEq(k, j, i, eq);
 				for (int d = 0; d < lm->UDIRS; d++) {

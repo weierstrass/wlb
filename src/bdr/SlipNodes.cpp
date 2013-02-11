@@ -136,5 +136,5 @@ void SlipNodes<T>::updateF(){
 template <class T>
 void SlipNodes<T>::addNode(int x, int y, int z, int normaldir){
     nodes.push_back(new ValueNode(x, y, z, normaldir));
-    cm->addNodeToSkip(x, y);
+    cm->addNodeToSkip(z, y, x);
 }

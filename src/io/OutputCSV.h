@@ -18,6 +18,8 @@
 
 #include "../Aux.h"
 #include "../col/CollisionD2Q9BGKNSF.h"
+#include "../col/CollisionBGKNSF.h"
+#include "../col/CollisionBGKNS.h"
 #include "../lat/LatticeModel.h"
 
 template <class T>

@@ -10,6 +10,7 @@
 #include "BoundaryNodes.h"
 #include "../col/CollisionD2Q9BGKNSF.h"
 #include "../col/CollisionD2Q9BGKNS.h"
+#include "../col/CollisionBGKNSF.h"
 //#include "../col/CollisionD2Q9BGKShanChenForce.h"
 //#include "../col/CollisionD2Q9LNP.h"
 //#include "../col/CollisionD2Q9LNPSource.h"

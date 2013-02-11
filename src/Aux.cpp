@@ -8,6 +8,10 @@
 
 template bool** allocate2DArrayT<bool>(int nx, int ny);
 template char** allocate2DArrayT<char>(int nx, int ny);
+
+template bool*** allocate3DArrayT<bool>(int nz, int ny, int nx);
+template char*** allocate3DArrayT<char>(int nz, int ny, int nx);
+
 /*
  * Array print routine for debugging.
  */
@@ -120,6 +124,16 @@ T **allocate2DArrayT(int nx, int ny){
     return ret;
 }
 
+template <typename T>
+T ***allocate3DArrayT(int nz, int ny, int nx){
+    T ***ret = new T**[nz];
+    for(int k = 0; k < nz; k++){
+    	ret[k] = allocate2DArrayT<T>(ny, nx);
+    }
+
+
+    return ret;
+}
 void rescale2DArray(double **arr, double sc, int ny, int nx){
     for(int j = 0; j < ny; j++){
         for(int i = 0; i < nx; i++){

@@ -18,12 +18,12 @@ public:
 	virtual ~CollisionBGK();
 	void collide();
 	void init();
-	void setW(double w){this->w = w;};
+	void setW(double w){this->w = w; wInv = 1/w;};
 	virtual void fEq(int k, int j, int i, double *eq) = 0;
 	double get0moment(int k, int j, int i);
 	void get1moment(int k, int j, int i, double *ret);
 protected:
-	double w;
+	double w, wInv;
 	double *eq;
 };
 

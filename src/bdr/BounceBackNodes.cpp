@@ -16,6 +16,8 @@
 template void BounceBackNodes<CollisionD2Q9BGKNSF>::addNode(int x, int y, int z);
 template BounceBackNodes<CollisionD2Q9BGKNSF>::BounceBackNodes();
 
+template void BounceBackNodes<CollisionBGKNSF>::addNode(int x, int y, int z);
+template BounceBackNodes<CollisionBGKNSF>::BounceBackNodes();
 //template void BounceBackNodes<CollisionD2Q9BGKShanChenForce>::addNode(int x, int y, int z);
 //template BounceBackNodes<CollisionD2Q9BGKShanChenForce>::BounceBackNodes();
 
@@ -67,5 +69,5 @@ void BounceBackNodes<T>::updateF(){
 template <class T>
 void BounceBackNodes<T>::addNode(int x, int y, int z){
 	nodes.push_back((new Node(x, y, z)));
-	cm->addNodeToSkip(x, y);
+	cm->addNodeToSkip(z, y, x);
 }

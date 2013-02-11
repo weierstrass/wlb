@@ -8,8 +8,14 @@
 
 #include "OutputCSV.h"
 
-template OutputCSV<CollisionD2Q9BGKNSF>::OutputCSV(CollisionD2Q9BGKNSF *cm, LatticeModel *lm);
-template void OutputCSV<CollisionD2Q9BGKNSF>::writeData();
+//template OutputCSV<CollisionD2Q9BGKNSF>::OutputCSV(CollisionD2Q9BGKNSF *cm, LatticeModel *lm);
+//template void OutputCSV<CollisionD2Q9BGKNSF>::writeData();
+
+template OutputCSV<CollisionBGKNSF>::OutputCSV(CollisionBGKNSF *cm, LatticeModel *lm);
+template void OutputCSV<CollisionBGKNSF>::writeData();
+
+template OutputCSV<CollisionBGKNS>::OutputCSV(CollisionBGKNS *cm, LatticeModel *lm);
+template void OutputCSV<CollisionBGKNS>::writeData();
 
 template <class T>
 OutputCSV<T>::OutputCSV(T *cm, LatticeModel *lm) {
@@ -55,8 +61,8 @@ void OutputCSV<T>::writeData(){
     for(int k = 0; k < lm->n.z; k++){
     	for(int j = 0; j < lm->n.y; j++){
     		for(int i = 0; i < lm->n.x; i++){
-    			rho = cm->get0moment(i, j);
-    			cm->get1moment(i, j, rhoUTemp);
+    			rho = cm->get0moment(k, j, i);
+    			cm->get1moment(k, j, i, rhoUTemp);
     			oFile0 << i << ", " << j << ", " << k << ", " << rho << "\n";
     			oFile1 << i << ", " << j << ", " << k << ", " <<
     					  rhoUTemp[X]/rho << ", " << rhoUTemp[Y]/rho <<
