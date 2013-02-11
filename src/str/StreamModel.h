@@ -1,6 +1,6 @@
 /*
  * StreamModel.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -13,17 +13,22 @@
 using namespace std;
 
 class StreamModel {
-protected:
-	double ****f;
-	struct LatticeModel::dimension n;
 public:
 	StreamModel();
 	virtual ~StreamModel();
 	virtual void stream() = 0;
 	virtual void init() = 0;
-	void registerN(struct LatticeModel::dimension &n);
-	void registerF(double ****f);
+	void setF(double ****f);
+	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
 
+	//deprecated
+    void registerN(struct LatticeModel::dimension &n);
+protected:
+    double ****f;
+    LatticeModel *lm;
+
+    //deprecated
+    struct LatticeModel::dimension n;
 };
 
 #endif /* STREAMMODEL_H_ */

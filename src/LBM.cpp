@@ -62,8 +62,11 @@ void LBM::addBoundaryNodes(BoundaryNodes *bn) {
 
 void LBM::setStreamModel(StreamModel *s) {
 	streamModel = s;
-	streamModel->registerF(f);
-	streamModel->registerN(latticeModel->n);
+	streamModel->setF(f);
+	streamModel->setLatticeModel(latticeModel);
+
+	//deprecated
+    streamModel->registerN(latticeModel->n);
 }
 
 void LBM::setCollisionModel(CollisionModel *cm) {

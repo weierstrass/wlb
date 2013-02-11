@@ -15,7 +15,7 @@ StreamModel::~StreamModel() {
 	// TODO Auto-generated destructor stub
 }
 
-void StreamModel::registerF(double ****f){
+void StreamModel::setF(double ****f){
 	this->f = f;
 }
 

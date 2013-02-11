@@ -24,7 +24,6 @@
 #include "Aux.h"
 
 #include "bdr/BoundaryNodes.h"
-#include "bdr/HalfWayBBNodes.h"
 #include "bdr/Node.h"
 #include "bdr/NodeNeighbors.h"
 #include "bdr/BounceBackNodes.h"
@@ -62,6 +61,7 @@
 #include "io/OutputCSV.h"
 
 
+//#include "bdr/HalfWayBBNodes.h"
 //#include "col/CollisionD2Q9LPM.h"
 //#include "col/CollisionD2Q9WangHelmholtz.h"
 //#include "col/CollisionD2Q9LPMWang1to1.h"

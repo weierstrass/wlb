@@ -38,6 +38,6 @@ Lattice2D::Lattice2D(int nx, int ny) {
 }
 
 Lattice2D::~Lattice2D() {
-	// TODO Auto-generated destructor stub
+    delete[] e;
 }
 

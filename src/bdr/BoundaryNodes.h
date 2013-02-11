@@ -23,16 +23,16 @@ public:
 	virtual ~BoundaryNodes();
 	virtual void updateF() = 0;
 	void registerF(double ****f){this->f = f;};
-	void registerN(struct LatticeModel::dimension &n){this->n = n;};
-	void registerQ(int Q){this->Q = Q;};
+	//void registerN(struct LatticeModel::dimension &n){this->n = n;};
+	//void registerQ(int Q){this->Q = Q;};
 	void registerLatticeModel(LatticeModel *lm){this->lm = lm;};
 	char PRESTREAM;
     double ****f;
 protected:
 	void addNode(Node *n);
 	LatticeModel *lm;
-	struct LatticeModel::dimension n;
-	int Q;
+	//struct LatticeModel::dimension n;
+	//int Q;
 	vector<ValueNode*> nodes;
 };
 
