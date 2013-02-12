@@ -9,11 +9,12 @@
 #include "LatticeModel.h"
 
 LatticeModel::LatticeModel() {
-	// TODO Auto-generated constructor stub
-
+	e = NULL;
+	UDIRS = -1;
+	DIM = -1;
 }
 
 LatticeModel::~LatticeModel() {
-	// TODO Auto-generated destructor stub
+	//Empty
 }
 

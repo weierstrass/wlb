@@ -10,7 +10,6 @@
 
 Stream::Stream() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Stream::~Stream() {
