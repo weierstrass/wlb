@@ -9,6 +9,7 @@
 #ifndef STREAM_H_
 #define STREAM_H_
 
+#include <cstdio>
 #include "StreamModel.h"
 
 class Stream: public StreamModel {

@@ -36,6 +36,7 @@
 #include "bdr/NeumannNodesPESlip.h"
 
 #include "str/StreamModel.h"
+#include "str/Stream.h"
 #include "str/StreamD2Q9.h"
 #include "str/StreamD2Q9Periodic.h"
 
