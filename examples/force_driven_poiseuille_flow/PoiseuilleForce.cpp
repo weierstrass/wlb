@@ -28,7 +28,7 @@ int main() {
     cout << "Forced Poiseuille flow..." << endl;
 
     LatticeModel *lm = new Lattice2D(nx, ny);
-    StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
+    StreamPeriodic *sm = new StreamPeriodic();
     CollisionBGKNSF *cm = new CollisionBGKNSF();
 
     cm->setW(w);
