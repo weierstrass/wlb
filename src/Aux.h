@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <string>
 #include <fstream>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -40,4 +41,6 @@ bool isNull(T *p){
 	}
 	return false;
 }
+
+double csecond();
 #endif /* AUX_H_ */
