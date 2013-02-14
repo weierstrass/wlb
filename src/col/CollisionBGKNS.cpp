@@ -36,7 +36,7 @@ void CollisionBGKNS::fEq(double *eq) {
 		u[l] *= rho_inv;
 		u2 += u[l]*u[l];
 	}
-
+	//cout<<"rho_eq: "<<rho<<endl;
 	for (int d = 0; d < lm->UDIRS; d++) {
 		double cu = 0;
 

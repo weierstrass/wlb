@@ -17,7 +17,7 @@ StreamPeriodic::~StreamPeriodic() {
 }
 
 void StreamPeriodic::stream() {
-
+	cout << "new streaming..." << endl;
 	int aLim, bLim, a, b, c, sa, sb, sc;
 
 	for (int l = 0; l < lm->DIM; l++) {
@@ -59,7 +59,7 @@ void StreamPeriodic::stream() {
 				b = i * (l == 0) + j * (l == 2);
 				a = i * (l == 1) + i * (l == 2);
 				for (int d = 0; d < lm->UDIRS; d++) {
-					//cout<<"lååål"<<endl;
+					//cout << "lååål" << endl;
 					if (lm->e[l][d] < 0) {
 						int cf = c;
 						if (lm->DIM > 2) {
@@ -87,10 +87,8 @@ void StreamPeriodic::stream() {
 												% (lm->n.x)) < 0);
 						int cf = c;
 						if (lm->DIM > 2) {
-							cf = (c + lm->e[2][d] * (l != 2)) % (lm->n.z)
-									+ (lm->n.z)
-											* (((a + lm->e[2][d] * (l != 2))
-													% (lm->n.z)) < 0);
+							cf = (c + lm->e[2][d] * (l != 2)) % (lm->n.z);
+							cf += lm->n.z * (cf < 0);
 						}
 						f[cf][bf][af][d] = fb[l][j][i][d];
 					}

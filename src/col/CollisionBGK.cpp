@@ -23,15 +23,16 @@ void CollisionBGK::collide() {
 	if (isNull(eq))
 		return;
 
-
 	for (int k = 0; k < lm->n.z; k++) {
 		for (int j = 0; j < lm->n.y; j++) {
 			for (int i = 0; i < lm->n.x; i++) {
 
-				if(skip != NULL && skip[k][j][i]) continue;
+				if (skip != NULL && skip[k][j][i])
+					continue;
 
 				fEq(k, j, i, eq);
 				for (int d = 0; d < lm->UDIRS; d++) {
+					//cout << "eq[d]: " << eq[d] << endl;
 					f[k][j][i][d] += w * (eq[d] - f[k][j][i][d]);
 				}
 			}
@@ -50,6 +51,7 @@ void CollisionBGK::init() {
 			for (int i = 0; i < lm->n.x; i++) {
 				for (int d = 0; d < lm->UDIRS; d++) {
 					f[k][j][i][d] = lm->W[d];
+					//cout<<"wd: "<<	f[k][j][i][d]<<endl;
 				}
 			}
 		}
@@ -71,5 +73,4 @@ void CollisionBGK::get1moment(int k, int j, int i, double *ret) {
 		}
 	}
 }
-
 

@@ -23,7 +23,7 @@ public:
 	} n;
 	int UDIRS;
 	int DIM;
-	static const int oppDirs[];
+	int *oppDirs;
     static const int slipDirsH[];
     static const int slipDirsV[];
     static const int slipDirsC[];
@@ -31,8 +31,9 @@ public:
 	int ey[];
 	int ez[];
 	int **e;
-	double W[];
-private:
+	double *W;
+protected:
+	void fillOppdirs();
 };
 
 #endif /* LATTICEMODEL_H_ */

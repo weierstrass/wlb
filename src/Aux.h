@@ -17,6 +17,7 @@ using namespace std;
 
 void print2DArray(double **f, int ni, int nj);
 void print2DArray(double ***f, int ni, int nj, int d);
+void print3DArray(double ****f, int ni, int nj, int nk, int d);
 void printLine(int n);
 
 void write2DArray(double **a, string file, int nx, int ny);

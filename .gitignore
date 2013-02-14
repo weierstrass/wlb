@@ -3,5 +3,8 @@
 *.out
 *~
 *.csv
+*.pdf
+*.vt*
+*.vrml
 vis_scripts
 cachegrind*
