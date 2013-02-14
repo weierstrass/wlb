@@ -6,7 +6,7 @@ using namespace std;
 int main() {
 	cout << "Stream test" << endl;
 
-	int nx = 10000, ny = 1000, nz = 1;
+	int nx = 2, ny = 4, nz = 1;
 	double t1, t2;
 
 	double ****f = allocate4DArray(nz, ny, nx, 9);
@@ -52,11 +52,11 @@ int main() {
 	cout << "T_old = " << csecond() - t2 << endl;
 
 	cout << "POSTSTREAM: " << endl;
-//	for (int d = 0; d < 9; d++) {
-//		print2DArray(f2[0], nx, ny, 0);
-//		print2DArray(f2[0], nx, ny, d);
-//		print2DArray(f[0], nx, ny, d);
-//	}
+	for (int d = 0; d < 9; d++) {
+		print2DArray(f2[0], nx, ny, 0);
+		print2DArray(f2[0], nx, ny, d);
+		print2DArray(f[0], nx, ny, d);
+	}
 //	cout << "DIM: " << lm->DIM << endl;
 
 	return 0;

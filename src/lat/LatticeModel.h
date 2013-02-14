@@ -27,11 +27,11 @@ public:
     static const int slipDirsH[];
     static const int slipDirsV[];
     static const int slipDirsC[];
-	static const int ex[];
-	static const int ey[];
-	static const int ez[];
+	int ex[];
+	int ey[];
+	int ez[];
 	int **e;
-	static const double W[];
+	double W[];
 private:
 };
 

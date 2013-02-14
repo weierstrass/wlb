@@ -53,15 +53,15 @@
 #include "col/CollisionD2Q9BGKNSF.h"
 #include "col/CollisionD2Q9BGKPE.h"
 
-#include "lat/Lattice2D.h"
 #include "lat/LatticeModel.h"
+#include "lat/Lattice2D.h"
+#include "lat/LatticeD3Q19.h"
 
 #include "unit/UnitHandler.h"
 #include "unit/UnitHandlerLPM.h"
 #include "unit/UnitHandlerNS.h"
 
 #include "io/OutputCSV.h"
-
 
 //#include "bdr/HalfWayBBNodes.h"
 //#include "col/CollisionD2Q9LPM.h"

@@ -10,6 +10,7 @@
 
 LatticeModel::LatticeModel() {
 	e = NULL;
+	//W = {0};
 	UDIRS = -1;
 	DIM = -1;
 }
