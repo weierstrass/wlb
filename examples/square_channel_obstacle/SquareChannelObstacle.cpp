@@ -61,7 +61,7 @@ int main() {
 	for (int k = nz*0.25; k < nz*0.75; k++) {
 		for (int j = ny*0.25; j < ny*0.75; j++) {
 			bbns->addNode(nx/2, j, k);
-			bbns->addNode(nx/2, j, k);
+			bbns->addNode(nx/2+1, j, k);
 		}
 	}
 	lbm->addBoundaryNodes(bbns);
@@ -81,7 +81,7 @@ int main() {
 
 	/* Main loop */
 	for (int t = 0; t < tMax; t++) {
-		//cout<<t<<endl;
+		cout<<t<<endl;
 		lbm->collideAndStream();
 	}
 

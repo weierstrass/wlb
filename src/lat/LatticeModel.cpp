@@ -11,6 +11,7 @@
 LatticeModel::LatticeModel() {
 	e = NULL;
 	oppDirs = NULL;
+	W = NULL;
 	//W = {0};
 	UDIRS = -1;
 	DIM = -1;
