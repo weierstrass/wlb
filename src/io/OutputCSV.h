@@ -9,28 +9,17 @@
 #ifndef OUTPUTCSV_H_
 #define OUTPUTCSV_H_
 
-#include <string.h>
-#include <sstream>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <string>
-#include <fstream>
 
-#include "../Aux.h"
-#include "../col/CollisionD2Q9BGKNSF.h"
-#include "../col/CollisionBGKNSF.h"
-#include "../col/CollisionBGKNS.h"
-#include "../lat/LatticeModel.h"
+
+#include "Output.h"
 
 template <class T>
-class OutputCSV {
+class OutputCSV : public Output<T>{
 public:
 	OutputCSV(T *cm, LatticeModel *lm);
 	virtual ~OutputCSV();
-	void setCollisionModel(T *cm){this->cm = cm;};
 	void writeData();
-	void setPath(string path){this->path = path;};
-private:
+protected:
 	T *cm;
 	LatticeModel *lm;
 	string path;

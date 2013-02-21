@@ -6,5 +6,7 @@
 *.pdf
 *.vt*
 *.vrml
+*.pvsm
+*.png
 vis_scripts
 cachegrind*

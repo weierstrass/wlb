@@ -61,7 +61,9 @@
 #include "unit/UnitHandlerLPM.h"
 #include "unit/UnitHandlerNS.h"
 
+#include "io/Output.h"
 #include "io/OutputCSV.h"
+#include "io/OutputVTKSP.h"
 
 //#include "bdr/HalfWayBBNodes.h"
 //#include "col/CollisionD2Q9LPM.h"
