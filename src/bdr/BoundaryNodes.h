@@ -3,6 +3,10 @@
  *
  *  Created on: 8 maj 2012
  *      Author: andreasbulling
+ *
+ *  Mother class for boundary conditions.
+ *  Handles registration of common quantities.
+ *  Children must implement a void updateF() function.
  */
 
 #ifndef BOUNDARYNODE_H_

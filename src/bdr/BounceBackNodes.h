@@ -26,6 +26,7 @@ public:
 	void updateF();
 	void addNode(int x, int y, int z);
 	void setCollisionModel(T *cm){this->cm = cm;};
+	void writeNodesToFile();
 	T *cm;
 protected:
     vector<Node*> nodes;

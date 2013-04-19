@@ -12,6 +12,8 @@
 
 BoundaryNodes::BoundaryNodes() {
     PRESTREAM = 0;
+    lm = NULL;
+    f = NULL;
 }
 
 void BoundaryNodes::addNode(Node *n){
@@ -21,3 +23,4 @@ void BoundaryNodes::addNode(Node *n){
 BoundaryNodes::~BoundaryNodes() {
 	// TODO Auto-generated destructor stub
 }
+

@@ -19,6 +19,7 @@ template BounceBackNodes<CollisionD2Q9BGKNSF>::BounceBackNodes();
 
 template void BounceBackNodes<CollisionBGKNSF>::addNode(int x, int y, int z);
 template BounceBackNodes<CollisionBGKNSF>::BounceBackNodes();
+template void BounceBackNodes<CollisionBGKNSF>::writeNodesToFile();
 //template void BounceBackNodes<CollisionD2Q9BGKShanChenForce>::addNode(int x, int y, int z);
 //template BounceBackNodes<CollisionD2Q9BGKShanChenForce>::BounceBackNodes();
 
@@ -76,4 +77,32 @@ void BounceBackNodes<T>::addNode(int x, int y, int z) {
     }
     nodes.push_back((new Node(x, y, z)));
     cm->addNodeToSkip(z, y, x);
+}
+
+/*
+ * Debug routine for BB nodes. To be removed...
+ */
+
+template<class T>
+void BounceBackNodes<T>::writeNodesToFile(){
+	bool match = false;
+	for(int k = 0; k < lm->n.z; k++){
+		cout<<"z: "<<k<<endl<<endl;
+		for(int j = 0; j < lm->n.y; j++){
+			for(int i = 0; i < lm->n.x; i++){
+				match = false;
+				for(int n = 0; n < nodes.size(); n++){
+					if(nodes[n]->x == i && nodes[n]->y == j && nodes[n]->z == k){
+						cout<<"X";
+						match = true;
+						break;
+					}
+				}
+				if(!match){
+					cout<<"O";
+				}
+			}
+			cout<<endl;
+		}
+	}
 }

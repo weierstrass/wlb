@@ -17,7 +17,7 @@ Stream::~Stream() {
 }
 
 void Stream::stream() {
-	cout << "general streaming" << endl;
+	//cout << "general streaming" << endl;
 	int sx, sy, sz;
 
 	for (int d = 0; d < lm->UDIRS; d++) {

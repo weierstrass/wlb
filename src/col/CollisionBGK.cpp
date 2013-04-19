@@ -19,7 +19,7 @@ CollisionBGK::~CollisionBGK() {
 }
 
 void CollisionBGK::collide() {
-	cout << "General BGK collision..." << endl;
+	//cout << "General BGK collision..." << endl;
 	if (isNull(eq))
 		return;
 

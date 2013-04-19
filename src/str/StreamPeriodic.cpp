@@ -17,7 +17,7 @@ StreamPeriodic::~StreamPeriodic() {
 }
 
 void StreamPeriodic::stream() {
-	cout << "new streaming..." << endl;
+	//cout << "new streaming..." << endl;
 	int aLim, bLim, a, b, c, sa, sb, sc;
 
 	for (int l = 0; l < lm->DIM; l++) {
