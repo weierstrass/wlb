@@ -52,3 +52,16 @@ void CollisionBGKNS::init(){
 	CollisionBGK::init();
 	u = new double[lm->DIM];
 }
+
+/* temporary routine*/
+void CollisionBGKNS::getU(double **ux, double **uy){
+    double rho;
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
+            get1moment(0, j, i, u);
+            rho = get0moment(0, j, i);
+            ux[j][i] = u[X]/rho;
+            uy[j][i] = u[Y]/rho;
+        }
+    }
+}

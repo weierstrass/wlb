@@ -27,9 +27,9 @@ public:
     static const int slipDirsH[];
     static const int slipDirsV[];
     static const int slipDirsC[];
-	int ex[];
-	int ey[];
-	int ez[];
+	//int ex[];
+	//int ey[];
+	//int ez[];
 	int **e;
 	double *W;
 protected:

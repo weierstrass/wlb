@@ -38,21 +38,24 @@ void CollisionD2Q9AD::collide(){
    // cout<<"D2Q9 AD collision"<<endl;
     updateRho();
     double gamma = PHYS_E_CHARGE*z/( Pe*PHYS_KB*T);
-    //cout<<"gamma: "<<gamma<<endl;
+    cout<<"gamma: "<<gamma<<endl;
     double jx, jy;
-    for(int j = 0; j < n.y; j++){
-        for(int i = 0; i < n.x; i++){
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
             //skip the fullway bb nodes..
-            if(skip != NULL && skip[j][i]) continue;
+        	//cout << "löl" << endl;
+            //if(skip != NULL && skip[j][i]) continue;
             jx = ux[j][i] - gamma*dPsix[j][i];
             jy = uy[j][i] - gamma*dPsiy[j][i];
-            //cout<<"jy: "<<jy<<endl;
-            //cout<<"uy: "<<uy[j][i]<<endl;
             for(int d = 0; d < 9; d++){
                 f[0][j][i][d] += w * ( fEq(d, rho[j][i], jx, jy) - f[0][j][i][d] );
             }
         }
     }
+    cout << "dpsiy" << dPsiy[2][1] << endl;
+    cout << "dpsix" << dPsix[2][1] << endl;
+    cout<<"uy: "<<uy[2][1]<<endl;
+    cout<<"ux: "<<ux[2][1]<<endl;
     updateRho();
 }
 
@@ -66,6 +69,7 @@ void CollisionD2Q9AD::updateRho(){
             }
         }
     }
+    cout<<"RHO: "<<rho[2][1]<<endl;
 }
 
 void CollisionD2Q9AD::getFlux(double **jx, double **jy){
@@ -80,24 +84,24 @@ void CollisionD2Q9AD::getFlux(double **jx, double **jy){
 
 double CollisionD2Q9AD::getXFlux(int j, int i){
     double ret = 0;
-    for(int d = 0; d < lm->UDIRS; d++) ret += f[0][j][i][d]*lm->ex[d];
+    for(int d = 0; d < lm->UDIRS; d++) ret += f[0][j][i][d]*lm->e[0][d];
     return ret;
 }
 
 double CollisionD2Q9AD::getYFlux(int j, int i){
     double ret = 0;
-    for(int d = 0; d < lm->UDIRS; d++) ret += f[0][j][i][d]*lm->ey[d];
+    for(int d = 0; d < lm->UDIRS; d++) ret += f[0][j][i][d]*lm->e[1][d];
     return ret;
 }
 
 double CollisionD2Q9AD::fEq(int d, double rho, double jx, double jy){
-    double cu = lm->ex[d]*jx + lm->ey[d]*jy;
+    double cu = lm->e[0][d]*jx + lm->e[1][d]*jy;
     double c2 = c*c;
-    double u2 = jx*jx + jy*jy;
+    //double u2 = jx*jx + jy*jy;
     return W[d] * rho * ( 1 + 3.0/c2*(cu) );
     //return W[d] * ( rho + 3.0/c2*(cu) );
 }
 
 void CollisionD2Q9AD::dataToFile(string path){
-    write2DArray(rho, path, n.x, n.y);
+    write2DArray(rho, path, lm->n.x, lm->n.y);
 }

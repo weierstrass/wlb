@@ -55,8 +55,10 @@ void CollisionD2Q9BGK::get1moment(int i, int j, double *ret){
     ret[X] = 0;
     ret[Y] = 0;
     for(int d = 0; d < lm->UDIRS; d++){
-        ret[X] += f[0][j][i][d] * lm->ex[d];
-        ret[Y] += f[0][j][i][d] * lm->ey[d];
+        ret[X] += f[0][j][i][d] * lm->e[0][d];
+        ret[Y] += f[0][j][i][d] * lm->e[1][d];
+       // cout << "ex: " << lm->e[0][d] << endl;
+       // cout << "f_psi" << f[0][j][i][d] << endl;
     }
 }
 

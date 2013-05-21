@@ -19,6 +19,7 @@ public:
 	OutputCSV(T *cm, LatticeModel *lm);
 	virtual ~OutputCSV();
 	void writeData();
+	void setPath(string path){this->path = path;};
 protected:
 	T *cm;
 	LatticeModel *lm;

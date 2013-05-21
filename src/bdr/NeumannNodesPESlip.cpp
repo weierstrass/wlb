@@ -43,7 +43,7 @@ void NeumannNodesPESlip::updateF(){
 
         if(normalDir == 4 || normalDir == 2){
             for(int d = 0; d < lm->UDIRS; d++){
-                if(lm->ey[d]*lm->ey[normalDir] <= 0){continue;}
+                if(lm->e[1][d]*lm->e[1][normalDir] <= 0){continue;}
                // cout<<"updating horizontal nodes"<<endl;
            //     if(d == lm->slipDirsH[d]) continue;
                 f[0][y][x][d] = fTemp[lm->slipDirsH[d]] - neumanValue/9.0;// *\
@@ -52,7 +52,7 @@ void NeumannNodesPESlip::updateF(){
         }else if(normalDir == 1 || normalDir == 3){
             for(int d = 0; d < lm->UDIRS; d++){
                // cout<<"ugyukgkuygkug: "<<normalDir<<endl;
-                if(lm->ex[d]*lm->ex[normalDir] <= 0){continue;}
+                if(lm->e[0][d]*lm->e[0][normalDir] <= 0){continue;}
               //  cout<<"updating vertical nodes"<<endl;
               //  if(d == lm->slipDirsV[d]) continue;
                 f[0][y][x][d] = fTemp[lm->slipDirsV[d]] - neumanValue/9.0;// *\

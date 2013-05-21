@@ -70,7 +70,7 @@ void CollisionD2Q9BGKNS::fEq(double rho, double *u, double *eq){
     double u2 = u[X]*u[X] + u[Y]*u[Y];
 
     for(int d = 0; d < lm->UDIRS; d++){
-        double cu = lm->ex[d]*u[X] + lm->ey[d]*u[Y];
+        double cu = lm->e[0][d]*u[X] + lm->e[1][d]*u[Y];
 
        // eq[d] = W[d]*rho*(1 + 3.0*c2inv*(cu) \
                 + 4.5*(c2inv*c2inv)*(cu*cu) \

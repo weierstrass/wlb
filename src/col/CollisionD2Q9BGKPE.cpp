@@ -22,13 +22,15 @@ void CollisionD2Q9BGKPE::collide(){
 
     CollisionD2Q9BGK::collide();
 
-    for(int j = 0; j < n.y; j++){
-        for(int i = 0; i < n.x; i++){
+    for(int j = 0; j < lm->n.y; j++){
+        for(int i = 0; i < lm->n.x; i++){
 
-            if(skip != NULL && skip[j][i]) continue;
+            //if(skip != NULL && skip[j][i]) continue;
 
             for(int d = 0; d < 9; d++){
                 f[0][j][i][d] +=  (0.5 - 1.0/w)/3.0*W[d]*rhs[j][i];
+                //cout << "f_psi" << f[0][j][i][d] << endl;
+                //cout << "rhs" << rhs[j][i] << endl;
             }
         }
     }
@@ -69,6 +71,8 @@ void CollisionD2Q9BGKPE::getDPsi(double **jx, double **jy){
             get1moment(i, j, res);
             jx[j][i] = -3.0*res[X];
             jy[j][i] = -3.0*res[Y];
+            //cout << "dpsix: " << jx[j][i] << endl;
+            //cout << "dpsiy: " << jy[j][i] << endl;
         }
     }
 }

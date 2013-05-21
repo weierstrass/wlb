@@ -33,7 +33,7 @@ OutputCSV<T>::~OutputCSV() {
 
 template<class T>
 void OutputCSV<T>::writeData() {
-	cout << "Writing data..." << endl;
+	cout << "Writing data to " << path << endl;
 	const string mom0File = "rho.csv";
 	const string mom1File = "u.csv";
 	stringstream ss0, ss1;

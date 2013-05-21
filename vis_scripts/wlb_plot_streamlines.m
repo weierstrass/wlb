@@ -3,5 +3,5 @@
 function wlb_plot_streamlines(u, v)
     figure('name','Field stream lines'); clf;
     streamslice(u', v')
-    axis equal tight
+    %axis equal tight
 end

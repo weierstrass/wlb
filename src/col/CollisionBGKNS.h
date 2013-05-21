@@ -17,6 +17,7 @@ public:
 	virtual ~CollisionBGKNS();
 	void fEq(int k, int j, int i, double *eq);
 	void init();
+	void getU(double **ux, double **uy);
 protected:
 	void fEq(double *eq);
     double *u;

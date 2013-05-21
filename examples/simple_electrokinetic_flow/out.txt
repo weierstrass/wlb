@@ -1,0 +1,117 @@
+Charged 2D channel flow
+
+----------------------------------------
+PHYSICAL SYSTEM:
+ channel dim., d: 1e-07 m
+ viscosity, nu: 1e-06 m^2/s
+ diffusion coef., D: 1e-10 m^2/s
+ temperature, T: 293 K
+ pressure grad., dPdx: 1e+06 Pa/m
+ rel. permittivity, eps_r: 80
+ surface charge, sigma_s: 1.60218e-05 C/m^2
+ bulk conductivity, sigma_c: 1 S/m
+ molar concentration, C_m: 150 M/m^3
+----------------------------------------
+DESIRED RHO_SURF: -1.50793e-06
+----------------------------------------
+DIMENSIONLESS SYSTEM:
+ lattice: (3, 30001)
+ PHYS_E_CHARGE/(PHYS_KB*T)*V0, gamma = -1.98029
+ surface charge: -1.50793e-06
+ bulk charge: 1
+ pressure grad., dPdx: 3.7037e-12
+
+ Pe: 1
+ Re: 1
+
+ w_np = 0.285714
+ w_pe = 1
+ w_ns = 0.285714
+
+ l0 = 3.33333e-12
+ V0 = -0.05
+ u0 = 30
+ C0 = 9.03321e+25
+ rho0 = 1000
+----------------------------------------
+Creating D2Q9 lattice... 0 is opposite to 0
+3 is opposite to 1
+4 is opposite to 2
+1 is opposite to 3
+2 is opposite to 4
+7 is opposite to 5
+8 is opposite to 6
+5 is opposite to 7
+6 is opposite to 8
+done.
+Allocating memory for f array... done.
+Initializing BGK collision operator... done.
+Initializing periodic stream... done.
+Slip nodes preprocessing NOT FULLY IMPLEMENTED
+Creating D2Q9 lattice... 0 is opposite to 0
+3 is opposite to 1
+4 is opposite to 2
+1 is opposite to 3
+2 is opposite to 4
+7 is opposite to 5
+8 is opposite to 6
+5 is opposite to 7
+6 is opposite to 8
+done.
+Creating D2Q9 lattice... 0 is opposite to 0
+3 is opposite to 1
+4 is opposite to 2
+1 is opposite to 3
+2 is opposite to 4
+7 is opposite to 5
+8 is opposite to 6
+5 is opposite to 7
+6 is opposite to 8
+done.
+Allocating memory for f array... done.
+Allocating memory for f array... done.
+No collision for node: (0, 0, 0).
+No collision for node: (0, 30000, 0).
+No collision for node: (1, 0, 0).
+No collision for node: (1, 30000, 0).
+No collision for node: (2, 0, 0).
+No collision for node: (2, 30000, 0).
+Slip nodes preprocessing NOT FULLY IMPLEMENTED
+No collision for node: (0, 0, 0).
+No collision for node: (0, 30000, 0).
+No collision for node: (1, 0, 0).
+No collision for node: (1, 30000, 0).
+No collision for node: (2, 0, 0).
+No collision for node: (2, 30000, 0).
+Slip nodes preprocessing NOT FULLY IMPLEMENTED
+Initializing AD collision model...initC: 1
+ done.
+Initializing periodic stream... done.
+Initializing AD collision model...initC: 1
+ done.
+Initializing periodic stream... done.
+Creating D2Q9 lattice... 0 is opposite to 0
+3 is opposite to 1
+4 is opposite to 2
+1 is opposite to 3
+2 is opposite to 4
+7 is opposite to 5
+8 is opposite to 6
+5 is opposite to 7
+6 is opposite to 8
+done.
+Allocating memory for f array... done.
+No collision for node: (0, 0, 0).
+No collision for node: (0, 30000, 0).
+No collision for node: (1, 0, 0).
+No collision for node: (1, 30000, 0).
+No collision for node: (2, 0, 0).
+No collision for node: (2, 30000, 0).
+allocating memory for periodic stream array...
+TT: 0
+rho_prefactor: 4.54048e-06
+cpos: 1
+cneg: 1
+rho_eps: 0
+Resetting PE solver... Initializing BGK collision operator... done.
+done
