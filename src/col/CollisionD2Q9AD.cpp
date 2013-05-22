@@ -38,7 +38,7 @@ void CollisionD2Q9AD::collide(){
    // cout<<"D2Q9 AD collision"<<endl;
     updateRho();
     double gamma = PHYS_E_CHARGE*z/( Pe*PHYS_KB*T);
-    cout<<"gamma: "<<gamma<<endl;
+    //cout<<"gamma: "<<gamma<<endl;
     double jx, jy;
     for(int j = 0; j < lm->n.y; j++){
         for(int i = 0; i < lm->n.x; i++){
@@ -52,10 +52,10 @@ void CollisionD2Q9AD::collide(){
             }
         }
     }
-    cout << "dpsiy" << dPsiy[2][1] << endl;
-    cout << "dpsix" << dPsix[2][1] << endl;
-    cout<<"uy: "<<uy[2][1]<<endl;
-    cout<<"ux: "<<ux[2][1]<<endl;
+//    cout << "dpsiy" << dPsiy[2][1] << endl;
+//    cout << "dpsix" << dPsix[2][1] << endl;
+//    cout<<"uy: "<<uy[2][1]<<endl;
+//    cout<<"ux: "<<ux[2][1]<<endl;
     updateRho();
 }
 
