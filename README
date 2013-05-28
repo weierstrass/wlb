@@ -45,14 +45,16 @@ Examples:
  + 2D Helmholtz equation (Wang+Chai)
  + 1D Advection-diffusion of point mass
 
-Compile and run:
- 1. Add source file to make file (temporary solution)
- 2. $ make
- 3. $ ./a.out
+Compile library:
+ 1. $ make
+ 
+Compile and run example file:
+ 1. $ make (link to library libwlb.so)
+ 2. ./a.out > output.txt
+ 
 
 Further notes:
- In a near future, the lattice-Boltzmann code will be separated from the
- examples and be compiled into a library.
+
  
   
 
