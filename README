@@ -54,7 +54,7 @@ Compile and run example file:
  
 
 Further notes:
-
+ Old dirichlet boudary conditions for the Poisson solver are not accurate and will be removed soon.
  
   
 
