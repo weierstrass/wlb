@@ -9,7 +9,7 @@ Gothenburg. The accompanying report is available upon request (email me).
  
 Example of computed (steady state) velocity field in some geometry 
 (no electrical effects here):
-https://raw.github.com/weierstrass/Lattice-Boltzmann/master/example.png
+https://raw.github.com/weierstrass/wlb/master/example.png
 
 Another example showing a Karman vortex street:
 http://www.youtube.com/watch?v=azrFJ8qbrKM
