@@ -15,15 +15,14 @@
 
 class NeumannNodesPESlip: public SlipNodes<CollisionD2Q9BGKPE> { //todo
 public:
-    NeumannNodesPESlip();
-    virtual ~NeumannNodesPESlip();
-    void updateF();
-    vector<ValueNode*> nodes;
-    void addNode(int x, int y, int z,
-            double val, int dir);
+  NeumannNodesPESlip();
+  virtual ~NeumannNodesPESlip();
+  void updateF();
+  vector<ValueNode*> nodes;
+  void addNode(int x, int y, int z, double val, int dir);
 protected:
-    double fEq(int dir, int i, int j);
-    double cu(int i, int j);
+  double fEq(int dir, int i, int j);
+  double cu(int i, int j);
 };
 
 #endif /* NEUMANNNODESPESLIP_H_ */

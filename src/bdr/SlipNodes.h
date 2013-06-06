@@ -15,20 +15,22 @@
 #include "../col/CollisionD2Q9AD.h"
 #include "../col/CollisionD2Q9BGKPE.h"
 
-
-template <class T>
+template<class T>
 class SlipNodes: public BoundaryNodes {
 public:
-    SlipNodes();
-    virtual ~SlipNodes();
-    void updateF();
-    void init();
-    void addNode(int x, int y, int z);
-    void addNode(int x, int y, int z, int normDir);
-    void setCollisionModel(T *cm){this->cm = cm;};
-    T *cm;
+  SlipNodes();
+  virtual ~SlipNodes();
+  void updateF();
+  void init();
+  void addNode(int x, int y, int z);
+  void addNode(int x, int y, int z, int normDir);
+  void setCollisionModel(T *cm) {
+    this->cm = cm;
+  }
+  ;
+  T *cm;
 protected:
-    //char **slipNodes;
+  //char **slipNodes;
 };
 
 #endif /* SLIPNODES_H_ */

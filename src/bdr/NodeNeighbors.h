@@ -1,6 +1,6 @@
 /*
  * NodeNeighbors.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -12,12 +12,11 @@
 
 using namespace std;
 
-
-class NodeNeighbors : public Node {
+class NodeNeighbors: public Node {
 public:
-	NodeNeighbors(int x, int y, int z, int dim);
-	virtual ~NodeNeighbors();
-	bool *nbs;
+  NodeNeighbors(int x, int y, int z, int dim);
+  virtual ~NodeNeighbors();
+  bool *nbs;
 protected:
 };
 

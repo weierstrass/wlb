@@ -15,17 +15,23 @@
 
 class CollisionD2Q9LPM: public CollisionD2Q9 {
 public:
-	CollisionD2Q9LPM();
-	virtual ~CollisionD2Q9LPM();
-	void setW(double w){this->w = w;};
-	void dataToFile();
-	void dataToFile(string str);
-	virtual double g_rhs(int i, int j) = 0;
-	double** getPotential(){return psi;};
+  CollisionD2Q9LPM();
+  virtual ~CollisionD2Q9LPM();
+  void setW(double w) {
+    this->w = w;
+  }
+  ;
+  void dataToFile();
+  void dataToFile(string str);
+  virtual double g_rhs(int i, int j) = 0;
+  double** getPotential() {
+    return psi;
+  }
+  ;
 protected:
-	double w;
-	double **psi;
-	static const double Wa[];
+  double w;
+  double **psi;
+  static const double Wa[];
 };
 
 #endif COLLISIOND2Q9LPM_H_

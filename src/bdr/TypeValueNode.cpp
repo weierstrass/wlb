@@ -8,14 +8,15 @@
 
 #include "TypeValueNode.h"
 
-TypeValueNode::TypeValueNode(int x, int y, int z, double val, char type, int param)
-                : ValueNode(x, y, z, val){
-    this->type = type;
-    this->param = param;
+TypeValueNode::TypeValueNode(int x, int y, int z, double val, char type,
+    int param) :
+    ValueNode(x, y, z, val) {
+  this->type = type;
+  this->param = param;
 
 }
 
 TypeValueNode::~TypeValueNode() {
-    // TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 

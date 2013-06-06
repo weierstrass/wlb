@@ -15,15 +15,14 @@
 
 using namespace std;
 
-class CollisionD2Q9 : public CollisionModel{
+class CollisionD2Q9: public CollisionModel {
 public:
-	CollisionD2Q9();
-	virtual ~CollisionD2Q9();
-	static const double W[9];
+  CollisionD2Q9();
+  virtual ~CollisionD2Q9();
+  static const double W[9];
 protected:
-	//int ex[9];
-	//int ey[9];
+  //int ex[9];
+  //int ey[9];
 };
-
 
 #endif /* COLLISIOND2Q9_H_ */

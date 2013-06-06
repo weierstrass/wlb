@@ -10,12 +10,15 @@
 #include "StreamModel.h"
 #include "../Aux.h"
 
-class StreamD2Q9 : public StreamModel{
+class StreamD2Q9: public StreamModel {
 public:
-	StreamD2Q9();
-	virtual ~StreamD2Q9();
-	void stream();
-	void init() {cout<<"init";};
+  StreamD2Q9();
+  virtual ~StreamD2Q9();
+  void stream();
+  void init() {
+    cout << "init";
+  }
+  ;
 };
 
 #endif /* STREAMD2Q9_H_ */

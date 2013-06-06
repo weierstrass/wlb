@@ -9,15 +9,15 @@
 
 #include "StreamD2Q9.h"
 
-class StreamD2Q9Periodic : public StreamD2Q9{
+class StreamD2Q9Periodic: public StreamD2Q9 {
 public:
-	StreamD2Q9Periodic();
-	virtual ~StreamD2Q9Periodic();
-	void stream();
-	void init();
+  StreamD2Q9Periodic();
+  virtual ~StreamD2Q9Periodic();
+  void stream();
+  void init();
 private:
-	double **fv;
-	double **fh;
+  double **fv;
+  double **fh;
 };
 
 #endif /* STREAMD2Q9PERIODIC_H_ */

@@ -28,19 +28,19 @@ double*** allocate3DArray(int nx, int ny, int nz);
 double** allocate2DArray(int nx, int ny);
 void rescale2DArray(double **arr, double sc, int ny, int nx);
 
-template <typename T>
+template<typename T>
 T** allocate2DArrayT(int nx, int ny);
 
-template <typename T>
+template<typename T>
 T ***allocate3DArrayT(int nz, int ny, int nx);
 
-template <typename T>
-bool isNull(T *p){
-	if (p == NULL){
-		cerr << "ERROR: NULL pointer encountered" << endl;
-		return true;
-	}
-	return false;
+template<typename T>
+bool isNull(T *p) {
+  if (p == NULL) {
+    cerr << "ERROR: NULL pointer encountered" << endl;
+    return true;
+  }
+  return false;
 }
 
 double csecond();

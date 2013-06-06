@@ -12,19 +12,23 @@
 #include "CollisionModel.h"
 #include "../Aux.h"
 
-class CollisionBGK : public CollisionModel {
+class CollisionBGK: public CollisionModel {
 public:
-	CollisionBGK();
-	virtual ~CollisionBGK();
-	void collide();
-	void init();
-	void setW(double w){this->w = w; wInv = 1/w;};
-	virtual void fEq(int k, int j, int i, double *eq) = 0;
-	double get0moment(int k, int j, int i);
-	void get1moment(int k, int j, int i, double *ret);
+  CollisionBGK();
+  virtual ~CollisionBGK();
+  void collide();
+  void init();
+  void setW(double w) {
+    this->w = w;
+    wInv = 1 / w;
+  }
+  ;
+  virtual void fEq(int k, int j, int i, double *eq) = 0;
+  double get0moment(int k, int j, int i);
+  void get1moment(int k, int j, int i, double *ret);
 protected:
-	double w, wInv;
-	double *eq;
+  double w, wInv;
+  double *eq;
 };
 
 #endif /* COLLISIONBGK_H_ */

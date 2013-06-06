@@ -11,16 +11,16 @@
 #include "BoundaryNodes.h"
 
 BoundaryNodes::BoundaryNodes() {
-    PRESTREAM = 0;
-    lm = NULL;
-    f = NULL;
+  PRESTREAM = 0;
+  lm = NULL;
+  f = NULL;
 }
 
-void BoundaryNodes::addNode(Node *n){
-	//nodes.push_back(n);
+void BoundaryNodes::addNode(Node *n) {
+  //nodes.push_back(n);
 }
 
 BoundaryNodes::~BoundaryNodes() {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 

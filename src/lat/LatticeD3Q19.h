@@ -13,8 +13,8 @@
 
 class LatticeD3Q19: public LatticeModel {
 public:
-    LatticeD3Q19(int nx, int ny, int nz);
-    virtual ~LatticeD3Q19();
+  LatticeD3Q19(int nx, int ny, int nz);
+  virtual ~LatticeD3Q19();
 };
 
 #endif /* LATTICED3Q19_H_ */

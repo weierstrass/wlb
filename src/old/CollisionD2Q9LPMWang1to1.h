@@ -13,12 +13,12 @@
 
 class CollisionD2Q9LPMWang1to1: public CollisionD2Q9LPMWang {
 public:
-    CollisionD2Q9LPMWang1to1();
-    virtual ~CollisionD2Q9LPMWang1to1();
-    double g_rhs(int i, int j);
-    void init();
+  CollisionD2Q9LPMWang1to1();
+  virtual ~CollisionD2Q9LPMWang1to1();
+  double g_rhs(int i, int j);
+  void init();
 private:
-    double prefactor, inSinh;
+  double prefactor, inSinh;
 };
 
 #endif /* COLLISIOND2Q9LPMWANG1TO1_H_ */

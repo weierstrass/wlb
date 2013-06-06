@@ -79,7 +79,6 @@
 //#include "bdr/NeumannNodes.h"
 //#include "bdr/NeumannNodesPE.h"
 
-
 //#include "col/CollisionD2Q9BGKShanChenForce.h"
 //#include "col/CollisionD2Q9LPMChai.h"
 //#include "col/CollisionD2Q9LPMChaiRHS.h"
@@ -90,37 +89,36 @@
 
 using namespace std;
 
-
-class LBM{
+class LBM {
 private:
-	//int nx;
-	//int ny;
-	double ****f;
-	//double ***rho;
-	//double ***ux;
-	//double ***uy;
-	//double ***uz;
-	//bool **deadNodes;
-	//HalfWayBBNodes *hwbbNodes;
-	vector<BoundaryNodes*> boundaryNodes;
-	//BFLBoundaryNodes *bflNodes;
-	//ConstantPressureBoundaryNodes *cpNodes;
-	//ConstantVelocityBoundaryNodes *cvNodes;
-	StreamModel *streamModel;
-	CollisionModel *collisionModel;
-	LatticeModel *latticeModel;
+  //int nx;
+  //int ny;
+  double ****f;
+  //double ***rho;
+  //double ***ux;
+  //double ***uy;
+  //double ***uz;
+  //bool **deadNodes;
+  //HalfWayBBNodes *hwbbNodes;
+  vector<BoundaryNodes*> boundaryNodes;
+  //BFLBoundaryNodes *bflNodes;
+  //ConstantPressureBoundaryNodes *cpNodes;
+  //ConstantVelocityBoundaryNodes *cvNodes;
+  StreamModel *streamModel;
+  CollisionModel *collisionModel;
+  LatticeModel *latticeModel;
 public:
-	LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
-	void init();
+  LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
+  void init();
 
-	void handleBoundaries();
-	void addBoundaryNodes(BoundaryNodes *bn);
+  void handleBoundaries();
+  void addBoundaryNodes(BoundaryNodes *bn);
 
-	void setStreamModel(StreamModel *s);
-	void setCollisionModel(CollisionModel *cm);
-	void setLatticeModel(LatticeModel *lm);
+  void setStreamModel(StreamModel *s);
+  void setCollisionModel(CollisionModel *cm);
+  void setLatticeModel(LatticeModel *lm);
 
-	void collideAndStream();
+  void collideAndStream();
 };
 
 #endif /* LBM_H_ */

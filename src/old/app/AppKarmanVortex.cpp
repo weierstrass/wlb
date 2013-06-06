@@ -10,79 +10,78 @@
 
 using namespace std;
 
-int main(){
+int main() {
 
-    omp_set_num_threads(1);
+  omp_set_num_threads(1);
 
-	int nx = 500, ny = 150, tMax = 50000, tMod = 100;
-	double w = 1.89;
-	double c = 1.0;
+  int nx = 500, ny = 150, tMax = 50000, tMod = 100;
+  double w = 1.89;
+  double c = 1.0;
 
-	double **fx = allocate2DArray(ny, nx);
-    double **fy = allocate2DArray(ny, nx);
+  double **fx = allocate2DArray(ny, nx);
+  double **fy = allocate2DArray(ny, nx);
 
-	cout<<"Karman vortex street..."<<endl;
-	LatticeModel *lm = new Lattice2D(nx, ny);
-	//StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
-	StreamD2Q9 *sm = new StreamD2Q9();
-	CollisionD2Q9BGKNSF *cm = new CollisionD2Q9BGKNSF();
+  cout << "Karman vortex street..." << endl;
+  LatticeModel *lm = new Lattice2D(nx, ny);
+  //StreamD2Q9Periodic *sm = new StreamD2Q9Periodic();
+  StreamD2Q9 *sm = new StreamD2Q9();
+  CollisionD2Q9BGKNSF *cm = new CollisionD2Q9BGKNSF();
 
-    cm->setW(w);
-    cm->setC(c);
+  cm->setW(w);
+  cm->setC(c);
 
-	LBM *lbm = new LBM(lm, cm, sm);
+  LBM *lbm = new LBM(lm, cm, sm);
 
-	/* Set boundary conditions*/
-	BounceBackNodes<CollisionD2Q9BGKNSF> *bbns =
-	        new BounceBackNodes<CollisionD2Q9BGKNSF>();
-	bbns->setCollisionModel(cm);
-	for(int i = 0; i < nx; i++){
-        bbns->addNode(i, 0, 0);
-        bbns->addNode(i, ny-1, 0);
-	}
+  /* Set boundary conditions*/
+  BounceBackNodes<CollisionD2Q9BGKNSF> *bbns = new BounceBackNodes<
+      CollisionD2Q9BGKNSF>();
+  bbns->setCollisionModel(cm);
+  for (int i = 0; i < nx; i++) {
+    bbns->addNode(i, 0, 0);
+    bbns->addNode(i, ny - 1, 0);
+  }
 
-	// add cylindrical obstacle
-	int xc = nx/4, yc = ny/2;
-	double r = ny/15.0;
-	for(int i = 0; i < nx; i++){
-		for(int j = 0; j < ny; j++){
-			if(sqrt((double)((i - xc)*(i - xc) + (j - yc)*(j - yc))) < r){
-				bbns->addNode(i, j, 0);
-			}
-		}
-	}
+  // add cylindrical obstacle
+  int xc = nx / 4, yc = ny / 2;
+  double r = ny / 15.0;
+  for (int i = 0; i < nx; i++) {
+    for (int j = 0; j < ny; j++) {
+      if (sqrt((double) ((i - xc) * (i - xc) + (j - yc) * (j - yc))) < r) {
+        bbns->addNode(i, j, 0);
+      }
+    }
+  }
 
-	lbm->addBoundaryNodes(bbns);
+  lbm->addBoundaryNodes(bbns);
 
-	/* Set force */
-	for(int i = 0; i < nx; i++){
-		for(int j = 0; j < ny; j++){
-		    fx[j][i] = 0.000005;
-		    fy[j][i] = 0.0;
-		}
-	}
-    cm->setForce(fx, fy);
+  /* Set force */
+  for (int i = 0; i < nx; i++) {
+    for (int j = 0; j < ny; j++) {
+      fx[j][i] = 0.000005;
+      fy[j][i] = 0.0;
+    }
+  }
+  cm->setForce(fx, fy);
 
-	/* Initialize solver */
-	lbm->init();
+  /* Initialize solver */
+  lbm->init();
 
+  stringstream ss;
+  string base = "vis_scripts/bench_karman_vortex/";
 
-    stringstream ss;
-    string base = "vis_scripts/bench_karman_vortex/";
+  /* Main loop */
+  for (int t = 0; t < tMax; t++) {
+    cout << t << endl;
+    lbm->collideAndStream();
 
-	/* Main loop */
-	for(int t = 0; t < tMax; t++){
-		cout<<t<<endl;
-		lbm->collideAndStream();
-
-		// write result to file
-		if(t % tMod == 0){
-			ss.str("");
-			ss<<base<<"KV";
-			ss<<t/tMod<<"/";
-			createDirectory(ss.str());
-			cm->dataToFile(ss.str());
-		}
+    // write result to file
+    if (t % tMod == 0) {
+      ss.str("");
+      ss << base << "KV";
+      ss << t / tMod << "/";
+      createDirectory(ss.str());
+      cm->dataToFile(ss.str());
+    }
 
 //		if(t == 3500){
 //			for(int i = 0; i < nx; i++){
@@ -93,10 +92,10 @@ int main(){
 //			}
 //
 //		}
-	}
+  }
 
-	//cm->dataToFile("vis_scripts/bench_karman_vortex/");
-	cout<<"done cyl."<<endl;
+  //cm->dataToFile("vis_scripts/bench_karman_vortex/");
+  cout << "done cyl." << endl;
 
-	return 0;
+  return 0;
 }
