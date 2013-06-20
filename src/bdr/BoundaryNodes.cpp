@@ -3,7 +3,7 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * Abstract base class of boundary nodes implementations.
+ * Abstract mother class of boundary nodes implementations.
  * The idea is to collect all boundary nodes of the same
  * type in an encapsulation class derived from this class.
  */

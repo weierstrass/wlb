@@ -1,19 +1,20 @@
 ################################################################################
 #                                                                              #
 # Core Makefile for Lattice Boltzmann code WLB                                 #
-#                                                                              # 
-# The code is compiled into a static and a share library.                      #
-# Chose the one to use from your own preferences. The code                     #
-# is tested and verified on a X86_64 architecture, but should                  #
-# function fine (in some cases with minor modifications) on                    #
-# other architectures as well.                                                 #
 #                                                                              #
-# Andreas Bülling, 2013                                                        #
-# andreas@bulling.se                                                           #
+#  To use the wlb library, compile the code, if everything goes well, you will #
+#  get a wlblib.so file which you may use to link with your code. See the 	   #	
+#  examples folder for details.											       #	
+#                                                                              # 
+#  The code is tested on a UNIX 64 bit system.                                 #
+#                                                                              # 
+#                                                                              #
+#  Andreas Bülling, 2013                                                       #
+#  andreas@bulling.se                                                          #
 #                                                                              #  
 ################################################################################
 
-# Paths
+# Path definitions
 SRCDIR = src
 TESTDIR = $(SRCDIR)/tests
 TOPDIR = .
@@ -30,7 +31,7 @@ OBJS = $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 VPATH = $(CPPDIRS)
 
-# C++-compiler
+# C++ compiler
 CPP = g++
 
 # Compiler options
@@ -39,7 +40,7 @@ CPPFLAGS = -O2 -fopenmp -fPIC#-pg
 # Linker options
 LDFLAGS = 
 
-# Libraries
+# Libraries to link to
 LIBS = -lm
 
 # Build rules
