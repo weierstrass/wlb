@@ -22,18 +22,27 @@
 #include "../col/CollisionBGKNSF.h"
 #include "../col/CollisionBGKNS.h"
 
-template <class T>
+template<class T>
 class Output {
 public:
-	Output();
-	virtual ~Output();
-	void setCollisionModel(T *cm){this->cm = cm;};
-	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
-	void setPath(string path){this->path = path;};
+  Output();
+  virtual ~Output();
+  void setCollisionModel(T *cm) {
+    this->cm = cm;
+  }
+  ;
+  void setLatticeModel(LatticeModel *lm) {
+    this->lm = lm;
+  }
+  ;
+  void setPath(string path) {
+    this->path = path;
+  }
+  ;
 protected:
-	T *cm;
-	LatticeModel *lm;
-	string path;
+  T *cm;
+  LatticeModel *lm;
+  string path;
 };
 
 #endif /* OUTPUT_H_ */

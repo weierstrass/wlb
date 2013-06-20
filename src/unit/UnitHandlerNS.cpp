@@ -9,12 +9,12 @@
 #include "UnitHandlerNS.h"
 
 UnitHandlerNS::UnitHandlerNS() {
-    u0 = 1.0;
-    rho0 = 1.0;
-    l0 = 1.0;
+  u0 = 1.0;
+  rho0 = 1.0;
+  l0 = 1.0;
 }
 
 UnitHandlerNS::~UnitHandlerNS() {
-    // TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 

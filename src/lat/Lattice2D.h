@@ -10,10 +10,10 @@
 #include "LatticeModel.h"
 #include <cstring>
 
-class Lattice2D  : public LatticeModel{
+class Lattice2D: public LatticeModel {
 public:
-	Lattice2D(int nx, int ny);
-	virtual ~Lattice2D();
+  Lattice2D(int nx, int ny);
+  virtual ~Lattice2D();
 };
 
 #endif /* LATTICE2D_H_ */

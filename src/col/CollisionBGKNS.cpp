@@ -8,60 +8,61 @@
 
 #include "CollisionBGKNS.h"
 
-CollisionBGKNS::CollisionBGKNS() : CollisionBGK() {
-	double c2inv = 1.0 / c * c;
-	c1 = 3.0 * c2inv;
-	c2 = 4.5 * (c2inv * c2inv);
-	c3 = -1.5 * c2inv;
-	u = NULL;
-	rho = 1.0;
+CollisionBGKNS::CollisionBGKNS() :
+    CollisionBGK() {
+  double c2inv = 1.0 / c * c;
+  c1 = 3.0 * c2inv;
+  c2 = 4.5 * (c2inv * c2inv);
+  c3 = -1.5 * c2inv;
+  u = NULL;
+  rho = 1.0;
 }
 
 CollisionBGKNS::~CollisionBGKNS() {
-	delete[] u;
+  delete[] u;
 }
 
-void CollisionBGKNS::fEq(int k, int j, int i, double *eq){
-	rho = get0moment(k, j, i);
-	get1moment(k, j, i, u);
-	fEq(eq);
+void CollisionBGKNS::fEq(int k, int j, int i, double *eq) {
+  rho = get0moment(k, j, i);
+  get1moment(k, j, i, u);
+  fEq(eq);
 }
 
 void CollisionBGKNS::fEq(double *eq) {
-	double cu, u2 = 0;
-	double rho_inv = 1 / rho;
-	double c2inv = 1.0 / c * c;
+  double cu, u2 = 0;
+  double rho_inv = 1 / rho;
+  double c2inv = 1.0 / c * c;
 
-	for(int l = 0; l < lm->DIM; l++){
-		u[l] *= rho_inv;
-		u2 += u[l]*u[l];
-	}
-	//cout<<"rho_eq: "<<rho<<endl;
-	for (int d = 0; d < lm->UDIRS; d++) {
-		double cu = 0;
+  for (int l = 0; l < lm->DIM; l++) {
+    u[l] *= rho_inv;
+    u2 += u[l] * u[l];
+  }
+  //cout<<"rho_eq: "<<rho<<endl;
+  for (int d = 0; d < lm->UDIRS; d++) {
+    double cu = 0;
 
-		for (int l = 0; l < lm->DIM; l++) {
-			cu += lm->e[l][d] * u[l];
-		}
+    for (int l = 0; l < lm->DIM; l++) {
+      cu += lm->e[l][d] * u[l];
+    }
 
-		eq[d] = rho * lm->W[d] * (1 + c1 * cu + c2 * cu * cu + c3 * u2);
-	}
+    eq[d] = rho * lm->W[d] * (1 + c1 * cu + c2 * cu * cu + c3 * u2);
+  }
 }
 
-void CollisionBGKNS::init(){
-	CollisionBGK::init();
-	u = new double[lm->DIM];
+void CollisionBGKNS::init() {
+  CollisionBGK::init();
+  u = new double[lm->DIM];
 }
 
 /* temporary routine*/
-void CollisionBGKNS::getU(double **ux, double **uy){
-    double rho;
-    for(int j = 0; j < lm->n.y; j++){
-        for(int i = 0; i < lm->n.x; i++){
-            get1moment(0, j, i, u);
-            rho = get0moment(0, j, i);
-            ux[j][i] = u[X]/rho;
-            uy[j][i] = u[Y]/rho;
-        }
+void CollisionBGKNS::getU(double **ux, double **uy) {
+  double rho;
+  for (int j = 0; j < lm->n.y; j++) {
+    for (int i = 0; i < lm->n.x; i++) {
+      get1moment(0, j, i, u);
+      rho = get0moment(0, j, i);
+      ux[j][i] = u[X] / rho;
+      uy[j][i] = u[Y] / rho;
     }
+  }
 }

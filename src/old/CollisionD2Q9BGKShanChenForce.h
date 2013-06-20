@@ -13,19 +13,23 @@
 
 class CollisionD2Q9BGKShanChenForce: public CollisionD2Q9BGK {
 public:
-    CollisionD2Q9BGKShanChenForce();
-    virtual ~CollisionD2Q9BGKShanChenForce();
-    void init();
-    void collide();
-    void setForce(double **fx, double **fy){this->fx = fx; this->fy = fy;};
-    void dataToFile(string path);
-    double ***getVelocityField();
-    void getU(double **ux, double **uy);
+  CollisionD2Q9BGKShanChenForce();
+  virtual ~CollisionD2Q9BGKShanChenForce();
+  void init();
+  void collide();
+  void setForce(double **fx, double **fy) {
+    this->fx = fx;
+    this->fy = fy;
+  }
+  ;
+  void dataToFile(string path);
+  double ***getVelocityField();
+  void getU(double **ux, double **uy);
 protected:
-    double **fx;
-    double **fy;
-    double *getRhoU(double *f, double ffx, double ffy);
-    double *getRhoUEq(double *f, double ffx, double ffy);
+  double **fx;
+  double **fy;
+  double *getRhoU(double *f, double ffx, double ffy);
+  double *getRhoUEq(double *f, double ffx, double ffy);
 };
 
 #endif /* COLLISIOND2Q9BGKSHANCHENFORCE_H_ */

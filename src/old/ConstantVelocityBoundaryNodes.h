@@ -1,6 +1,6 @@
 /*
  * ConstantVelocityBoundaryNodes.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -11,15 +11,15 @@
 #include "BoundaryNodes.h"
 #include "ValueNode.h"
 
-class ConstantVelocityBoundaryNodes : public BoundaryNodes  {
+class ConstantVelocityBoundaryNodes: public BoundaryNodes {
 public:
-	ConstantVelocityBoundaryNodes(int nx, int ny);
-	virtual ~ConstantVelocityBoundaryNodes();
-	void updateF(double ***f, double ***u, double **rho);
-	void addNode(int x, int y, double vx, double vy);
-	void clearNodes();
+  ConstantVelocityBoundaryNodes(int nx, int ny);
+  virtual ~ConstantVelocityBoundaryNodes();
+  void updateF(double ***f, double ***u, double **rho);
+  void addNode(int x, int y, double vx, double vy);
+  void clearNodes();
 private:
-	vector<ValueNode2D> bNodes;
+  vector<ValueNode2D> bNodes;
 };
 
 #endif /* CONSTANTVELOCITYBOUNDARYNODES_H_ */

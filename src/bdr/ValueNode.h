@@ -9,18 +9,15 @@
 
 #include "Node.h"
 
-class ValueNode : public Node{
+class ValueNode: public Node {
 public:
-	ValueNode(int x, int y, int z,
-	          double v);
-    ValueNode(int x, int y, int z,
-              double v1, double v2);
-	virtual ~ValueNode();
-	double v1;
-	double v2;
-	double v3;
+  ValueNode(int x, int y, int z, double v);
+  ValueNode(int x, int y, int z, double v1, double v2);
+  virtual ~ValueNode();
+  double v1;
+  double v2;
+  double v3;
 private:
 };
-
 
 #endif /* VALUENODE_H_ */

@@ -15,12 +15,12 @@ template Output<CollisionBGKNS>::Output();
 
 template<class T>
 Output<T>::Output() {
-	// TODO Auto-generated constructor stub
+  // TODO Auto-generated constructor stub
 
 }
 
 template<class T>
 Output<T>::~Output() {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 

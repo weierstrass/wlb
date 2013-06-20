@@ -18,7 +18,6 @@
 #include "../lat/LatticeModel.h"
 #include "ValueNode.h"
 
-
 using namespace std;
 
 class BoundaryNodes {
@@ -34,7 +33,7 @@ protected:
 	void addNode(Node *n);
 	LatticeModel *lm;
 	vector<ValueNode*> nodes;
-};
 
+};
 
 #endif /* BOUNDARYNODE_H_ */

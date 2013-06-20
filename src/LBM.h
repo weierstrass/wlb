@@ -73,17 +73,18 @@ private:
 	StreamModel *streamModel;
 	CollisionModel *collisionModel;
 	LatticeModel *latticeModel;
+
 public:
-	LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
-	void init();
+  LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
+  void init();
 
-	void addBoundaryNodes(BoundaryNodes *bn);
+  void addBoundaryNodes(BoundaryNodes *bn);
 
-	void setStreamModel(StreamModel *s);
-	void setCollisionModel(CollisionModel *cm);
-	void setLatticeModel(LatticeModel *lm);
+  void setStreamModel(StreamModel *s);
+  void setCollisionModel(CollisionModel *cm);
+  void setLatticeModel(LatticeModel *lm);
 
-	void collideAndStream();
+  void collideAndStream();
 };
 
 #endif /* LBM_H_ */

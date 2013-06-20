@@ -1,6 +1,6 @@
 /*
  * UnitHandler.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -9,8 +9,8 @@
 
 class UnitHandler {
 public:
-	UnitHandler();
-	virtual ~UnitHandler();
+  UnitHandler();
+  virtual ~UnitHandler();
 };
 
 #endif /* UNITHANDLER_H_ */

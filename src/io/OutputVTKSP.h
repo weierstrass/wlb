@@ -11,16 +11,16 @@
 
 #include "Output.h"
 
-template <class T>
-class OutputVTKSP : public Output<T>{
+template<class T>
+class OutputVTKSP: public Output<T> {
 public:
-	OutputVTKSP(T *cm, LatticeModel *lm);
-	virtual ~OutputVTKSP();
-	void writeData();
+  OutputVTKSP(T *cm, LatticeModel *lm);
+  virtual ~OutputVTKSP();
+  void writeData();
 protected:
-	T *cm;
-	LatticeModel *lm;
-	string path;
+  T *cm;
+  LatticeModel *lm;
+  string path;
 };
 
 #endif /* OUTPUTVTKSP_H_ */

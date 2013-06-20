@@ -11,73 +11,84 @@
 #include "HeZouPressureNodes.h"
 
 HeZouPressureNodes::HeZouPressureNodes() :
-								BoundaryNodes(){
+    BoundaryNodes() {
 }
 
-void HeZouPressureNodes::updateF(){
-	cout<<"updating pressure nodes"<<endl;
-	int i, j;
-	double rho, temp, rhouy, rhoux;
+void HeZouPressureNodes::updateF() {
+  cout << "updating pressure nodes" << endl;
+  int i, j;
+  double rho, temp, rhouy, rhoux;
 
-	if(lm->DIM == 2){
-		for(int k = 0; k < nodes.size(); k++){
-			i = nodes[k]->x;
-			j = nodes[k]->y;
-			rho = nodes[k]->v1;
-			//cout<<i<<", "<<j<<endl;
-			if(i == 0 && j == 0){
-				bool knowns[]  = {1, 0, 0, 1, 1, 0, 0, 1, 0};
-				updateCornerNode(knowns, i, j, rho);
-			}else if(i == 0 && j == (lm->n.y-1)){
-				bool knowns[]  = {1, 0, 1, 1, 0, 0, 1, 0, 0};
-				updateCornerNode(knowns, i, j, rho);
-			}else if(i == (lm->n.x-1) && j == 0){
-				bool knowns[]  = {1, 1, 0, 0, 1, 0, 0, 0, 1};
-				updateCornerNode(knowns, i, j, rho);
-			}else if(i == (lm->n.x-1) && j == (lm->n.y-1)){
-				bool knowns[]  = {1, 1, 1, 0, 0, 1, 0, 0, 0};
-				updateCornerNode(knowns, i, j, rho);
-			}else if(i == 0){
-				rhoux = rho - (f[0][j][i][0] + f[0][j][i][2] + f[0][j][i][4] +
-						2*( f[0][j][i][3] + f[0][j][i][6] + f[0][j][i][7]));
+  if (lm->DIM == 2) {
+    for (int k = 0; k < nodes.size(); k++) {
+      i = nodes[k]->x;
+      j = nodes[k]->y;
+      rho = nodes[k]->v1;
+      //cout<<i<<", "<<j<<endl;
+      if (i == 0 && j == 0) {
+        bool knowns[] = { 1, 0, 0, 1, 1, 0, 0, 1, 0 };
+        updateCornerNode(knowns, i, j, rho);
+      } else if (i == 0 && j == (lm->n.y - 1)) {
+        bool knowns[] = { 1, 0, 1, 1, 0, 0, 1, 0, 0 };
+        updateCornerNode(knowns, i, j, rho);
+      } else if (i == (lm->n.x - 1) && j == 0) {
+        bool knowns[] = { 1, 1, 0, 0, 1, 0, 0, 0, 1 };
+        updateCornerNode(knowns, i, j, rho);
+      } else if (i == (lm->n.x - 1) && j == (lm->n.y - 1)) {
+        bool knowns[] = { 1, 1, 1, 0, 0, 1, 0, 0, 0 };
+        updateCornerNode(knowns, i, j, rho);
+      } else if (i == 0) {
+        rhoux = rho
+            - (f[0][j][i][0] + f[0][j][i][2] + f[0][j][i][4]
+                + 2 * (f[0][j][i][3] + f[0][j][i][6] + f[0][j][i][7]));
 
-				rhouy = 0; // -TODO
-				f[0][j][i][1] = f[0][j][i][3] + 2.0/3.0*rhoux;
-				f[0][j][i][5] = f[0][j][i][7] + 0.5*(f[0][j][i][4] - f[0][j][i][2]) + 1.0/6.0*rhoux;
-				f[0][j][i][8] = f[0][j][i][6] - 0.5*(f[0][j][i][4] - f[0][j][i][2]) + 1.0/6.0*rhoux;
-			}else if( i == (lm->n.x-1) ){//RIGHT
-				rhoux = (f[0][j][i][0] + f[0][j][i][2] + f[0][j][i][4] +
-						2*( f[0][j][i][1] + f[0][j][i][5] + f[0][j][i][8])) - rho;
-				rhouy = 0; // -TODO
-				f[0][j][i][3] = f[0][j][i][1] - 2.0/3.0*rhoux;
-				f[0][j][i][7] = f[0][j][i][5] - 0.5*(f[0][j][i][4] - f[0][j][i][2]) - 1.0/6.0*rhoux;
-				f[0][j][i][6] = f[0][j][i][8] + 0.5*(f[0][j][i][4] - f[0][j][i][2]) - 1.0/6.0*rhoux;
-			}else if(j == 0){//bott node?
-				rho = nodes[k]->v1;
-				//cout<<"rho: "<<rho<<endl;
-				rhouy = rho - (f[0][j][i][0] + f[0][j][i][1] + f[0][j][i][3] +
-						2*( f[0][j][i][7] + f[0][j][i][4] + f[0][j][i][8]));
+        rhouy = 0; // -TODO
+        f[0][j][i][1] = f[0][j][i][3] + 2.0 / 3.0 * rhoux;
+        f[0][j][i][5] = f[0][j][i][7] + 0.5 * (f[0][j][i][4] - f[0][j][i][2])
+            + 1.0 / 6.0 * rhoux;
+        f[0][j][i][8] = f[0][j][i][6] - 0.5 * (f[0][j][i][4] - f[0][j][i][2])
+            + 1.0 / 6.0 * rhoux;
+      } else if (i == (lm->n.x - 1)) { //RIGHT
+        rhoux = (f[0][j][i][0] + f[0][j][i][2] + f[0][j][i][4]
+            + 2 * (f[0][j][i][1] + f[0][j][i][5] + f[0][j][i][8])) - rho;
+        rhouy = 0; // -TODO
+        f[0][j][i][3] = f[0][j][i][1] - 2.0 / 3.0 * rhoux;
+        f[0][j][i][7] = f[0][j][i][5] - 0.5 * (f[0][j][i][4] - f[0][j][i][2])
+            - 1.0 / 6.0 * rhoux;
+        f[0][j][i][6] = f[0][j][i][8] + 0.5 * (f[0][j][i][4] - f[0][j][i][2])
+            - 1.0 / 6.0 * rhoux;
+      } else if (j == 0) { //bott node?
+        rho = nodes[k]->v1;
+        //cout<<"rho: "<<rho<<endl;
+        rhouy = rho
+            - (f[0][j][i][0] + f[0][j][i][1] + f[0][j][i][3]
+                + 2 * (f[0][j][i][7] + f[0][j][i][4] + f[0][j][i][8]));
 
-				//cout<<"uy: "<<uy<<endl;
-				rhoux = 0; // -TODO
-				f[0][j][i][2] = f[0][j][i][4] + 2.0/3.0*rhouy;
-				f[0][j][i][5] = f[0][j][i][7] - 0.5*(f[0][j][i][1] - f[0][j][i][3]) + 1.0/6.0*rhouy;
-				f[0][j][i][6] = f[0][j][i][8] + 0.5*(f[0][j][i][1] - f[0][j][i][3]) + 1.0/6.0*rhouy;
-			}else if( j == (lm->n.y-1) ){
-				rho = nodes[k]->v1;
-				rhouy = (f[0][j][i][0] + f[0][j][i][1] + f[0][j][i][3] +
-						2*( f[0][j][i][2] + f[0][j][i][5] + f[0][j][i][6])) - rho;
-				rhoux = 0; // -TODO
-				f[0][j][i][4] = f[0][j][i][2] - 2.0/3.0*rhouy;
-				f[0][j][i][7] = f[0][j][i][5] + 0.5*(f[0][j][i][1] - f[0][j][i][3]) - 1.0/6.0*rhouy;
-				f[0][j][i][8] = f[0][j][i][6] - 0.5*(f[0][j][i][1] - f[0][j][i][3]) - 1.0/6.0*rhouy;
-			}else{
-				cerr<<"No implementation found for requested constant pressure boundary node ("<<i<<", "<<j<<")"<<endl;
-			}
-		}
-	}
+        //cout<<"uy: "<<uy<<endl;
+        rhoux = 0; // -TODO
+        f[0][j][i][2] = f[0][j][i][4] + 2.0 / 3.0 * rhouy;
+        f[0][j][i][5] = f[0][j][i][7] - 0.5 * (f[0][j][i][1] - f[0][j][i][3])
+            + 1.0 / 6.0 * rhouy;
+        f[0][j][i][6] = f[0][j][i][8] + 0.5 * (f[0][j][i][1] - f[0][j][i][3])
+            + 1.0 / 6.0 * rhouy;
+      } else if (j == (lm->n.y - 1)) {
+        rho = nodes[k]->v1;
+        rhouy = (f[0][j][i][0] + f[0][j][i][1] + f[0][j][i][3]
+            + 2 * (f[0][j][i][2] + f[0][j][i][5] + f[0][j][i][6])) - rho;
+        rhoux = 0; // -TODO
+        f[0][j][i][4] = f[0][j][i][2] - 2.0 / 3.0 * rhouy;
+        f[0][j][i][7] = f[0][j][i][5] + 0.5 * (f[0][j][i][1] - f[0][j][i][3])
+            - 1.0 / 6.0 * rhouy;
+        f[0][j][i][8] = f[0][j][i][6] - 0.5 * (f[0][j][i][1] - f[0][j][i][3])
+            - 1.0 / 6.0 * rhouy;
+      } else {
+        cerr
+            << "No implementation found for requested constant pressure boundary node ("
+            << i << ", " << j << ")" << endl;
+      }
+    }
+  }
 }
-
 
 //void HeZouPressureNodes::updateF(double ***f, double ***u, double **rho){
 //	int i, j;
@@ -109,35 +120,36 @@ void HeZouPressureNodes::updateF(){
 //	}
 //}
 
-void HeZouPressureNodes::addNode(int x, int y, int z, double val){
-	ValueNode *v = new ValueNode(x, y, z, val);
-	nodes.push_back(v);
+void HeZouPressureNodes::addNode(int x, int y, int z, double val) {
+  ValueNode *v = new ValueNode(x, y, z, val);
+  nodes.push_back(v);
 }
 
 HeZouPressureNodes::~HeZouPressureNodes() {
-	// TODO Auto-generated destructor stub
+  // TODO Auto-generated destructor stub
 }
 
-void HeZouPressureNodes::updateCornerNode(const bool knowns[], int i, int j, double val){
-	//cout<<"handeling corner "<<endl;
-	for(int d = 0; d < lm->UDIRS; d++){
-		if(knowns[d]){
-			f[0][j][i][lm->oppDirs[d]] = f[0][j][i][d];
-		}
-	}
+void HeZouPressureNodes::updateCornerNode(const bool knowns[], int i, int j,
+    double val) {
+  //cout<<"handeling corner "<<endl;
+  for (int d = 0; d < lm->UDIRS; d++) {
+    if (knowns[d]) {
+      f[0][j][i][lm->oppDirs[d]] = f[0][j][i][d];
+    }
+  }
 
-	double temp = 0;
-	for(int d = 0; d < lm->UDIRS; d++){
-		if(knowns[d] || knowns[lm->oppDirs[d]]){
-			temp += f[0][j][i][d];
+  double temp = 0;
+  for (int d = 0; d < lm->UDIRS; d++) {
+    if (knowns[d] || knowns[lm->oppDirs[d]]) {
+      temp += f[0][j][i][d];
 
-		}
-	}
-	temp = 0.5*(val - temp);
-	for(int d = 0; d < lm->UDIRS; d++){
-		if(!knowns[d] && !knowns[lm->oppDirs[d]]){
-			f[0][j][i][d] = temp;
-			//cout<<"d: "<<d<<endl;
-		}
-	}
+    }
+  }
+  temp = 0.5 * (val - temp);
+  for (int d = 0; d < lm->UDIRS; d++) {
+    if (!knowns[d] && !knowns[lm->oppDirs[d]]) {
+      f[0][j][i][d] = temp;
+      //cout<<"d: "<<d<<endl;
+    }
+  }
 }

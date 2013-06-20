@@ -13,10 +13,10 @@
 
 class TypeValueNode: public ValueNode {
 public:
-    TypeValueNode(int x, int y, int z, double val, char type, int param);
-    virtual ~TypeValueNode();
-    char type;
-    int param;
+  TypeValueNode(int x, int y, int z, double val, char type, int param);
+  virtual ~TypeValueNode();
+  char type;
+  int param;
 };
 
 #endif /* TYPEVALUENODE_H_ */

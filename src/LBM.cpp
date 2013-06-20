@@ -26,8 +26,8 @@ LBM::LBM(LatticeModel *lm, CollisionModel *cm, StreamModel *sm) {
  * Initialize solver
  */
 void LBM::init() {
-	collisionModel->init();
-	streamModel->init();
+  collisionModel->init();
+  streamModel->init();
 }
 
 /*
@@ -82,14 +82,14 @@ void LBM::setStreamModel(StreamModel *s) {
  * Register collision operator at the solver.
  */
 void LBM::setCollisionModel(CollisionModel *cm) {
-	collisionModel = cm;
-	collisionModel->setF(f);
-	collisionModel->setLatticeModel(latticeModel);
+  collisionModel = cm;
+  collisionModel->setF(f);
+  collisionModel->setLatticeModel(latticeModel);
 }
 
 /*
  * Register lattice model at the solver
  */
 void LBM::setLatticeModel(LatticeModel *lm) {
-	latticeModel = lm;
+  latticeModel = lm;
 }

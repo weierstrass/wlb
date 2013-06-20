@@ -13,12 +13,12 @@
 
 class CollisionD2Q9LNPSource: public CollisionD2Q9LNP {
 public:
-    CollisionD2Q9LNPSource();
-    virtual ~CollisionD2Q9LNPSource();
-    void collide();
-    void init();
-   // void setSource(double **source){this->divTerm = source;};
-   // double **getSource(){return divTerm;};
+  CollisionD2Q9LNPSource();
+  virtual ~CollisionD2Q9LNPSource();
+  void collide();
+  void init();
+  // void setSource(double **source){this->divTerm = source;};
+  // double **getSource(){return divTerm;};
 protected:
 };
 

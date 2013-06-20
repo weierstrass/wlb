@@ -21,29 +21,41 @@
 
 class CollisionModel {
 public:
-	CollisionModel();
-	virtual ~CollisionModel();
-	void setC(double c);
-	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
-	void setUnitHandler(UnitHandler *u){unitHandler = u;};
-	void setF(double ****f){this->f = f;};
-	virtual void collide() = 0;
-	virtual void init() = 0;
-	void addNodeToSkip(int k, int j, int i);
+  CollisionModel();
+  virtual ~CollisionModel();
+  void setC(double c);
+  void setLatticeModel(LatticeModel *lm) {
+    this->lm = lm;
+  }
+  ;
+  void setUnitHandler(UnitHandler *u) {
+    unitHandler = u;
+  }
+  ;
+  void setF(double ****f) {
+    this->f = f;
+  }
+  ;
+  virtual void collide() = 0;
+  virtual void init() = 0;
+  void addNodeToSkip(int k, int j, int i);
 
-	//deprecated to be removed...
-	void registerF(double ****f);
-	void registerN(struct LatticeModel::dimension &n);
-	void registerLatticeModel(LatticeModel *lm){this->lm = lm;};
+  //deprecated to be removed...
+  void registerF(double ****f);
+  void registerN(struct LatticeModel::dimension &n);
+  void registerLatticeModel(LatticeModel *lm) {
+    this->lm = lm;
+  }
+  ;
 protected:
-	LatticeModel *lm;
-	UnitHandler *unitHandler;
-	double ****f;
-	double c;
-    bool ***skip;
+  LatticeModel *lm;
+  UnitHandler *unitHandler;
+  double ****f;
+  double c;
+  bool ***skip;
 
-	//deprecated to be removed in the future
-	struct LatticeModel::dimension n;
+  //deprecated to be removed in the future
+  struct LatticeModel::dimension n;
 };
 
 #endif /* COLLISIONMODEL_H_ */

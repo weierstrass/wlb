@@ -26,27 +26,27 @@
 
 using namespace std;
 
-class CollisionD2Q9BGK : public CollisionD2Q9 {
+class CollisionD2Q9BGK: public CollisionD2Q9 {
 protected:
-	double w;
-    double **rho;
-    double **ux;
-    double **uy;
+  double w;
+  double **rho;
+  double **ux;
+  double **uy;
 public:
-	CollisionD2Q9BGK();
-	virtual ~CollisionD2Q9BGK();
-	void collide();
-	void init();
-	virtual void fEq(int i, int j, double *eq) = 0;
-	double get0moment(int i, int j);
-    void get1moment(int i, int j, double *ret);
-	void setW(double w);
-	void dataToFile(string path);
-    //double getRho(double *f);
-    //double *getRhoU(double *f);
-    //double fEq(int d, double rho, double ux, double uy);
+  CollisionD2Q9BGK();
+  virtual ~CollisionD2Q9BGK();
+  void collide();
+  void init();
+  virtual void fEq(int i, int j, double *eq) = 0;
+  double get0moment(int i, int j);
+  void get1moment(int i, int j, double *ret);
+  void setW(double w);
+  void dataToFile(string path);
+  //double getRho(double *f);
+  //double *getRhoU(double *f);
+  //double fEq(int d, double rho, double ux, double uy);
 protected:
-	double *eq;
+  double *eq;
 };
 
 #endif /* COLLISIOND2Q9BGK_H_ */

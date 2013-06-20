@@ -14,12 +14,12 @@
 
 class StreamPeriodic: public Stream {
 public:
-    StreamPeriodic();
-    virtual ~StreamPeriodic();
-    void stream();
-    void init();
+  StreamPeriodic();
+  virtual ~StreamPeriodic();
+  void stream();
+  void init();
 protected:
-    double ****fb;
+  double ****fb;
 };
 
 #endif /* STREAMPERIODIC_H_ */

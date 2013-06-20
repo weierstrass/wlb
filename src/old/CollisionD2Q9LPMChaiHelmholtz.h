@@ -1,6 +1,6 @@
 /*
  * CollisionD2Q9LPMChaiHelmholtz.h
- * Andreas BŸlling, 2012
+ * Andreas Bï¿½lling, 2012
  * DESCRIPTION - TODO
  */
 
@@ -11,13 +11,16 @@
 
 class CollisionD2Q9LPMChaiHelmholtz: public CollisionD2Q9LPMChai {
 public:
-	CollisionD2Q9LPMChaiHelmholtz();
-	virtual ~CollisionD2Q9LPMChaiHelmholtz();
-	double g_rhs(int i, int j);
-	void setLambda(double lambda){this->lambda = lambda;};
-	void init();
+  CollisionD2Q9LPMChaiHelmholtz();
+  virtual ~CollisionD2Q9LPMChaiHelmholtz();
+  double g_rhs(int i, int j);
+  void setLambda(double lambda) {
+    this->lambda = lambda;
+  }
+  ;
+  void init();
 private:
-	double lambda;
+  double lambda;
 };
 
 #endif /* COLLISIOND2Q9LPMCHAIHELMHOLTZ_H_ */
