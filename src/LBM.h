@@ -66,13 +66,13 @@
 
 using namespace std;
 
-class LBM{
+class LBM {
 private:
-	double ****f; //distribution function, outermost index is for direction
-	vector<BoundaryNodes*> boundaryNodes;
-	StreamModel *streamModel;
-	CollisionModel *collisionModel;
-	LatticeModel *latticeModel;
+  double ****f; //distribution function, outermost index is for direction
+  vector<BoundaryNodes*> boundaryNodes;
+  StreamModel *streamModel;
+  CollisionModel *collisionModel;
+  LatticeModel *latticeModel;
 
 public:
   LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);

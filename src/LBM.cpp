@@ -13,13 +13,13 @@
  * Constructor, requires a lattice, collision operator and a streaming model
  */
 LBM::LBM(LatticeModel *lm, CollisionModel *cm, StreamModel *sm) {
-	/* Register lattice, collision and stream objects */
-	setLatticeModel(lm);
-	setCollisionModel(cm);
-	setStreamModel(sm);
+  /* Register lattice, collision and stream objects */
+  setLatticeModel(lm);
+  setCollisionModel(cm);
+  setStreamModel(sm);
 
-	/* Allocate memory for distribution function */
-	f = allocate4DArray(lm->n.z, lm->n.y, lm->n.x, lm->UDIRS);
+  /* Allocate memory for distribution function */
+  f = allocate4DArray(lm->n.z, lm->n.y, lm->n.x, lm->UDIRS);
 }
 
 /*
@@ -38,25 +38,25 @@ void LBM::init() {
  * streaming step respectively.
  */
 void LBM::collideAndStream() {
-	/* Collide */
-	collisionModel->collide();
+  /* Collide */
+  collisionModel->collide();
 
-	/* Perform pre-stream boundary conditions */
-	for (int i = 0; i < boundaryNodes.size(); i++) {
-		if (boundaryNodes[i]->PRESTREAM) {
-			boundaryNodes[i]->updateF();
-		}
-	}
+  /* Perform pre-stream boundary conditions */
+  for (int i = 0; i < boundaryNodes.size(); i++) {
+    if (boundaryNodes[i]->PRESTREAM) {
+      boundaryNodes[i]->updateF();
+    }
+  }
 
-	/* Stream */
-	streamModel->stream();
+  /* Stream */
+  streamModel->stream();
 
-	/* Perform post-stream boundary conditions */
-	for (int i = 0; i < boundaryNodes.size(); i++) {
-		if (!boundaryNodes[i]->PRESTREAM) {
-			boundaryNodes[i]->updateF();
-		}
-	}
+  /* Perform post-stream boundary conditions */
+  for (int i = 0; i < boundaryNodes.size(); i++) {
+    if (!boundaryNodes[i]->PRESTREAM) {
+      boundaryNodes[i]->updateF();
+    }
+  }
 }
 
 /*
@@ -65,18 +65,18 @@ void LBM::collideAndStream() {
  * and lattice model.
  */
 void LBM::addBoundaryNodes(BoundaryNodes *bn) {
-	boundaryNodes.push_back(bn);
-	bn->setF(f);
-	bn->setLatticeModel(latticeModel);
+  boundaryNodes.push_back(bn);
+  bn->setF(f);
+  bn->setLatticeModel(latticeModel);
 }
 
 /*
  * Register stream model at the solver.
  */
 void LBM::setStreamModel(StreamModel *s) {
-	streamModel = s;
-	streamModel->setF(f);
-	streamModel->setLatticeModel(latticeModel);
+  streamModel = s;
+  streamModel->setF(f);
+  streamModel->setLatticeModel(latticeModel);
 }
 /*
  * Register collision operator at the solver.

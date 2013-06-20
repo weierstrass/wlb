@@ -21,7 +21,8 @@ public:
   void setF(double ****f);
   void setLatticeModel(LatticeModel *lm) {
     this->lm = lm;
-  };
+  }
+  ;
 protected:
   double ****f;
   LatticeModel *lm;

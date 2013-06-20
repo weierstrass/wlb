@@ -22,17 +22,23 @@ using namespace std;
 
 class BoundaryNodes {
 public:
-	BoundaryNodes();
-	virtual ~BoundaryNodes();
-	virtual void updateF() = 0;
-	void setF(double ****f){this->f = f;};
-	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
-	char PRESTREAM;
+  BoundaryNodes();
+  virtual ~BoundaryNodes();
+  virtual void updateF() = 0;
+  void setF(double ****f) {
+    this->f = f;
+  }
+  ;
+  void setLatticeModel(LatticeModel *lm) {
+    this->lm = lm;
+  }
+  ;
+  char PRESTREAM;
 protected:
-    double ****f;
-	void addNode(Node *n);
-	LatticeModel *lm;
-	vector<ValueNode*> nodes;
+  double ****f;
+  void addNode(Node *n);
+  LatticeModel *lm;
+  vector<ValueNode*> nodes;
 
 };
 
