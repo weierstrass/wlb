@@ -22,13 +22,13 @@ public:
 	void setLatticeModel(LatticeModel *lm){this->lm = lm;};
 
 	//deprecated
-    void registerN(struct LatticeModel::dimension &n);
+    //void registerN(struct LatticeModel::dimension &n);
 protected:
     double ****f;
     LatticeModel *lm;
 
     //deprecated
-    struct LatticeModel::dimension n;
+    //struct LatticeModel::dimension n;
 };
 
 #endif /* STREAMMODEL_H_ */

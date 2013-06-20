@@ -19,7 +19,3 @@ void StreamModel::setF(double ****f){
 	this->f = f;
 }
 
-void StreamModel::registerN(struct LatticeModel::dimension &n){
-	this->n = n;
-}
-

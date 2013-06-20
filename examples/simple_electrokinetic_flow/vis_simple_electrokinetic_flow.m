@@ -3,7 +3,7 @@
 clc; close all;
 addpath('../../vis_scripts')
 
-N = 777;
+N = 3974;
 
 file = ['vis_scripts/dataNS' num2str(N) '/u.csv'];
 [DIM, ux, uy, uz] = wlb_read_csv_array(file);
@@ -19,7 +19,7 @@ plot(ux(2, :));
 
 file = ['u_0/dataNS' num2str(808) '/u.csv']
 [DIM, ux, uy, uz] = wlb_read_csv_array(file);
-plot(ux(2, :), 'k');
+%plot(ux(2, :), 'k');
 
 path = ['vis_scripts/dataNP' num2str(N) '/']
 Cpos = csvread([path 'ni_pos.csv']);

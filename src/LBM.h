@@ -3,8 +3,8 @@
  * Andreas Bülling, 2012
  * andreas@bulling.se
  *
- * Spider class, couples the lattice, streaming,
- * boundary conditions  and collision.
+ * Core class.
+ * Couples the lattice, streaming, boundary conditions  and collision operator.
  */
 
 #ifndef LBM_H_
@@ -31,15 +31,14 @@
 #include "bdr/DirichletLPMNodes.h"
 #include "bdr/NeumannLPMNodes.h"
 #include "bdr/HeZouNodes.h"
-//#include "bdr/HeZouLPMChaiNodes.h"
 #include "bdr/SlipNodes.h"
 #include "bdr/NeumannNodesPESlip.h"
 
 #include "str/StreamModel.h"
 #include "str/Stream.h"
 #include "str/StreamPeriodic.h"
-#include "str/StreamD2Q9.h"
-#include "str/StreamD2Q9Periodic.h"
+//#include "str/StreamD2Q9.h"
+//#include "str/StreamD2Q9Periodic.h"
 
 #include "col/CollisionModel.h"
 #include "col/CollisionBGK.h"
@@ -65,47 +64,12 @@
 #include "io/OutputCSV.h"
 #include "io/OutputVTKSP.h"
 
-//#include "bdr/HalfWayBBNodes.h"
-//#include "col/CollisionD2Q9LPM.h"
-//#include "col/CollisionD2Q9WangHelmholtz.h"
-//#include "col/CollisionD2Q9LPMWang1to1.h"
-//#include "col/CollisionD2Q9LNP.h"
-//#include "col/CollisionD2Q9LNPSource.h"
-//#include "bdr/NeumannNodesNP.h"
-//#include "str/PeriodicStreamModel.h"
-//#include "str/DefaultStreamModel.h"
-//#include "str/PeriodicStreamModel.h"
-//#include "str/DefaultStreamModel.h"
-//#include "bdr/NeumannNodes.h"
-//#include "bdr/NeumannNodesPE.h"
-
-
-//#include "col/CollisionD2Q9BGKShanChenForce.h"
-//#include "col/CollisionD2Q9LPMChai.h"
-//#include "col/CollisionD2Q9LPMChaiRHS.h"
-//#include "col/CollisionD2Q9LPMChaiHelmholtz.h"
-//#include "col/CollisionD2Q9LPMChai1to1.h"
-//#include "str/PeriodicStreamModel.h"
-//#include "str/DefaultStreamModel.h"
-
 using namespace std;
-
 
 class LBM{
 private:
-	//int nx;
-	//int ny;
-	double ****f;
-	//double ***rho;
-	//double ***ux;
-	//double ***uy;
-	//double ***uz;
-	//bool **deadNodes;
-	//HalfWayBBNodes *hwbbNodes;
+	double ****f; //distribution function, outermost index is for direction
 	vector<BoundaryNodes*> boundaryNodes;
-	//BFLBoundaryNodes *bflNodes;
-	//ConstantPressureBoundaryNodes *cpNodes;
-	//ConstantVelocityBoundaryNodes *cvNodes;
 	StreamModel *streamModel;
 	CollisionModel *collisionModel;
 	LatticeModel *latticeModel;
@@ -113,7 +77,6 @@ public:
 	LBM(LatticeModel *lm, CollisionModel *c, StreamModel *sm);
 	void init();
 
-	void handleBoundaries();
 	void addBoundaryNodes(BoundaryNodes *bn);
 
 	void setStreamModel(StreamModel *s);

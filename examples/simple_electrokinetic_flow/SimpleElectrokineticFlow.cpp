@@ -35,18 +35,18 @@ int main(){
 
     /* Parameter definitions */
     int nx = 3;
-    int ny = 30001;
+    int ny = 1001;
 
     double dx = 1.0/(ny-1);
     double dt = dx*dx;
 
-    int tNP = 15;
+    int tNP = 150;
     int tPE = 10000;
-    int tNS = 150;//tNP;
+    int tNS = 1500;//tNP;
     int tMain = 10000;
     int tMod = 1; //
 
-    double d = 0.1e-6; //m
+    double d = 0.01e-6; //m
     double nu = 1.0e-6; //m^2/s
     double D = 1.0e-10; //m^2/s
     double T = 293; //K
@@ -56,7 +56,7 @@ int main(){
     //rho_surface = 0.0;
     double bulk_charge = 1.0;
     double bulkConductivity = 1; //conductivity [S/m]
-    double C0M = 150e0; //M / m^3
+    double C0M = 1e0; //M / m^3
 
     printLine(40);
     cout << "PHYSICAL SYSTEM:" << endl;
@@ -379,11 +379,11 @@ void updateForce(double ****force, double **ux, double **uy, double **rho_eps,
            // cout<<"rho_eps: "<<rho_eps[j][i]<<endl;
         }
     }
-    cout<<"FY_FORCE: "<<force[1][0][500][1]<<endl;
-    jx = ( cmNPpos->getXFlux(500, 1) - cmNPneg->getXFlux(500, 1) );
+    cout<<"FY_FORCE: "<<force[1][0][lm->n.y/2][1]<<endl;
+    jx = ( cmNPpos->getXFlux(lm->n.y/2, 1) - cmNPneg->getXFlux(lm->n.y/2, 1) );
     cout<<"JX: " << jx << endl;
-    cout<<"EL_VIS: "<<prefactorJ*jx*rho_eps[500][1]<<endl;
-    cout<<"FX_FORCE: "<<force[0][0][500][1]<<endl;
+    cout<<"EL_VIS: "<<prefactorJ*jx*rho_eps[lm->n.y/2][1]<<endl;
+    cout<<"FX_FORCE: "<<force[0][0][lm->n.y/2][1]<<endl;
 }
 
 /* updates rho_eps = -rho/(eps_r*eps_0)

@@ -26,6 +26,7 @@ void print2DArray(double **f, int ni, int nj) {
 	}
 	cout << endl;
 }
+
 /*
  * Array print routine for debugging.
  */
@@ -53,6 +54,7 @@ void print3DArray(double ****f, int ni, int nj, int nk, int d) {
 		cout << endl;
 	}
 }
+
 void printLine(int n) {
 	for (int i = 0; i < n; i++) {
 		cout << "-";
