@@ -1,7 +1,8 @@
 /*
  * Constants.h
  * Andreas Bülling, 2012
- * DESCRIPTION - TODO
+ *
+ * Constant definitions
  */
 
 #ifndef CONSTANTS_H_
